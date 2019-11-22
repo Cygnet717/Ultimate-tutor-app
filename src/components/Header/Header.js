@@ -18,6 +18,7 @@ export default class Header extends Component {
                 Register
             </Link>
         </nav>
+        
         </>
     }
 }
