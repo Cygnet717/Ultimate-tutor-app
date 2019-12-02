@@ -3,6 +3,39 @@ import { Link } from 'react-router-dom'
 import './Header.css'
 
 export default class Header extends Component {
+    renderLogoutLink() {
+        return (
+          <div className='header-buttons'>
+            <Link 
+                to='/MyDecks'>
+                My Decks
+            </Link>
+            <Link 
+                to='/SearchPage'>
+                Search
+            </Link>
+            <Link
+                to='/'>
+                Logout
+            </Link>
+          </div>
+        )
+      }
+    
+      renderLoginLink() {
+        return (
+          <div className='header-buttons'>
+            <Link 
+                to='/LoginPage'>
+                Login
+            </Link>
+            <Link 
+                to='/RegisterPage'>
+                Register
+            </Link>
+          </div>
+        )
+      }
     render() {
         return <>
         <nav className='header'>
@@ -11,12 +44,7 @@ export default class Header extends Component {
                     Ultimate Tutor
                 </Link>
             </h1>
-            <Link to='/Login'>
-                Login
-            </Link>
-            <Link to='/Register'>
-                Register
-            </Link>
+            {5>10? this.renderLoginLink():this.renderLogoutLink()}
         </nav>
         
         </>
