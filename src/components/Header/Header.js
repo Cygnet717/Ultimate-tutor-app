@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import './Header.css'
 
 export default class Header extends Component {
+ 
+
     renderLogoutLink() {
         return (
           <div className='header-buttons'>
@@ -51,7 +53,7 @@ export default class Header extends Component {
                     Ultimate Tutor
                 </Link>
             </h1>
-            {5>10? this.renderLoginLink():this.renderLogoutLink()}
+            {1<10?this.renderLogoutLink() :this.renderLoginLink()}
         </nav>
         
         </>

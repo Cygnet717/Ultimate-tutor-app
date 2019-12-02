@@ -2,10 +2,11 @@ import React, {Component} from 'react'
 import './LoginPage.css'
 
 export default class LoginPage extends Component {
+
     render(){
         return(
             <div>
-                <form>
+                <form >
                     <fieldset>
                         <legend>Login</legend>
                             <label>User Name: </label>
@@ -14,7 +15,7 @@ export default class LoginPage extends Component {
                             <label>Password: </label>
                             <input type='text'></input>
                             <br/>
-                            <button type='submit'>Login</button>
+                            <button type='submit' >Login</button>
                     </fieldset>
                 </form>
             </div>
