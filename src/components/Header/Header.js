@@ -11,7 +11,7 @@ export default class Header extends Component {
                 My Decks
             </Link>
             <Link 
-                to='/SearchPage'>
+                to='/SearchCards'>
                 Search
             </Link>
             <Link
