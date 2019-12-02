@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+
 import './CardResults.css'
 
 export default class CardResults extends Component{

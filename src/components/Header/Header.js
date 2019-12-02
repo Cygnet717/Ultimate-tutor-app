@@ -7,14 +7,17 @@ export default class Header extends Component {
         return (
           <div className='header-buttons'>
             <Link 
+                className='navLink'
                 to='/MyDecks'>
                 My Decks
             </Link>
             <Link 
+                className='navLink'
                 to='/SearchCards'>
                 Search
             </Link>
             <Link
+                className='navLink'
                 to='/'>
                 Logout
             </Link>
@@ -26,10 +29,12 @@ export default class Header extends Component {
         return (
           <div className='header-buttons'>
             <Link 
+                className='navLink'
                 to='/LoginPage'>
                 Login
             </Link>
             <Link 
+                className='navLink'
                 to='/RegisterPage'>
                 Register
             </Link>
@@ -40,7 +45,9 @@ export default class Header extends Component {
         return <>
         <nav className='header'>
             <h1>
-                <Link to='/'>
+                <Link 
+                    className='navLink'
+                    to='/'>
                     Ultimate Tutor
                 </Link>
             </h1>

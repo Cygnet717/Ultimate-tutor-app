@@ -1,6 +1,10 @@
-a {
+a{ 
     text-decoration: none;
     width: fit-content;
+    color: black;
+}
+
+.navLink {
     color: white;
 }
 

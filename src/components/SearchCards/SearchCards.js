@@ -1,34 +1,62 @@
 import React, {Component} from 'react'
 import CardResults from '../CardResults/CardResults'
+import MTGCardSearchService from '../../services/mtgcard-api-service'
 import './SearchCards.css'
 
 export default class SearchCards extends Component {
+    constructor(){
+        super();
+        this.handleSubmit= this.handleSubmit.bind(this)
+    }
+    handleSubmit(event){
+        event.preventDefault();
+        const data = new FormData(event.target);
+        let string ='';
+        if(data.get('name')){
+            string = string.concat('name='+data.get('name')+'&')
+        }
+        if(data.get('colorIdentity')){
+            string = string.concat('colorIdentity='+data.getAll('colorIdentity')+'&')
+        }
+        if(data.get('cardType')){
+            string = string.concat('type='+data.get('cardType')+'&')
+        }
+        MTGCardSearchService.getSearchResults(string)
+    }
+
     render(){
         return(
             <div>
                 <section>
-                    <form>
+                    <form id='SearchForm' name='SearchForm' onSubmit={this.handleSubmit}>
                         <legend>Search for cards</legend>
-                        <label>Card Name</label> 
-                            <input type='text' name='name' placeholder='Black Lotus'/>
+                        <label htmlFor='cardName'>Card Name</label> 
+                            <input id='cardName' type='text' name='name' placeholder='Black Lotus'/>
                         <br/>
-                        <label>Color Identity</label> 
-                            <input type='checkbox' />Red
-                            <input type='checkbox' name='green' />Green
-                            <input type='checkbox' name='white' />White
-                            <input type='checkbox' name='black'/>Black
-                            <input type='checkbox' name='blue' />Blue
+                        <label htmlFor='colorIdentity'>Color Identity</label> 
+                            <input id='colorIdentity' type='checkbox' name='colorIdentity' value='r'/>Red
+                            <input id='colorIdentity' type='checkbox' name='colorIdentity' value='g'/>Green
+                            <input id='colorIdentity' type='checkbox' name='colorIdentity' value='w'/>White
+                            <input id='colorIdentity' type='checkbox' name='colorIdentity'value='b'/>Black
+                            <input id='colorIdentity' type='checkbox' name='colorIdentity' value='u'/>Blue
                         <br/>
-                        <label>Card Type</label> 
-                        <select>
-                            <option type='select' name='type'>Creature</option>
-                            <option type='select' name='type'>Instnat</option>
-                            <option type='select' name='type'>Sorcery</option>
-                            <option type='select' name='type'>PlanesWalker</option>
-                            <option type='select' name='type'>Enchantment</option>
+                        <label htmlFor='cardType'>Card Type</label> 
+                        <select name='cardType' id='cardType' defaultValue={'default'}>
+                            <option disabled hidden value='default'>Select</option>
+                            <option id='cardType' name='type' value='Creature'>
+                                Creature</option>
+                            <option id='cardType' name='type' value='Instant'>
+                                Instant</option>
+                            <option id='cardType' name='type' value='Sorcery'>
+                                Sorcery</option>
+                            <option id='cardType' name='type' value='planeswalker'>
+                                PlanesWalker</option>
+                            <option id='cardType' name='type' value='enchantment'>
+                                Enchantment</option>
                         </select>
                         <br/>
-                        <button>Search</button>
+                        <input type='reset'/>
+                        <input type='submit' value='Search'/>
                     </form>
                 </section>
                 <CardResults/>

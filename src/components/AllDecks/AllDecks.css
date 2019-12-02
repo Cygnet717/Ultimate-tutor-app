@@ -1,0 +1,13 @@
+button {
+    margin-left: 20px;
+}
+
+.deck{
+    margin: 20px;
+}
+
+.deckLink {
+    border: 1px solid rgb(192, 190, 190);
+    padding: 5px;
+    background: rgb(219, 217, 217);
+}
