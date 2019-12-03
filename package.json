@@ -8,6 +8,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0"
   },
+  "homepage": "https://cygnet717.github.io/Ultimate-tutor-app/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
