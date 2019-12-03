@@ -8,6 +8,11 @@ export default class SearchCards extends Component {
         super();
         this.handleSubmit= this.handleSubmit.bind(this)
     }
+
+    state = {
+        cards: [],
+    }
+
     handleSubmit(event){
         event.preventDefault();
         const data = new FormData(event.target);
@@ -22,9 +27,18 @@ export default class SearchCards extends Component {
             string = string.concat('type='+data.get('cardType')+'&')
         }
         MTGCardSearchService.getSearchResults(string)
+        .then(res => {
+            this.setState({
+                cards: res.cards,
+            })
+        })
     }
 
     render(){
+        console.log(this.state.cards)
+        const cardResults = this.state.cards.map((card, i) =>{
+           return <CardResults {...card} key={i}/>
+        })
         return(
             <div>
                 <section>
@@ -59,8 +73,12 @@ export default class SearchCards extends Component {
                         <input type='submit' value='Search'/>
                     </form>
                 </section>
-                <CardResults/>
+                Results:<br/>
+                <div className='cardsDisplay'>
+                {cardResults}
+                </div>
             </div>
         )
     }
 }
+//

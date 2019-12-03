@@ -10,15 +10,14 @@
     line-height: 1.5;
   }
 
-  .cardsDisplay {
-      display: flex;
-      z-index: 10;
-      justify-content: space-evenly;
-      flex-wrap: wrap;
-  }
+  
   
   .card {
     width: min-content;
+  }
+
+  p {
+    font-size: small;
   }
   
   section {
@@ -28,7 +27,7 @@
   
   @media screen and (max-width: 800px){
     .card{
-        width: 30%
+        width: 120px;
       }
   
     img {
