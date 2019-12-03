@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/Ultimate-tutor-app/static/css/main.b9ff5465.chunk.css",
+    "main.js": "/Ultimate-tutor-app/static/js/main.5790e344.chunk.js",
+    "main.js.map": "/Ultimate-tutor-app/static/js/main.5790e344.chunk.js.map",
+    "runtime-main.js": "/Ultimate-tutor-app/static/js/runtime-main.6e7ae290.js",
+    "runtime-main.js.map": "/Ultimate-tutor-app/static/js/runtime-main.6e7ae290.js.map",
+    "static/js/2.87a1079c.chunk.js": "/Ultimate-tutor-app/static/js/2.87a1079c.chunk.js",
+    "static/js/2.87a1079c.chunk.js.map": "/Ultimate-tutor-app/static/js/2.87a1079c.chunk.js.map",
+    "index.html": "/Ultimate-tutor-app/index.html",
+    "precache-manifest.d23d743033fe9d9e0f1a263f75ea6a99.js": "/Ultimate-tutor-app/precache-manifest.d23d743033fe9d9e0f1a263f75ea6a99.js",
+    "service-worker.js": "/Ultimate-tutor-app/service-worker.js",
+    "static/css/main.b9ff5465.chunk.css.map": "/Ultimate-tutor-app/static/css/main.b9ff5465.chunk.css.map"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6e7ae290.js",
+    "static/js/2.87a1079c.chunk.js",
+    "static/css/main.b9ff5465.chunk.css",
+    "static/js/main.5790e344.chunk.js"
+  ]
+}
