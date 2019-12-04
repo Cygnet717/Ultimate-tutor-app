@@ -35,7 +35,6 @@ export default class SearchCards extends Component {
     }
 
     render(){
-        console.log(this.state.cards)
         const cardResults = this.state.cards.map((card, i) =>{
            return <CardResults {...card} key={i}/>
         })
