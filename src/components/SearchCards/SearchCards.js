@@ -43,17 +43,18 @@ export default class SearchCards extends Component {
                 <section>
                     <form id='SearchForm' name='SearchForm' onSubmit={this.handleSubmit}>
                         <legend>Search for cards</legend>
-                        <label htmlFor='cardName'>Card Name</label> 
+                        <label htmlFor='cardName'>Card Name: </label> 
                             <input id='cardName' type='text' name='name' placeholder='Black Lotus'/>
                         <br/>
-                        <label htmlFor='colorIdentity'>Color Identity</label> 
+                        <label htmlFor='colorIdentity'>Color Identity:</label> 
+                        <br/>
                             <input id='colorIdentity' type='checkbox' name='colorIdentity' value='r'/>Red
                             <input id='colorIdentity' type='checkbox' name='colorIdentity' value='g'/>Green
                             <input id='colorIdentity' type='checkbox' name='colorIdentity' value='w'/>White
                             <input id='colorIdentity' type='checkbox' name='colorIdentity'value='b'/>Black
                             <input id='colorIdentity' type='checkbox' name='colorIdentity' value='u'/>Blue
                         <br/>
-                        <label htmlFor='cardType'>Card Type</label> 
+                        <label htmlFor='cardType'>Card Type: </label> 
                         <select name='cardType' id='cardType' defaultValue={'default'}>
                             <option disabled hidden value='default'>Select</option>
                             <option id='cardType' name='type' value='Creature'>
