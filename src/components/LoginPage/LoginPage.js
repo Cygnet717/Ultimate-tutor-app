@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
 import AuthApiService from '../../services/auth-api-service'
 import TokenService from '../../services/token-service'
+//import UserContext from '../../context/userId-context'
 import './LoginPage.css'
 
 export default class LoginPage extends Component {
+    //static contextType = UserContext
+
     static defaultProps = {
         location: {},
         history: {
@@ -14,6 +17,7 @@ export default class LoginPage extends Component {
 
       state = { error: null }
     handleLoginSuccess = () => {
+      console.log('login success')
         const { location, history } = this.props
         const destination = (location.state || {}).from || '/MyDecks'
         history.push(destination)
@@ -34,6 +38,9 @@ export default class LoginPage extends Component {
           TokenService.saveAuthToken(res.authToken)
           this.handleLoginSuccess()
         })
+        //.then(res => 
+          //this.context.setId(res.payload.user_id)
+        //)
         .catch(res => {
           this.setState({ error: res.error })
         })

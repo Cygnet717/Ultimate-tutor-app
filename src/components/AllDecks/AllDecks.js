@@ -1,15 +1,17 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 import DeckApiService from '../../services/deck-api-service'
-import DecksContext from '../../Context/decksContext'
 import './AllDecks.css'
 
 export default class AllDecks extends Component {
-    static contextType = DecksContext
 
     state ={
         decks: [],
         error: null
+    }
+
+    setUserId(){
+        console.log('testing this works')
     }
     
     setDecks(decks){
@@ -36,10 +38,17 @@ export default class AllDecks extends Component {
         return decks.map(deck =>
             <div className='deck'>
                     <Link key={deck.deck_id} className='deckLink' to='/deck/:deckId'>{deck.deck_name}</Link>
-                    <button>Delete deck</button>
+                    <button onClick={DeckApiService.deleteDeck(deck.deck_id)}>Delete deck</button>
                 </div>
             )
     }
+
+    testClick = ev => {
+        ev.preventDefault()
+        const { deck_name } = ev.target
+        //console.log(this.state.decks)
+        console.log(deck_name)
+        }
 
     render(){
         return(
@@ -47,7 +56,14 @@ export default class AllDecks extends Component {
                 <p>My Decks</p>
                 {this.state.error? <p className='red'>There was an error, try again</p>
                     : this.renderDecks()}
-                <button>Start New Deck</button>
+                <br/>
+                <form onSubmit={this.testClick}>
+                    <legend>Start a new deck</legend>
+                    <label>Deck Name: </label>
+                    <input type='text' name='deck_name'></input>
+                    <button type='submit' >Go</button>
+                </form>
+                
             </>
         )
     }
