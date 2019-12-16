@@ -7,7 +7,7 @@ import RegisterPage from './components/RegisterPage/RegisterPage'
 import SearchCards from './components/SearchCards/SearchCards'
 import AllDecks from './components/AllDecks/AllDecks'
 import SingleDeckView from './components/SingleDeckView/SingleDeckView'
-import UserProvider from './context/user-context'
+import UserProvider from './context/user-provider'
 
 
 function App() {

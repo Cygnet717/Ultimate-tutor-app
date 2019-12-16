@@ -1,17 +1,21 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 import DeckApiService from '../../services/deck-api-service'
-//import UserContext from '../../context/user-context'
+import UserContext from '../../context/user-context'
 import './AllDecks.css'
 
 export default class AllDecks extends Component {
-   
-    state ={
+    static contextType = UserContext;
+   constructor(props){
+       super(props)
+       this.state ={
         decks: [],
         newDeckName: '',
         user_id: null,
         error: null
     }
+   }
+    
     
     setDecks(decks){
         this.setState({decks})
@@ -51,7 +55,7 @@ export default class AllDecks extends Component {
 
     handleChange(event){
         this.setState({
-            newDeckName:event.target.value
+            newDeckName:'malarku'
         })
     }
 
