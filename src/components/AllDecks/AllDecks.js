@@ -1,17 +1,16 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 import DeckApiService from '../../services/deck-api-service'
+//import UserContext from '../../context/user-context'
 import './AllDecks.css'
 
 export default class AllDecks extends Component {
-
+   
     state ={
         decks: [],
+        newDeckName: '',
+        user_id: null,
         error: null
-    }
-
-    setUserId(){
-        console.log('testing this works')
     }
     
     setDecks(decks){
@@ -22,15 +21,22 @@ export default class AllDecks extends Component {
         this.setState({ error })
       }
 
-      clearError = () => {
+    clearError = () => {
         this.setState({ error: null })
-      }
+    }
+
+    setUserId= id => {
+        this.setState({ user_id: id})
+    }
 
     componentDidMount() {
         this.clearError()
         DeckApiService.getDecks()
         .then(res => this.setDecks(res))
         .catch(this.setError)
+
+        let value = this.context
+        this.setUserId(value)
     }
 
     renderDecks() {
@@ -43,11 +49,18 @@ export default class AllDecks extends Component {
             )
     }
 
-    testClick = ev => {
-        ev.preventDefault()
-        const { deck_name } = ev.target
-        //console.log(this.state.decks)
-        console.log(deck_name)
+    handleChange(event){
+        this.setState({
+            newDeckName:event.target.value
+        })
+    }
+
+    addNewDeck = () => {
+        console.log('add new deck')
+        DeckApiService.postDeck(this.state.user_id, this.state.newDeckName)
+        .then(deck => this.setState({
+            ...this.state.decks, deck
+        }))
         }
 
     render(){
@@ -57,10 +70,10 @@ export default class AllDecks extends Component {
                 {this.state.error? <p className='red'>There was an error, try again</p>
                     : this.renderDecks()}
                 <br/>
-                <form onSubmit={this.testClick}>
+                <form onSubmit={this.addNewDeck}>
                     <legend>Start a new deck</legend>
                     <label>Deck Name: </label>
-                    <input type='text' name='deck_name'></input>
+                    <input type='text' name='deck_name' onChange={this.handleChange}></input>
                     <button type='submit' >Go</button>
                 </form>
                 

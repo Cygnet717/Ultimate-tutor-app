@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import TokenService from '../../services/token-service'
+//import UserContext from '../../context/user-context'
 import './Header.css'
 
 export default class Header extends Component {
   
+
   handleLogoutClick = () => {
     TokenService.clearAuthToken()
   }
@@ -58,7 +60,7 @@ export default class Header extends Component {
                     Ultimate Tutor
                 </Link>
             </h1>
-            {TokenService.hasAuthToken()?this.renderLogoutLink() :this.renderLoginLink()}
+            {1>3?this.renderLogoutLink() :this.renderLoginLink()}
         </nav>
         
         </>
