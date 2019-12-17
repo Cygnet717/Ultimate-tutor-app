@@ -31,6 +31,15 @@ export default class SingleDeckView extends Component {
             }))
     }
 
+    deleteCard(e, id){
+        e.preventDefault()
+        SingleDeckApiService.deleteCard(id)
+        let lessCards = this.state.deckList.filter(c => c.card_id !== id)
+        this.setState({
+            deckList: lessCards
+        })
+    }
+
     render() {
         
         return(
@@ -41,7 +50,7 @@ export default class SingleDeckView extends Component {
                     {this.state.deckList.map(card => 
                         <div className='card' key={card.card_id}>
                             <img alt={card.card_name} src={card.image_url}/>
-                            <br/><button>remove</button>
+                            <br/><button onClick={e => this.deleteCard(e, card.card_id)}>remove</button>
                         </div>
                         )}
                 </div>
