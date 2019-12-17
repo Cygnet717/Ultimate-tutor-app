@@ -3,17 +3,16 @@ import UserContext from './user-context'
 
 class UserProvider extends Component {
     state ={
-        user_id: null,
+        user_id: window.sessionStorage.user_id,
         updateId: (id) => 
         this.setState({
             user_id: id
-        }) 
+        }) ,
+        clearId: () =>
+        this.setState({
+            user_id: null
+        })
     };
-
-    setUserId(user_id) {
-        console.log('setting id')
-        this.setState({ user_id})
-    }
 
     render() {
         return(

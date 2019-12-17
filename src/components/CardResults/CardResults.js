@@ -9,11 +9,11 @@ import './CardResults.css'
 export default class CardResults extends Component{
     constructor(props){
         super(props);
-        
+        this.state = {
+            classNames: "modal",
+        }
     }
-    state = {
-        classNames: "modal",
-    }
+    
     closeUp = () => {
         this.setState({ classNames: 'showmodal'})
     }

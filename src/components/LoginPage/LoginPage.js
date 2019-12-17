@@ -30,6 +30,7 @@ export default class LoginPage extends Component {
     handleLoginSuccess = () => {
         if(this.state.user_id){
           this.context.updateId(this.state.user_id)
+          
         }
         const { location, history } = this.props
         const destination = (location.state || {}).from || '/MyDecks'
@@ -49,7 +50,7 @@ export default class LoginPage extends Component {
             {
           username.value = ''
           password.value = ''
-          TokenService.saveAuthToken(res.authToken)
+          TokenService.saveAuthToken(res.authToken, res.payload.user_id)
           this.setState({user_id: res.payload.user_id})
           this.handleLoginSuccess()
         })

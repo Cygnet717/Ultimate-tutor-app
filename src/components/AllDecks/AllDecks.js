@@ -11,7 +11,7 @@ export default class AllDecks extends Component {
        this.state ={
         decks: [],
         newDeckName: '',
-        user_id: null,
+        
         error: null
     }
    }
@@ -29,45 +29,48 @@ export default class AllDecks extends Component {
         this.setState({ error: null })
     }
 
-    setUserId= id => {
-        this.setState({ user_id: id})
-    }
-
     componentDidMount() {
         this.clearError()
         DeckApiService.getDecks()
         .then(res => this.setDecks(res))
         .catch(this.setError)
+    }
 
-        let value = this.context
-        this.setUserId(value)
+    deleteDeck = (event, deck) => {
+        event.preventDefault()
+        DeckApiService.deleteDeck(deck)
+        let lessDecks = this.state.decks.filter(d => d.deck_id !== deck)
+        this.setState({
+            decks: lessDecks
+        })
     }
 
     renderDecks() {
         const {decks = []} = this.state
         return decks.map(deck =>
-            <div className='deck'>
-                    <Link key={deck.deck_id} className='deckLink' to='/deck/:deckId'>{deck.deck_name}</Link>
-                    <button onClick={DeckApiService.deleteDeck(deck.deck_id)}>Delete deck</button>
+            <div className='deck' key={deck.deck_id}>
+                    <Link className='deckLink' to='/deck/:deckId'>{deck.deck_name}</Link>
+                    <button onClick={e => this.deleteDeck(e, deck.deck_id)}>Delete deck</button>
                 </div>
             )
     }
 
-    handleChange(event){
-        this.setState({
-            newDeckName:'malarku'
-        })
-    }
-
-    addNewDeck = () => {
-        console.log('add new deck')
-        DeckApiService.postDeck(this.state.user_id, this.state.newDeckName)
+    addNewDeck = (event) => {
+        event.preventDefault()
+        DeckApiService.postDeck(this.context.user_id, this.state.newDeckName)
         .then(deck => this.setState({
-            ...this.state.decks, deck
+            ...this.state.decks.push(deck)
         }))
         }
 
     render(){
+        const handleChange=(event)=>{
+            this.setState({
+                newDeckName:event.target.value
+            })
+        }
+
+        
         return(
             <>
                 <p>My Decks</p>
@@ -77,7 +80,7 @@ export default class AllDecks extends Component {
                 <form onSubmit={this.addNewDeck}>
                     <legend>Start a new deck</legend>
                     <label>Deck Name: </label>
-                    <input type='text' name='deck_name' onChange={this.handleChange}></input>
+                    <input type='text' name='deck_name' onChange={handleChange}></input>
                     <button type='submit' >Go</button>
                 </form>
                 
