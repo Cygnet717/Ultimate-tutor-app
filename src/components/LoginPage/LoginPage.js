@@ -20,13 +20,8 @@ export default class LoginPage extends Component {
         history: {
           push: () => {},
         },
-        
       }
-      setUserId(user_id) {
-        console.log('setting id')
-        this.setState({ user_id})
-    }
-
+      
     handleLoginSuccess = () => {
         if(this.state.user_id){
           this.context.updateId(this.state.user_id)

@@ -18,7 +18,11 @@ export default class AllDecks extends Component {
     
     
     setDecks(decks){
-        this.setState({decks})
+        this.setState({
+            decks
+        })
+        this.context.updateDecks(decks)
+
     }
     setError = error => {
         console.error(error)
@@ -49,7 +53,7 @@ export default class AllDecks extends Component {
         const {decks = []} = this.state
         return decks.map(deck =>
             <div className='deck' key={deck.deck_id}>
-                    <Link className='deckLink' to='/deck/:deckId'>{deck.deck_name}</Link>
+                    <Link className='deckLink' to={`/deck/${deck.deck_id}`}>{deck.deck_name}</Link>
                     <button onClick={e => this.deleteDeck(e, deck.deck_id)}>Delete deck</button>
                 </div>
             )
