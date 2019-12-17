@@ -7,11 +7,13 @@ export default class SearchCards extends Component {
     constructor(){
         super();
         this.handleSubmit= this.handleSubmit.bind(this)
+
+        this.state = {
+            cards: [],
+        }
     }
 
-    state = {
-        cards: [],
-    }
+    
 
     handleSubmit(event){
         event.preventDefault();
