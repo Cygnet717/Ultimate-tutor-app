@@ -20,7 +20,7 @@ export default class SingleDeckView extends Component {
 
     componentDidMount() {
         const {deckId} = this.props.match.params
-        let deckName = this.context.decks.find(deck => deck.deck_id == deckId)
+        let deckName = this.context.decks.find(deck => deck.deck_id === Number(deckId))
         this.setState({ 
             deck_id: deckId,
             deckName: deckName.deck_name,

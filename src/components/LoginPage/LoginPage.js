@@ -3,6 +3,7 @@ import AuthApiService from '../../services/auth-api-service'
 import TokenService from '../../services/token-service'
 import './LoginPage.css'
 import UserContext from '../../context/user-context'
+import DeckApiService from '../../services/deck-api-service'
 
 export default class LoginPage extends Component {
   static contextType = UserContext;
@@ -12,6 +13,7 @@ export default class LoginPage extends Component {
       this.state = { 
         error: null, 
         user_id: null,
+        decks: [],
       }
     }
 
@@ -21,12 +23,16 @@ export default class LoginPage extends Component {
           push: () => {},
         },
       }
+
+    handleSetUserInfo =() => {
+      DeckApiService.getDecks()
+      .then(decks => this.context.updateDecks(decks))
+      
+      this.handleLoginSuccess()
+    }
       
     handleLoginSuccess = () => {
-        if(this.state.user_id){
-          this.context.updateId(this.state.user_id)
-          
-        }
+        
         const { location, history } = this.props
         const destination = (location.state || {}).from || '/MyDecks'
         history.push(destination)
@@ -46,8 +52,7 @@ export default class LoginPage extends Component {
           username.value = ''
           password.value = ''
           TokenService.saveAuthToken(res.authToken, res.payload.user_id)
-          this.setState({user_id: res.payload.user_id})
-          this.handleLoginSuccess()
+          this.handleSetUserInfo()
         })
         .catch(res => {
           this.setState({ error: res.error })

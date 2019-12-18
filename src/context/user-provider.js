@@ -5,18 +5,18 @@ class UserProvider extends Component {
     state ={
         user_id: window.sessionStorage.user_id,
         decks: [],
-        updateId: (id) => 
-        this.setState({
-            user_id: id
-        }) ,
-        updateDecks: (decks) =>
-        this.setState({
-            decks
-        }),
+        updateDecks: (decks) => 
+            this.setState({
+                user_id: window.sessionStorage.user_id,
+                decks: decks
+            }),
+        addDeck: (deck) => {
+            this.state.decks.push(deck)
+        },
         clearId: () =>
-        this.setState({
-            user_id: null
-        })
+            this.setState({
+                user_id: null
+            })
     };
 
     render() {

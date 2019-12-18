@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import CardResults from '../CardResults/CardResults'
 import MTGCardSearchService from '../../services/mtgcard-api-service'
+
 import './SearchCards.css'
 
 export default class SearchCards extends Component {
+    
     constructor(){
         super();
         this.handleSubmit= this.handleSubmit.bind(this)
@@ -50,11 +52,11 @@ export default class SearchCards extends Component {
                         <br/>
                         <label htmlFor='colorIdentity'>Color Identity:</label> 
                         <br/>
-                            <input id='colorIdentity' type='checkbox' name='colorIdentity' value='r'/>Red
-                            <input id='colorIdentity' type='checkbox' name='colorIdentity' value='g'/>Green
-                            <input id='colorIdentity' type='checkbox' name='colorIdentity' value='w'/>White
-                            <input id='colorIdentity' type='checkbox' name='colorIdentity'value='b'/>Black
-                            <input id='colorIdentity' type='checkbox' name='colorIdentity' value='u'/>Blue
+                            <input id='colorIdentityRed' type='checkbox' name='colorIdentity' value='r'/>Red
+                            <input id='colorIdentityGreen' type='checkbox' name='colorIdentity' value='g'/>Green
+                            <input id='colorIdentityWhite' type='checkbox' name='colorIdentity' value='w'/>White
+                            <input id='colorIdentityBlack' type='checkbox' name='colorIdentity'value='b'/>Black
+                            <input id='colorIdentityBlue' type='checkbox' name='colorIdentity' value='u'/>Blue
                         <br/>
                         <label htmlFor='cardType'>Card Type: </label> 
                         <select name='cardType' id='cardType' defaultValue={'default'}>

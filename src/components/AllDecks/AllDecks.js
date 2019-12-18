@@ -9,48 +9,23 @@ export default class AllDecks extends Component {
    constructor(props){
        super(props)
        this.state ={
-        decks: [],
+
         newDeckName: '',
-        
         error: null
     }
    }
-    
-    
-    setDecks(decks){
-        this.setState({
-            decks
-        })
-        this.context.updateDecks(decks)
-
-    }
-    setError = error => {
-        console.error(error)
-        this.setState({ error })
-      }
-
-    clearError = () => {
-        this.setState({ error: null })
-    }
-
-    componentDidMount() {
-        this.clearError()
-        DeckApiService.getDecks()
-        .then(res => this.setDecks(res))
-        .catch(this.setError)
-    }
-
+   
     deleteDeck = (event, deck) => {
         event.preventDefault()
         DeckApiService.deleteDeck(deck)
-        let lessDecks = this.state.decks.filter(d => d.deck_id !== deck)
+        let lessDecks = this.context.decks.filter(d => d.deck_id !== deck)
         this.setState({
             decks: lessDecks
         })
     }
 
     renderDecks() {
-        const {decks = []} = this.state
+        const {decks = []} = this.context
         return decks.map(deck =>
             <div className='deck' key={deck.deck_id}>
                     <Link className='deckLink' to={`/deck/${deck.deck_id}`}>{deck.deck_name}</Link>
@@ -62,9 +37,7 @@ export default class AllDecks extends Component {
     addNewDeck = (event) => {
         event.preventDefault()
         DeckApiService.postDeck(this.context.user_id, this.state.newDeckName)
-        .then(deck => this.setState({
-            ...this.state.decks.push(deck)
-        }))
+        .then(deck => this.context.addDeck(deck))
         }
 
     render(){
