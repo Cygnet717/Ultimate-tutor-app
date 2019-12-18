@@ -7,6 +7,10 @@ form{
     flex-direction: row;
     z-index: 10;
     justify-content: space-evenly;
-    flex-wrap: wrap;
-    
+    flex-wrap: wrap;   
+}
+
+#thinking {
+    height: 59px;
+    width: 64px;
 }

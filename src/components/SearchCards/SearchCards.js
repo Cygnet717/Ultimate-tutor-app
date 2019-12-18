@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import CardResults from '../CardResults/CardResults'
 import MTGCardSearchService from '../../services/mtgcard-api-service'
+import logo from '../LoadingGif/731.gif'
 
 import './SearchCards.css'
 
@@ -12,13 +13,18 @@ export default class SearchCards extends Component {
 
         this.state = {
             cards: [],
+            thinking: false,
         }
     }
 
     
 
-    handleSubmit(event){
+    handleSubmit=(event)=>{
         event.preventDefault();
+        this.setState({
+            thinking: true,
+            cards: []
+        })
         const data = new FormData(event.target);
         let string ='';
         if(data.get('name')){
@@ -30,18 +36,23 @@ export default class SearchCards extends Component {
         if(data.get('cardType')){
             string = string.concat('type='+data.get('cardType')+'&')
         }
+        
         MTGCardSearchService.getSearchResults(string)
         .then(res => {
             this.setState({
                 cards: res.cards,
+                thinking: false
             })
         })
     }
 
+    renderThinking() {return <img id='thinking' src={logo} alt='loading...'/>}
+
     render(){
         const cardResults = this.state.cards.map((card, i) =>{
-           return <CardResults {...card} key={i}/>
+            return <CardResults {...card} key={i}/>
         })
+      
         return(
             <div>
                 <section>
@@ -79,7 +90,7 @@ export default class SearchCards extends Component {
                 </section>
                 Results:<br/>
                 <div className='cardsDisplay'>
-                {cardResults}
+                {this.state.thinking ? this.renderThinking() : cardResults}
                 </div>
             </div>
         )
