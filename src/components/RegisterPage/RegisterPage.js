@@ -46,10 +46,16 @@ export default class RegisterPage extends Component {
                 </div>
                     <fieldset>
                         <legend>Register New User</legend>
-                            <label>User Name: </label>
+                            <label>New User Name: </label>
+                            <span className='criteria'>*Case sensitive</span>
+                            <br/>
                             <input type='text' name='username'></input>
                             <br/>
+                            <br/>
                             <label>Password: </label>
+                            <br/>
+                            <span className='criteria'>*Must be 8 characters long and inclue Capital, number, and one of #?!@$%^&*-</span>
+                            <br/>
                             <input type='text' name='password'></input>
                             <br/>
                             <button type='submit'>Register</button>

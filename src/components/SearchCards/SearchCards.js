@@ -88,7 +88,8 @@ export default class SearchCards extends Component {
                         <input type='submit' value='Search'/>
                     </form>
                 </section>
-                Results:<br/>
+                {this.state.thinking || this.state.cards? <span>Results</span>: <span></span>}
+                <br/>
                 <div className='cardsDisplay'>
                 {this.state.thinking ? this.renderThinking() : cardResults}
                 </div>

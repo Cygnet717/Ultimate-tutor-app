@@ -74,7 +74,7 @@ export default class LoginPage extends Component {
                             <label>Password: </label>
                             <input required type='password' name='password'></input>
                             <br/>
-                            <button type='submit' >Login</button>
+                            <input type='submit' value='Login'/>
                     </fieldset>
                 </form>
                 </>
