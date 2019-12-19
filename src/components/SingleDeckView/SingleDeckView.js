@@ -49,6 +49,7 @@ export default class SingleDeckView extends Component {
                 <div className='cardsDisplay'>
                     {this.state.deckList.map(card => 
                         <div className='card' key={card.card_id}>
+                            <p className='cardName'>{this.props.name}</p>
                             <img alt={card.card_name} src={card.image_url}/>
                             <br/><button onClick={e => this.deleteCard(e, card.card_id)}>remove</button>
                         </div>
