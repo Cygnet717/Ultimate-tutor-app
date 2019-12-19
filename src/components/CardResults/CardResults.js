@@ -15,6 +15,9 @@ export default class CardResults extends Component{
         this.state = {
             classNames: "modal",
             selectedDeck: 0,
+            added: false,
+            addedCard: '',
+            addedToDeck: ''
         }
     }
     
@@ -26,6 +29,15 @@ export default class CardResults extends Component{
         this.setState({ classNames: 'modal'})
     }
 
+    revealConfirmation = (card) => {
+        let thisDeck = this.context.decks.find(deck => Number(card.deck_id) === deck.deck_id)
+        this.setState({
+            added: true,
+            addedCard: card.card_name,
+            addedToDeck: thisDeck.deck_name
+        })
+    }
+
     addCardToDeck=(event)=>{
         event.preventDefault()
         SingleDeckApiService.postNewCard(
@@ -34,7 +46,7 @@ export default class CardResults extends Component{
             this.props.multiverseid, 
             this.state.selectedDeck
             )
-        .then(res=> console.log(res))
+        .then(res=> this.revealConfirmation(res))
     }
 
     handleDeckChange=(event)=>{
@@ -48,33 +60,33 @@ export default class CardResults extends Component{
          })
     return(
         <section>
-            
-                <div className='card'>
-                    <p>{this.props.name}</p>
-                    <img alt={this.props.name} src={this.props.imageUrl} onClick={this.closeUp}/><br/>
-                    <form 
-                    id={this.props.multiverseid} 
-                    onSubmit={this.addCardToDeck}
-                    >
-                        <select name='decklist' form='decklist' value={this.state.selectedDeck} onChange={this.handleDeckChange}>
-                            <option value='none'>Pick a deck</option>
+            <div className='card'>
+                <p className='cardName'>{this.props.name}</p>
+                <img alt={this.props.name} src={this.props.imageUrl} onClick={this.closeUp}/><br/>
+                <form 
+                id={this.props.multiverseid} 
+                onSubmit={this.addCardToDeck}
+                >
+                    <select name='decklist' form='decklist' value={this.state.selectedDeck} onChange={this.handleDeckChange}>
+                        <option value='none'>Pick a deck</option>
                         {this.context.decks.map(deck =>
                             <option type='select' name='deck' key={deck.deck_id} value={deck.deck_id}>{deck.deck_name}</option>
-                        )}   
-                        
-                        </select><br/>
-                        <input type='submit' value='Add to deck'/>
-                    </form>
+                            )}   
+                    </select>
+                    <br/>
+                    <input type='submit' value='Add to deck'/>
+                </form>
+
+                <div className='addedConfirmation'>
+                    {this.state.added? <span>Added {this.state.addedCard} to {this.state.addedToDeck}</span>: <span></span>}
+                </div>
                     
-                    <div id="myModal" className={this.state.classNames}>
-                        <span className="close" onClick={this.removeCloseUp}>&times;</span>
-                        <img className="modal-content" alt={this.props.name} src={this.props.imageUrl}/>
-                        <div id="caption">Rulings: {cardRulings}</div>
-                    </div>
-                    
-                    
-                </div>   
-            
+                <div id="myModal" className={this.state.classNames}>
+                    <span className="close" onClick={this.removeCloseUp}>&times;</span>
+                    <img className="modal-content" alt={this.props.name} src={this.props.imageUrl}/>
+                    <div id="caption">Rulings: {cardRulings}</div>
+                </div>
+            </div>    
         </section>
     )
 }

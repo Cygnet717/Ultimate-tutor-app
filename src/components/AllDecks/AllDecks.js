@@ -48,7 +48,6 @@ export default class AllDecks extends Component {
 
     addNewDeck = (event) => {
         event.preventDefault()
-        let NewDeck =[{deck_id: null, deck_name: '', user_id: null}]
         DeckApiService.postDeck(this.context.user_id, this.state.newDeckName)
         .then(deck => this.setNewDecks(deck))
         this.clearDeckName()

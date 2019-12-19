@@ -14,6 +14,13 @@
     width: min-content;
   }
 
+  .cardName {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   p {
     font-size: small;
   }
@@ -22,6 +29,12 @@
     min-height: 200px;
     padding: 6% 0;
   }
+
+.addedConfirmation{
+  font-size: 15px;
+  color:black;
+
+}
 
 .showmodal {
   display: block; /* Hidden by default */
