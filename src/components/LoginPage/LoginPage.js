@@ -5,6 +5,7 @@ import './LoginPage.css'
 import UserContext from '../../context/user-context'
 import DeckApiService from '../../services/deck-api-service'
 
+
 export default class LoginPage extends Component {
   static contextType = UserContext;
 
@@ -13,7 +14,7 @@ export default class LoginPage extends Component {
       this.state = { 
         error: null, 
         user_id: null,
-        decks: [],
+       
       }
     }
 
@@ -26,13 +27,14 @@ export default class LoginPage extends Component {
 
     handleSetUserInfo =() => {
       DeckApiService.getDecks()
-      .then(decks => this.context.updateDecks(decks))
-      
+      .then(decks => {
+        this.context.updateDecks(decks)
+        
+      })
       this.handleLoginSuccess()
     }
       
     handleLoginSuccess = () => {
-        
         const { location, history } = this.props
         const destination = (location.state || {}).from || '/MyDecks'
         history.push(destination)
