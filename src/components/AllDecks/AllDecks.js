@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 import DeckApiService from '../../services/deck-api-service'
 import UserContext from '../../context/user-context'
-import config from '../../../src/config'
 import './AllDecks.css'
 
 export default class AllDecks extends Component {
@@ -45,7 +44,6 @@ export default class AllDecks extends Component {
     setNewDecks = (deck) => {
         this.context.addDeck(deck)
         this.setState({decks: this.context.decks})
-        window.sessionStorage.setItem(config.DECKS, this.context.decks)
     }
 
     addNewDeck = (event) => {
