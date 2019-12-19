@@ -1,4 +1,4 @@
-form{
+#SearchForm{
     font-size: smaller;
     display: flex;
     flex-direction: column;
@@ -18,7 +18,7 @@ form{
     width: 64px;
 }
 
-label{
+.searchLabel{
     border:1px solid black;
     background: black;
     color: white;

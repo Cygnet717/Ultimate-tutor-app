@@ -99,7 +99,7 @@ export default class SearchCards extends Component {
                 <section>
                     <form id='SearchForm' name='SearchForm' onSubmit={this.handleSubmit}>
                         <legend>Search for cards</legend>
-                        <label htmlFor='cardName'>Card Name: </label> 
+                        <label htmlFor='cardName' className='searchLabel'>Card Name: </label> 
                             <input id='cardName' type='text' className='selectStyle' name='name' placeholder='Black Lotus'/>
 
                         <label htmlFor='colorIdentity'>Color Identity:</label> 
@@ -110,7 +110,7 @@ export default class SearchCards extends Component {
                             <input id='colorIdentityBlack' type='checkbox' name='colorIdentity'value='b'/>Black
                             <input id='colorIdentityBlue' type='checkbox' name='colorIdentity' value='u'/>Blue
                         </div>
-                        <label htmlFor='types'>Card Type: </label> 
+                        <label htmlFor='types' className='searchLabel'>Card Type: </label> 
                         <select name='types' id='types' className='selectStyle' defaultValue={'default'}>
                             <option disabled hidden value='default'>Select</option>
                             {paramOptions.types.map(i => {
@@ -118,7 +118,7 @@ export default class SearchCards extends Component {
                             })}
                         </select>
 
-                        <label htmlFor='supertypes'>Supertype:</label>
+                        <label htmlFor='supertypes' className='searchLabel'>Supertype:</label>
                         <select name='supertypes' id='supertypes' className='selectStyle' defaultValue={'default'}>
                             <option disabled hidden value='default'>Select</option>
                                 {paramOptions.supertypes.map(i => {
@@ -126,7 +126,7 @@ export default class SearchCards extends Component {
                                 })}
                         </select>
 
-                        <label htmlFor='subtypes'>Subtype:</label>
+                        <label htmlFor='subtypes' className='searchLabel'>Subtype:</label>
                         <input type='text' list='subtypes' className='selectStyle' name='subtypes'/>
                         <datalist id='subtypes' >
                             {paramOptions.subtypes.map(i => {
@@ -134,7 +134,7 @@ export default class SearchCards extends Component {
                                 })}
                         </datalist>
 
-                        <label htmlFor='rarity'>Rarity:</label>
+                        <label htmlFor='rarity' className='searchLabel'>Rarity:</label>
                         <select name='rarity' id='rarity' className='selectStyle' defaultValue={'default'}>
                             <option disabled hidden value='default'>Select</option>
                                 {paramOptions.rarity.map(i => {
@@ -142,7 +142,7 @@ export default class SearchCards extends Component {
                                 })}
                         </select>
 
-                        <label htmlFor='power'>Power:</label>
+                        <label htmlFor='power' className='searchLabel'>Power:</label>
                         <div className='p_t'>
                             <div>
                                 <input type='radio' onChange={updatePower} id='power' value='*' name='power'/>
@@ -154,7 +154,7 @@ export default class SearchCards extends Component {
                                 <input type='number'  onChange={updatePowerNum} id='powerNum' name='powerNum'/>
                             </div>
                         </div>
-                        <label htmlFor='toughness'>Toughness:</label>
+                        <label htmlFor='toughness' className='searchLabel'>Toughness:</label>
                         <div className='p_t'>
                             <div>
                                 <input type='radio' onChange={updateToughness} id='toughness' value='*' name='toughness'/>
