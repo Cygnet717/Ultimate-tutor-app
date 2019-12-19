@@ -1,5 +1,8 @@
 form{
     font-size: smaller;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .cardsDisplay {
@@ -13,4 +16,47 @@ form{
 #thinking {
     height: 59px;
     width: 64px;
+}
+
+label{
+    border:1px solid black;
+    background: black;
+    color: white;
+    padding: 3px;
+    margin-top: 5px;
+}
+
+.variablep_t{
+    float: left;
+}
+
+.p_t{
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+form input[type='radio'] {
+    float: left;
+    width: 30px;
+    margin-left: 30px;
+    
+}
+
+form input[type='number']{
+    float: left;
+}
+
+.selectStyle{
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media screen and (min-width: 500px){
+    form{
+        width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
