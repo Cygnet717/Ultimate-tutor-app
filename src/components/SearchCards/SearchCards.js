@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import CardResults from '../CardResults/CardResults'
 import MTGCardSearchService from '../../services/mtgcard-api-service'
-import logo from '../LoadingGif/731.gif'
+import logo from '../Images/731.gif'
 import paramOptions from './SearchParamsData'
 
 import './SearchCards.css'
@@ -19,6 +19,8 @@ export default class SearchCards extends Component {
             powerNum: '',
             toughness: '',
             toughnessNum: '',
+            expanded: false,
+            visible: 'hidden'
         }
     }
 
@@ -68,6 +70,20 @@ export default class SearchCards extends Component {
         .then(res => this.setValidCards(res))
     }
 
+    expandCollapse = () => {
+        if(this.state.expanded){
+            this.setState({
+                visible: 'hidden',
+                expanded: false,
+        })
+        } else {
+            this.setState({
+                visible: '',
+                expanded: true,
+            })
+        }
+    }
+
     renderThinking() {return <img id='thinking' src={logo} alt='loading...'/>}
 
     render(){
@@ -99,6 +115,7 @@ export default class SearchCards extends Component {
                 <section>
                     <form id='SearchForm' name='SearchForm' onSubmit={this.handleSubmit}>
                         <legend>Search for cards</legend>
+                        <input className='formbutton' type='reset' value='Reset Form'/>
                         <label htmlFor='cardName' className='searchLabel'>Card Name: </label> 
                             <input id='cardName' type='text' className='selectStyle' name='name' placeholder='Black Lotus'/>
 
@@ -118,56 +135,59 @@ export default class SearchCards extends Component {
                             })}
                         </select>
 
-                        <label htmlFor='supertypes' className='searchLabel'>Supertype:</label>
-                        <select name='supertypes' id='supertypes' className='selectStyle' defaultValue={'default'}>
-                            <option disabled hidden value='default'>Select</option>
-                                {paramOptions.supertypes.map(i => {
-                                    return <option id='supertypes' key={i} name='supertypes' value={i}>{i}</option>
-                                })}
-                        </select>
+                        <div className={`collapseSearch ${this.state.visible}`}>
+                            <label htmlFor='supertypes' className='searchLabel'>Supertype:</label>
+                            <select name='supertypes' id='supertypes' className='selectStyle' defaultValue={'default'}>
+                                <option disabled hidden value='default'>Select</option>
+                                    {paramOptions.supertypes.map(i => {
+                                        return <option id='supertypes' key={i} name='supertypes' value={i}>{i}</option>
+                                    })}
+                            </select>
 
-                        <label htmlFor='subtypes' className='searchLabel'>Subtype:</label>
-                        <input type='text' list='subtypes' className='selectStyle' name='subtypes'/>
-                        <datalist id='subtypes' >
-                            {paramOptions.subtypes.map(i => {
-                                    return <option id='subtypes' key={i} name='subtypes' value={i}>{i}</option>
-                                })}
-                        </datalist>
+                            <label htmlFor='subtypes' className='searchLabel'>Subtype:</label>
+                            <input type='text' list='subtypes' className='selectStyle' name='subtypes'/>
+                            <datalist id='subtypes' >
+                                {paramOptions.subtypes.map(i => {
+                                        return <option id='subtypes' key={i} name='subtypes' value={i}>{i}</option>
+                                    })}
+                            </datalist>
 
-                        <label htmlFor='rarity' className='searchLabel'>Rarity:</label>
-                        <select name='rarity' id='rarity' className='selectStyle' defaultValue={'default'}>
-                            <option disabled hidden value='default'>Select</option>
-                                {paramOptions.rarity.map(i => {
-                                    return <option id='rarity' key={i} name='rarity' value={i}>{i}</option>
-                                })}
-                        </select>
+                            <label htmlFor='rarity' className='searchLabel'>Rarity:</label>
+                            <select name='rarity' id='rarity' className='selectStyle' defaultValue={'default'}>
+                                <option disabled hidden value='default'>Select</option>
+                                    {paramOptions.rarity.map(i => {
+                                        return <option id='rarity' key={i} name='rarity' value={i}>{i}</option>
+                                    })}
+                            </select>
 
-                        <label htmlFor='power' className='searchLabel'>Power:</label>
-                        <div className='p_t'>
-                            <div>
-                                <input type='radio' onChange={updatePower} id='power' value='*' name='power'/>
-                                <span className='variablep_t'>*</span>
+                            <label htmlFor='power' className='searchLabel'>Power:</label>
+                            <div className='p_t'>
+                                <div>
+                                    <input type='radio' onChange={updatePower} id='power' value='*' name='power'/>
+                                    <span className='variablep_t'>*</span>
+                                </div>
+                                <br/>
+                                <div>
+                                    <input type='radio' name='power' onChange={updatePower} value={this.state.powerNum}/>
+                                    <input type='number'  onChange={updatePowerNum} id='powerNum' name='powerNum'/>
+                                </div>
                             </div>
-                            <br/>
-                            <div>
-                                <input type='radio' name='power' onChange={updatePower} value={this.state.powerNum}/>
-                                <input type='number'  onChange={updatePowerNum} id='powerNum' name='powerNum'/>
+                            <label htmlFor='toughness' className='searchLabel'>Toughness:</label>
+                            <div className='p_t'>
+                                <div>
+                                    <input type='radio' onChange={updateToughness} id='toughness' value='*' name='toughness'/>
+                                    <span className='variablep_t'>*</span>
+                                </div>
+                                <br/>
+                                <div>
+                                    <input type='radio' id='toughnessRadio' name='toughness' onChange={updateToughness} value={this.state.toughnessNum}/>
+                                    <input type='number'  onChange={updateToughnessNum} id='toughnessNum' name='toughnessNum'/>
+                                </div>
                             </div>
                         </div>
-                        <label htmlFor='toughness' className='searchLabel'>Toughness:</label>
-                        <div className='p_t'>
-                            <div>
-                                <input type='radio' onChange={updateToughness} id='toughness' value='*' name='toughness'/>
-                                <span className='variablep_t'>*</span>
-                            </div>
-                            <br/>
-                            <div>
-                                <input type='radio' id='toughnessRadio' name='toughness' onChange={updateToughness} value={this.state.toughnessNum}/>
-                                <input type='number'  onChange={updateToughnessNum} id='toughnessNum' name='toughnessNum'/>
-                            </div>
-                        </div>
-                        <input type='reset'/>
-                        <input type='submit' value='Search'/>
+                        <input className='collapseButton' onClick={this.expandCollapse} type='button' value='Expand'/>
+                        <input className='formbutton' type='reset' value='Reset Form'/>
+                        <input className='formbutton' type='submit' value='Search'/>
                     </form>
                 </section>
                 <div className='resultsSection'>

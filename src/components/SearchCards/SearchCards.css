@@ -1,7 +1,8 @@
-#SearchForm{
+#SearchForm, .collapseSearch{
     font-size: smaller;
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 100%;
 }
 
@@ -19,7 +20,7 @@
 }
 
 .searchLabel{
-    border:1px solid black;
+    width: 100%;
     background: black;
     color: white;
     padding: 3px;
@@ -32,8 +33,7 @@
 
 .p_t{
     width: 80%;
-    margin-right: auto;
-    margin-left: auto;
+    
 }
 
 form input[type='radio'] {
@@ -49,12 +49,19 @@ form input[type='number']{
 
 .selectStyle{
     width: 80%;
-    margin-right: auto;
-    margin-left: auto;
+    margin-top: 5px;
+}
+
+.formbutton{
+    width: 100px;
+}
+
+.hidden {
+    display: none;
 }
 
 @media screen and (min-width: 500px){
-    #SearchForm{
+    #SearchForm,  .collapseSearch{
         width: 500px;
         margin-left: auto;
         margin-right: auto;

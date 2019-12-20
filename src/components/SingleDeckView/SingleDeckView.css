@@ -1,0 +1,8 @@
+.deckDetails {
+    border: 1px solid black;
+}
+
+.deckDetails >span {
+    font-size: small;
+    border: 1px solid black;
+}

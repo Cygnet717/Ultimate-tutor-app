@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import SingleDeckApiService from '../../services/Single-deck-api-service'
 import UserContext from '../../context/user-context'
+import { Link } from 'react-router-dom'
+import './SingleDeckView.css'
 
 export default class SingleDeckView extends Component {
     static contextType = UserContext;
@@ -15,6 +17,7 @@ export default class SingleDeckView extends Component {
             deckList: [],
             deck_id: null,
             deckName: '',
+            
         }
     }
 
@@ -45,6 +48,14 @@ export default class SingleDeckView extends Component {
         return(
             <section>
             <h2>{this.state.deckName}</h2>
+            <div className='deckDetails'>
+                <span>Total: 100 cards </span>
+                <span>Creatures: 22 </span>
+                <span>Instants: 22 </span><br/>
+                <span>Enchantments: 22</span>
+                <span>Sorceries: 22</span>
+                <span>Lands:</span>
+            </div>
             <br/>
                 <div className='cardsDisplay'>
                     {this.state.deckList.map(card => 
@@ -55,6 +66,7 @@ export default class SingleDeckView extends Component {
                         </div>
                         )}
                 </div>
+                <Link className='navLink' to='/SearchCards'>Add Cards</Link>
             </section>
         )
     }
