@@ -27,8 +27,8 @@ export default class AllDecks extends Component {
 
     renderDecks() {
         const {decks = []} = this.context
-        let parsed = JSON.parse(window.sessionStorage.decks)
-        console.log(parsed[0].deck_id)
+        
+        
         return decks.map(deck =>
             <div className='deck' key={deck.deck_id}>
                     <Link className='deckLink' to={`/deck/${deck.deck_id}`}>{deck.deck_name}</Link>

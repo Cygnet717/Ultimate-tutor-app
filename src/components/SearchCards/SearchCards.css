@@ -54,7 +54,7 @@ form input[type='number']{
 }
 
 @media screen and (min-width: 500px){
-    form{
+    #SearchForm{
         width: 500px;
         margin-left: auto;
         margin-right: auto;
