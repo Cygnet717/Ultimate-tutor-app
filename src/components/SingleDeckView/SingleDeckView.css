@@ -6,3 +6,12 @@
     font-size: small;
     border: 1px solid black;
 }
+
+.searchLink{
+    background: black;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+

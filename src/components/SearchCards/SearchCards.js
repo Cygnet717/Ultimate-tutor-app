@@ -191,7 +191,7 @@ export default class SearchCards extends Component {
                     </form>
                 </section>
                 <div className='resultsSection'>
-                {this.state.thinking || this.state.cards ===[] ? <span>Results</span>: <span><br/><br/></span>}
+                {this.state.thinking || this.state.cards.length !== 0 ? <span>Results</span>: <span></span>}
                 </div>
                 <br/>
                 <div className='cardsDisplay'>

@@ -66,7 +66,7 @@ export default class SingleDeckView extends Component {
                         </div>
                         )}
                 </div>
-                <Link className='navLink' to='/SearchCards'>Add Cards</Link>
+                <Link className='searchLink' to='/SearchCards'>Add Cards</Link>
             </section>
         )
     }
