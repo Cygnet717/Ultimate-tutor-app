@@ -6,26 +6,30 @@ import config from '../config'
 class UserProvider extends Component {
     state ={
         user_id: window.sessionStorage.user_id,
-        decks: [],
+        decks: JSON.parse(sessionStorage.getItem('decks')),
+
         updateDecks: (decks) => {
-            
+            let stringDecks = JSON.stringify(decks)
+            window.sessionStorage.setItem(config.DECKS, stringDecks)
             this.setState({
                 user_id: window.sessionStorage.user_id,
-                decks: decks
-            })
-            
+                decks: JSON.parse(window.sessionStorage.decks),
+            }
+            )
         },
-        saveDecksLocally(decks){
-            window.sessionStorage.setItem(config.DECKS, JSON.stringify(decks))
-          },
+        
         addDeck: (deck) => {
-            this.state.decks.push(deck)
+            let moreDecks = this.state.decks.push(deck)
+            let stringDecks= JSON.stringify(moreDecks)
+            window.sessionStorage.setItem(config.DECKS, stringDecks)
         },
         clearId: () =>
             this.setState({
-                user_id: null
+                user_id: null,
+               
             })
     };
+    
 
     render() {
         return(

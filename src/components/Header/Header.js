@@ -11,6 +11,7 @@ export default class Header extends Component {
     TokenService.clearAuthToken()
     this.context.clearId()
 
+
   }
 
     renderLogoutLink() {
