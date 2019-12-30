@@ -63,6 +63,7 @@ export default class SingleDeckView extends Component {
     }
 
     componentDidMount() {
+        if(sessionStorage.user_id){
         const {deckId} = this.props.match.params
         let deckName = this.context.decks.find(deck => deck.deck_id === Number(deckId))
         this.setState({ 
@@ -73,7 +74,7 @@ export default class SingleDeckView extends Component {
             .then(cards => this.setState({
                 deckList: cards,
             }))
-            
+            }
     }
 
     deleteCard(e, id){
@@ -86,6 +87,16 @@ export default class SingleDeckView extends Component {
     }
 
     render() {
+        if(!sessionStorage.user_id){
+            return (<div>
+                <h4>Oops you arn't logged in!</h4>
+                <Link 
+                    className='homeLink'
+                    to='/'>
+                    Home Page
+                </Link>
+                </div>)
+        }
         return(
             <section>
             <h2>{this.state.deckName}</h2>

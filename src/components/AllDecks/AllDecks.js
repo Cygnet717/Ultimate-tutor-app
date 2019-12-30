@@ -63,10 +63,19 @@ export default class AllDecks extends Component {
                 newDeckName:event.target.value
             })
         }
-        
+        if(!sessionStorage.user_id){
+            return (<div>
+                <h4>Oops you arn't logged in!</h4>
+                <Link 
+                    className='homeLink'
+                    to='/'>
+                    Home Page
+                </Link>
+                </div>)
+        }
         return(
             <>
-            <p>My Decks Number of decks {this.state.decks.length}</p>
+            <h3>My Decks</h3>
                 {this.renderDecks()}
                 <br/>
                 <form onSubmit={this.addNewDeck}>

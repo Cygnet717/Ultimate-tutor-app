@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { Link } from 'react-router-dom'
 import CardResults from '../CardResults/CardResults'
 import MTGCardSearchService from '../../services/mtgcard-api-service'
 import logo from '../Images/731.gif'
@@ -92,6 +93,17 @@ export default class SearchCards extends Component {
     renderThinking() {return <img id='thinking' src={logo} alt='loading...'/>}
 
     render(){
+        if(!sessionStorage.user_id){
+            return (<div>
+                <h4>Oops you arn't logged in!</h4>
+                <Link 
+                    className='homeLink'
+                    to='/'>
+                    Home Page
+                </Link>
+                </div>)
+        }
+
         let cardResults = this.state.cards.map((card, i) =>{
             return <CardResults {...card} key={i}/>
         })

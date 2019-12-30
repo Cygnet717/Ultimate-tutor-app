@@ -15,3 +15,8 @@ button {
 .red{
     color: red;
 }
+
+.homeLink {
+    border: 2px solid black;
+    padding: 5px;
+}
