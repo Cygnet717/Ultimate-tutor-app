@@ -63,7 +63,10 @@ export default class Header extends Component {
                     Ultimate Tutor
                 </Link>
             </h1>
-            {this.context.user_id?this.renderLogoutLink() :this.renderLoginLink()}
+            <div className='headerbottom'>
+              <img className='utlogo' src='UTlogo.png' alt='UT logo'/>
+              {this.context.user_id?this.renderLogoutLink() :this.renderLoginLink()}
+            </div>
         </nav>
         
         </>
