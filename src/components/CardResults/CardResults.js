@@ -44,7 +44,8 @@ export default class CardResults extends Component{
             this.props.name, 
             this.props.imageUrl, 
             this.props.multiverseid, 
-            this.state.selectedDeck
+            this.state.selectedDeck,
+            this.props.types[this.props.types.length -1],
             )
         .then(res=> this.revealConfirmation(res))
     }

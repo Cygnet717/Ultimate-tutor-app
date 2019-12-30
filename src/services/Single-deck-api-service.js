@@ -17,7 +17,7 @@ const SingleDeckApiService = {
   },
  
   
-  postNewCard(card_name, image_url, multiverseid, deck_id) {
+  postNewCard(card_name, image_url, multiverseid, deck_id, type) {
     return fetch(`${config.API_ENDPOINT}/decks/${deck_id}`, {
       method: 'POST',
       headers: {
@@ -29,6 +29,7 @@ const SingleDeckApiService = {
         image_url,
         multiverseid,
         deck_id,
+        type,
       }),
     })
       .then(res =>

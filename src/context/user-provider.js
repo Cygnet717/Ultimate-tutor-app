@@ -16,6 +16,7 @@ class UserProvider extends Component {
                 decks: JSON.parse(window.sessionStorage.decks),
             }
             )
+            return 'done'
         },
         
         addDeck: (deck) => {

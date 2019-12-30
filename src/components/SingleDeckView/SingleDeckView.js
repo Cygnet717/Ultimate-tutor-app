@@ -17,8 +17,49 @@ export default class SingleDeckView extends Component {
             deckList: [],
             deck_id: null,
             deckName: '',
-            
+            Creature: 0,
+            Sorcery: 0,
+            Instant: 0,
+            Enchantment: 0,
+            Land: 0,
+            Planeswalker: 0,
+            hidden: 'hidden',
+            buttonClass: '',
+            listview: 'Card View',
         }
+    }
+
+    
+
+    countType(currenttype){
+        let obj = {}
+        let count = this.state.deckList.filter(card =>{ 
+           return card.type === currenttype
+        })
+        if(count.length !== 0){
+            let name = count[0].type
+            obj[name] = count.length
+            this.setState(obj)
+        }
+    }
+
+    sortByType=()=> {
+        this.setState({hidden: 'flex',
+            buttonClass: 'hidden'})
+        let types = ['Creature', 'Sorcery', 'Instant', 'Enchantment', 'Land', 'Planeswalker']
+        types.map(currentType => 
+            this.countType(currentType)
+        )
+    }
+
+    listCardView =()=>{
+        if(this.state.listview === 'Card View'){
+            this.setState({listview: 'List View'})
+        } else {
+            this.setState({listview: 'Card View'})
+        }
+        
+
     }
 
     componentDidMount() {
@@ -32,6 +73,7 @@ export default class SingleDeckView extends Component {
             .then(cards => this.setState({
                 deckList: cards,
             }))
+            
     }
 
     deleteCard(e, id){
@@ -44,28 +86,40 @@ export default class SingleDeckView extends Component {
     }
 
     render() {
-        
         return(
             <section>
             <h2>{this.state.deckName}</h2>
-            <div className='deckDetails'>
-                <span>Total: 100 cards </span>
-                <span>Creatures: 22 </span>
-                <span>Instants: 22 </span><br/>
-                <span>Enchantments: 22</span>
-                <span>Sorceries: 22</span>
-                <span>Lands:</span>
+            <button type='button' className={`viewButton ${this.state.buttonClass}`} onClick={this.sortByType}>View Deck Tally</button>
+            <div className={`deckDetails ${this.state.hidden}`}>
+                <span>Total:<br/> {this.state.deckList.length} </span>
+                <span>Creatures:<br/> {this.state.Creature} </span>
+                <span>Instants:<br/> {this.state.Instant} </span><br/>
+                <span>Enchantments:<br/> {this.state.Enchantment}</span>
+                <span>Sorceries:<br/> {this.state.Sorcery}</span>
+                <span>Lands:<br/>{this.state.Land}</span>
+                <span>Planeswalkers: <br/>{this.state.Planeswalker}</span>
             </div>
+    <button type='button' className='listview button' onClick={this.listCardView}>{this.state.listview}</button>
             <br/>
-                <div className='cardsDisplay'>
+            {this.state.listview === 'Card View'?
+             <div className='cardsListDisplay'>
+                 {this.state.deckList.map(card =>
+                    <div key={card.card_id}>
+                        <p>{card.card_name}</p>
+                    </div>
+                 )}
+             </div>
+            : 
+            <div className='cardsDisplay'>
                     {this.state.deckList.map(card => 
                         <div className='card' key={card.card_id}>
-                            <p className='cardName'>{this.props.name}</p>
+                            <p className='cardName'>{card.card_name}</p>
                             <img alt={card.card_name} src={card.image_url}/>
                             <br/><button onClick={e => this.deleteCard(e, card.card_id)}>remove</button>
                         </div>
                         )}
-                </div>
+                </div> 
+                }
                 <Link className='searchLink' to='/SearchCards'>Add Cards</Link>
             </section>
         )

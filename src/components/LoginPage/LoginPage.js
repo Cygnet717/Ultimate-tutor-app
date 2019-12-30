@@ -25,13 +25,10 @@ export default class LoginPage extends Component {
         },
       }
 
-    handleSetUserInfo =() => {
-      DeckApiService.getDecks()
-      .then(decks => {
-        this.context.updateDecks(decks)
-        
-      })
-      this.handleLoginSuccess()
+    async handleSetUserInfo() {
+      let decks = await DeckApiService.getDecks()
+      let contextSet = await this.context.updateDecks(decks)
+      this.handleLoginSuccess(contextSet)
     }
       
     handleLoginSuccess = () => {
@@ -79,6 +76,8 @@ export default class LoginPage extends Component {
                             <input type='submit' value='Login'/>
                     </fieldset>
                 </form>
+
+                
                 </>
         )
     }

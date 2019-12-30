@@ -1,10 +1,17 @@
 .deckDetails {
     border: 1px solid black;
+    justify-content: space-around;
+}
+
+.flex{
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .deckDetails >span {
+    padding: 5px;
     font-size: small;
-    border: 1px solid black;
+   
 }
 
 .searchLink{

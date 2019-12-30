@@ -15,12 +15,14 @@ export default class SearchCards extends Component {
         this.state = {
             cards: [],
             thinking: false,
+            searched: false,
             power: '',
             powerNum: '',
             toughness: '',
             toughnessNum: '',
             expanded: false,
-            visible: 'hidden'
+            visible: 'hidden',
+            exp_col: 'Expand',
         }
     }
 
@@ -46,6 +48,7 @@ export default class SearchCards extends Component {
         event.preventDefault();
         this.setState({
             thinking: true,
+            searched: true,
             cards: []
         })
         const data = new FormData(event.target);
@@ -75,11 +78,13 @@ export default class SearchCards extends Component {
             this.setState({
                 visible: 'hidden',
                 expanded: false,
+                exp_col: 'Expand',
         })
         } else {
             this.setState({
                 visible: '',
                 expanded: true,
+                exp_col: 'Collapse',
             })
         }
     }
@@ -87,9 +92,14 @@ export default class SearchCards extends Component {
     renderThinking() {return <img id='thinking' src={logo} alt='loading...'/>}
 
     render(){
-        const cardResults = this.state.cards.map((card, i) =>{
+        let cardResults = this.state.cards.map((card, i) =>{
             return <CardResults {...card} key={i}/>
         })
+
+        if(this.state.cards.length === 0 && this.state.searched){
+            cardResults = <p>No cards were found matching your criteria</p>
+        }
+
         const updatePower=(event)=>{
             this.setState({
                 power: event.target.value
@@ -185,7 +195,7 @@ export default class SearchCards extends Component {
                                 </div>
                             </div>
                         </div>
-                        <input className='collapseButton' onClick={this.expandCollapse} type='button' value='Expand'/>
+                        <input className='collapseButton' onClick={this.expandCollapse} type='button' value={this.state.exp_col}/>
                         <input className='formbutton' type='reset' value='Reset Form'/>
                         <input className='formbutton' type='submit' value='Search'/>
                     </form>
