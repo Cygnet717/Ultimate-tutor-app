@@ -10,6 +10,9 @@ export default class LandingPage extends Component {
             <p>See official rulings on cards</p>
             <p>Coming Soon: Add some basic lands to your deck and test draw your first hand</p>
             <p>SignUp and start building your decks now</p>
+            <p>Use the Demo User account to see how it works</p>
+                <p>User Name: DemoUser </p>
+                <p>Password: DemoUser1!</p>
         </div>
             </>
         )

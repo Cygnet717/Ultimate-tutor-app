@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
 import AuthApiService from '../../services/auth-api-service'
 import './RegisterPage.css'
+import thinking from '../Images/477.gif'
 
 export default class RegisterPage extends Component {
     state= {
-        error:null
+        error:null,
+        registerthinking: false,
     }
 
     static defaultProps = {
@@ -20,7 +22,10 @@ export default class RegisterPage extends Component {
 
     handleSubmitNewUser = ev => {
         ev.preventDefault()
-        this.setState({ error: null })
+        this.setState({ 
+          error: null,
+          registerthinking: true,
+         })
         const { username, password} = ev.target
         AuthApiService.postUser({
           username: username.value,
@@ -58,7 +63,7 @@ export default class RegisterPage extends Component {
                             <br/>
                             <input type='text' name='password'></input>
                             <br/>
-                            <button type='submit'>Register</button>
+                            {this.state.registerthinking?<img id='thinking' src={thinking} alt='loading...'/> : <button type='submit'>Register</button>}
                     </fieldset>
                 </form>
             </div>
