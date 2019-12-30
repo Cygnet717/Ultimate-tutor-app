@@ -63,7 +63,7 @@ export default class SingleDeckView extends Component {
     }
 
     componentDidMount() {
-        if(localStorage.user_id){
+        if(sessionStorage.user_id){
         const {deckId} = this.props.match.params
         let deckName = this.context.decks.find(deck => deck.deck_id === Number(deckId))
         this.setState({ 
@@ -87,9 +87,9 @@ export default class SingleDeckView extends Component {
     }
 
     render() {
-        if(!localStorage.user_id){
+        if(!sessionStorage.user_id){
             return (<div>
-                <h4>Oops you aren't logged in!</h4>
+                <h4>Oops you arn't logged in!</h4>
                 <Link 
                     className='homeLink'
                     to='/'>

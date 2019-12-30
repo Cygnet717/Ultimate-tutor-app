@@ -93,9 +93,9 @@ export default class SearchCards extends Component {
     renderThinking() {return <img id='thinking' src={logo} alt='loading...'/>}
 
     render(){
-        if(!localStorage.user_id){
+        if(!sessionStorage.user_id){
             return (<div>
-                <h4>Oops you aren't logged in!</h4>
+                <h4>Oops you arn't logged in!</h4>
                 <Link 
                     className='homeLink'
                     to='/'>

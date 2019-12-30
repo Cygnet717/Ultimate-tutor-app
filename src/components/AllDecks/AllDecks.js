@@ -47,7 +47,7 @@ export default class AllDecks extends Component {
     setNewDecks = (deck) => {
         this.context.addDeck(deck)
         this.setState({decks: this.context.decks})
-        window.localStorage.setItem(config.DECKS, this.context.decks)
+        window.sessionStorage.setItem(config.DECKS, this.context.decks)
     }
 
     addNewDeck = (event) => {
@@ -63,9 +63,9 @@ export default class AllDecks extends Component {
                 newDeckName:event.target.value
             })
         }
-        if(!localStorage.user_id){
+        if(!sessionStorage.user_id){
             return (<div>
-                <h4>Oops you aren't logged in!</h4>
+                <h4>Oops you arn't logged in!</h4>
                 <Link 
                     className='homeLink'
                     to='/'>
