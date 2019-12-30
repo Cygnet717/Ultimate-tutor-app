@@ -4,6 +4,7 @@ import TokenService from '../../services/token-service'
 import './LoginPage.css'
 import UserContext from '../../context/user-context'
 import DeckApiService from '../../services/deck-api-service'
+import thinking from '../Images/477.gif'
 
 
 export default class LoginPage extends Component {
@@ -14,7 +15,7 @@ export default class LoginPage extends Component {
       this.state = { 
         error: null, 
         user_id: null,
-       
+        thinking: false,
       }
     }
 
@@ -40,7 +41,10 @@ export default class LoginPage extends Component {
 
     handleSubmitJwtAuth = ev => {
         ev.preventDefault()
-        this.setState({ error: null })
+        this.setState({ 
+          error: null,
+          thinking: true,
+         })
         const { username, password} = ev.target
         AuthApiService.postLogin({
           username: username.value,
@@ -76,8 +80,8 @@ export default class LoginPage extends Component {
                             <input type='submit' value='Login'/>
                     </fieldset>
                 </form>
-
-                
+                <br/>
+                {this.state.thinking? <img id='thinking' src={thinking} alt='loading...'/>: <span></span>}
                 </>
         )
     }
