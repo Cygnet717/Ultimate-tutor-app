@@ -430,11 +430,496 @@ const rarity = [
 	"mythic"   
 ]
 
+let sets = [
+    {
+        "code": "10E",
+        "name": "Tenth Edition",
+    },
+    {
+        "code": "2ED",
+        "name": "Unlimited Edition",
+    },
+    {
+        "code": "3ED",
+        "name": "Revised Edition",
+    },
+    {
+        "code": "4BB",
+        "name": "Fourth Edition Foreign Black Border",
+    },
+    {
+        "code": "5DN",
+        "name": "Fifth Dawn",
+    },
+    {
+        "code": "5ED",
+        "name": "Fifth Edition",
+    },
+    {
+        "code": "6ED",
+        "name": "Classic Sixth Edition",
+    },
+    {
+        "code": "7ED",
+        "name": "Seventh Edition",
+    },
+    {
+        "code": "8ED",
+        "name": "Eighth Edition",
+        "type": "core",
+    },
+    {
+        "code": "9ED",
+        "name": "Ninth Edition",
+    },
+    {
+        "code": "A25",
+        "name": "Masters 25",
+    },
+    {
+        "code": "AER",
+        "name": "Aether Revolt",
+    },
+    {
+        "code": "AKH",
+        "name": "Amonkhet",
+    },
+    {
+        "code": "ALA",
+        "name": "Shards of Alara",
+    },
+    {
+        "code": "ALL",
+        "name": "Alliances",
+    },
+    {
+        "code": "APC",
+        "name": "Apocalypse",
+    },
+    {
+        "code": "ARB",
+        "name": "Alara Reborn",
+    },
+    {
+        "code": "ARN",
+        "name": "Arabian Nights",
+    },
+    {
+        "code": "ATQ",
+        "name": "Antiquities",
+    },
+    {
+        "code": "AVR",
+        "name": "Avacyn Restored",
+    },
+    {
+        "code": "BFZ",
+        "name": "Battle for Zendikar",
+    },
+    {
+        "code": "BNG",
+        "name": "Born of the Gods",
+    },
+    {
+        "code": "BOK",
+        "name": "Betrayers of Kamigawa",
+    },
+    {
+        "code": "CHK",
+        "name": "Champions of Kamigawa",
+    },
+    {
+        "code": "CHR",
+        "name": "Chronicles",
+    },
+    {
+        "code": "CON",
+        "name": "Conflux",
+    },
+    {
+        "code": "CSP",
+        "name": "Coldsnap",
+    },
+    {
+        "code": "DGM",
+        "name": "Dragon's Maze",
+    },
+    {
+        "code": "DIS",
+        "name": "Dissension",
+    },
+    {
+        "code": "DKA",
+        "name": "Dark Ascension",
+    }, 
+    {
+        "code": "DOM",
+        "name": "Dominaria",
+    },
+    {
+        "code": "DRK",
+        "name": "The Dark",
+    },
+    {
+        "code": "DST",
+        "name": "Darksteel",
+    },
+    {
+        "code": "DTK",
+        "name": "Dragons of Tarkir",
+    },
+    {
+        "code": "ELD",
+        "name": "Throne of Eldraine",
+    },
+    {
+        "code": "EMN",
+        "name": "Eldritch Moon",
+    },
+    {
+        "code": "EVE",
+        "name": "Eventide",
+    },
+    {
+        "code": "EXO",
+        "name": "Exodus",
+    },
+    {
+        "code": "FBB",
+        "name": "Foreign Black Border",
+    },
+    {
+        "code": "FEM",
+        "name": "Fallen Empires",
+    },
+    {
+        "code": "FRF",
+        "name": "Fate Reforged",
+    },
+    {
+        "code": "FUT",
+        "name": "Future Sight",
+    },
+    {
+        "code": "GPT",
+        "name": "Guildpact",
+    },
+    {
+        "code": "GRN",
+        "name": "Guilds of Ravnica",
+    },
+    {
+        "code": "GTC",
+        "name": "Gatecrash",
+    },
+    {
+        "code": "H17",
+        "name": "HasCon 2017",
+    },
+    {
+        "code": "HHO",
+        "name": "Happy Holidays",
+    },
+    {
+        "code": "HML",
+        "name": "Homelands",
+    },
+    {
+        "code": "HOP",
+        "name": "Planechase",
+    },
+    {
+        "code": "HOU",
+        "name": "Hour of Devastation",
+    },
+    {
+        "code": "HTR",
+        "name": "2016 Heroes of the Realm",
+    },
+    {
+        "code": "ICE",
+        "name": "Ice Age",
+    },
+    {
+        "code": "INV",
+        "name": "Invasion",
+    },
+    {
+        "code": "ISD",
+        "name": "Innistrad",
+    },
+    {
+        "code": "JOU",
+        "name": "Journey into Nyx",
+    },
+    {
+        "code": "JUD",
+        "name": "Judgment",
+    },
+    {
+        "code": "KLD",
+        "name": "Kaladesh",
+    },
+    {
+        "code": "KTK",
+        "name": "Khans of Tarkir",
+    },
+    {
+        "code": "LEA",
+        "name": "Limited Edition Alpha",
+    },
+    {
+        "code": "LEB",
+        "name": "Limited Edition Beta",
+    },
+    {
+        "code": "LEG",
+        "name": "Legends",
+    },
+    {
+        "code": "LGN",
+        "name": "Legions",
+    },
+    {
+        "code": "LRW",
+        "name": "Lorwyn",
+    },
+    {
+        "code": "M10",
+        "name": "Magic 2010",
+    },
+    {
+        "code": "M11",
+        "name": "Magic 2011",
+    },
+    {
+        "code": "M12",
+        "name": "Magic 2012",
+    },
+    {
+        "code": "M13",
+        "name": "Magic 2013",
+    },
+    {
+        "code": "M14",
+        "name": "Magic 2014",
+    },
+    {
+        "code": "M15",
+        "name": "Magic 2015",
+    },
+    {
+        "code": "M19",
+        "name": "Core Set 2019",
+    },
+    {
+        "code": "M20",
+        "name": "Core Set 2020",
+    },
+    {
+        "code": "MBS",
+        "name": "Mirrodin Besieged",
+    },
+    {
+        "code": "MIR",
+        "name": "Mirage",
+    },
+    {
+        "code": "MMQ",
+        "name": "Mercadian Masques",
+    },
+    {
+        "code": "MOR",
+        "name": "Morningtide",
+    },
+    {
+        "code": "MRD",
+        "name": "Mirrodin",
+    },
+    {
+        "code": "NEM",
+        "name": "Nemesis",
+    },
+    {
+        "code": "NPH",
+        "name": "New Phyrexia",
+    },
+    {
+        "code": "ODY",
+        "name": "Odyssey", 
+    },
+    {
+        "code": "OGW",
+        "name": "Oath of the Gatewatch",
+    },
+    {
+        "code": "ONS",
+        "name": "Onslaught",
+    },
+    {
+        "code": "ORI",
+        "name": "Magic Origins",
+    },
+    {
+        "code": "PCY",
+        "name": "Prophecy",
+    },
+    {
+        "code": "PLC",
+        "name": "Planar Chaos",
+    },
+    {
+        "code": "PLS",
+        "name": "Planeshift",
+    },
+    {
+        "code": "PTG",
+        "name": "Ponies: The Galloping",
+    },
+    {
+        "code": "PVAN",
+        "name": "Vanguard Series",
+    },
+    {
+        "code": "RAV",
+        "name": "Ravnica: City of Guilds",
+    },
+    {
+        "code": "RIX",
+        "name": "Rivals of Ixalan",
+    },
+    {
+        "code": "RNA",
+        "name": "Ravnica Allegiance",
+    },
+    {
+        "code": "ROE",
+        "name": "Rise of the Eldrazi",
+    },
+    {
+        "code": "RTR",
+        "name": "Return to Ravnica",
+    },
+    {
+        "code": "SCG",
+        "name": "Scourge",
+    },
+    {
+        "code": "SHM",
+        "name": "Shadowmoor",
+    },
+    {
+        "code": "SOI",
+        "name": "Shadows over Innistrad",
+    },
+    {
+        "code": "SOK",
+        "name": "Saviors of Kamigawa",
+    },
+    {
+        "code": "SOM",
+        "name": "Scars of Mirrodin",
+    },
+    {
+        "code": "SS1",
+        "name": "Signature Spellbook: Jace",
+    },
+    {
+        "code": "SS2",
+        "name": "Signature Spellbook: Gideon",
+    },
+    {
+        "code": "STH",
+        "name": "Stronghold",
+    },
+    {
+        "code": "SUM",
+        "name": "Summer Magic / Edgar",
+    },
+    {
+        "code": "TD2",
+        "name": "Duel Decks: Mirrodin Pure vs. New Phyrexia",
+    },
+    {
+        "code": "THS",
+        "name": "Theros",
+    },
+    {
+        "code": "TMP",
+        "name": "Tempest",
+    },
+    {
+        "code": "TOR",
+        "name": "Torment",
+    },
+    {
+        "code": "TSB",
+        "name": "Time Spiral Timeshifted",
+    },
+    {
+        "code": "TSP",
+        "name": "Time Spiral",
+    },
+    {
+        "code": "UDS",
+        "name": "Urza's Destiny",
+    },
+    {
+        "code": "UGL",
+        "name": "Unglued",
+    },
+    {
+        "code": "ULG",
+        "name": "Urza's Legacy",
+    },
+    {
+        "code": "UMA",
+        "name": "Ultimate Masters",
+    },
+    {
+        "code": "UNH",
+        "name": "Unhinged",
+    },
+    {
+        "code": "USG",
+        "name": "Urza's Saga",
+    },
+    {
+        "code": "UST",
+        "name": "Unstable",
+    },
+    {
+        "code": "VIS",
+        "name": "Visions",
+    },
+    {
+        "code": "WAR",
+        "name": "War of the Spark",
+    },
+    {
+        "code": "WTH",
+        "name": "Weatherlight",
+
+    },
+    {
+        "code": "WWK",
+        "name": "Worldwake",
+    },
+    {
+        "code": "XLN",
+        "name": "Ixalan",
+    },
+    {
+        "code": "ZEN",
+        "name": "Zendikar",
+    }
+]
+
+
 export default {
     types,
     supertypes,
     subtypes,
     rarity,
+    sets,
 }
-
-

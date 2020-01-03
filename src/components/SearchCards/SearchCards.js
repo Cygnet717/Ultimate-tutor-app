@@ -17,10 +17,9 @@ export default class SearchCards extends Component {
             cards: [],
             thinking: false,
             searched: false,
-            power: '',
-            powerNum: '',
-            toughness: '',
-            toughnessNum: '',
+            text: [],
+            power: 'P',
+            toughness: 'T',
             expanded: false,
             visible: 'hidden',
             exp_col: 'Expand',
@@ -54,12 +53,17 @@ export default class SearchCards extends Component {
         })
         const data = new FormData(event.target);
         let string ='';
-        let params = ['name', 'types', 'supertypes', 'subtypes', 'rarity']
+        let params = ['name', 'types', 'supertypes', 'subtypes', 'rarity', 'sets']
         params.map(i=>{
             if(data.get(i)){
                 string = string.concat(i+'='+data.get(i)+'&')
             }
+            return string
         })
+
+        if(this.state.text.length !== 0){
+            string = string.concat('text='+this.state.text+'&')
+        }
         if(this.state.power){
             string = string.concat('power='+this.state.power+'&')
         }
@@ -69,9 +73,9 @@ export default class SearchCards extends Component {
         if(data.get('colorIdentity')){
             string = string.concat('colorIdentity='+data.getAll('colorIdentity')+'&')
         }
-        
-        MTGCardSearchService.getSearchResults(string)
-        .then(res => this.setValidCards(res))
+        console.log(string)
+        //MTGCardSearchService.getSearchResults(string)
+        //.then(res => this.setValidCards(res))
     }
 
     expandCollapse = () => {
@@ -92,7 +96,21 @@ export default class SearchCards extends Component {
 
     renderThinking() {return <img id='thinking' src={logo} alt='loading...'/>}
 
+    handleAddText = () => {
+        this.setState({
+            text: this.state.text.concat(document.getElementById("text").value)
+        })
+        document.getElementById("text").value = ''
+    }
+
+    clearTextState=()=> {
+        this.setState({text: []})
+    }
+
+    
+    
     render(){
+        
         if(!sessionStorage.user_id){
             return (<div>
                 <h4>Oops you arn't logged in!</h4>
@@ -112,34 +130,44 @@ export default class SearchCards extends Component {
             cardResults = <p>No cards were found matching your criteria</p>
         }
 
-        const updatePower=(event)=>{
+        const updatePowerNum=(event)=>{
+            if(document.getElementById('powerNum').value 
+                !== event.target.value){
+                document.getElementById('powerNum').value = ''
+            }
             this.setState({
                 power: event.target.value
             })
         }
-        const updatePowerNum=(event)=>{
-            this.setState({
-                powerNum: event.target.value
-            })
-        }
-        const updateToughness=(event)=>{
+        const updateToughnessNum=(event)=>{
+            if(document.getElementById('toughnessNum').value 
+                !== event.target.value){
+                document.getElementById('toughnessNum').value = ''
+            }
             this.setState({
                 toughness: event.target.value
             })
         }
-        const updateToughnessNum=(event)=>{
-            this.setState({
-                toughnessNum: event.target.value
-            })
-        }
+
+        
         return(
             <div>
                 <section>
                     <form id='SearchForm' name='SearchForm' onSubmit={this.handleSubmit}>
                         <legend>Search for cards</legend>
-                        <input className='formbutton' type='reset' value='Reset Form'/>
+                        <input className='formbutton' type='reset' value='Reset Form' onClick={this.clearTextState}/>
                         <label htmlFor='cardName' className='searchLabel'>Card Name: </label> 
                             <input id='cardName' type='text' className='selectStyle' name='name' placeholder='Black Lotus'/>
+                        
+                        <label>Exact text</label>
+                            <input id='text' type='text' className='selectStyle' name='text' placeholder='hexproof'/>
+                            <input type='button' value='Add' onClick={this.handleAddText}/>
+                            <input type='button' value='Clear' onClick={this.clearTextState}/>
+                            {<ul>Searching for:
+                            {this.state.text.map((t, i)=>{
+                            return <li key={i}>{t}</li>
+                            })}
+                            </ul>}
 
                         <label htmlFor='colorIdentity'>Color Identity:</label> 
                         <div className='colorCheckboxes'>
@@ -149,6 +177,7 @@ export default class SearchCards extends Component {
                             <input id='colorIdentityBlack' type='checkbox' name='colorIdentity'value='b'/>Black
                             <input id='colorIdentityBlue' type='checkbox' name='colorIdentity' value='u'/>Blue
                         </div>
+
                         <label htmlFor='types' className='searchLabel'>Card Type: </label> 
                         <select name='types' id='types' className='selectStyle' defaultValue={'default'}>
                             <option disabled hidden value='default'>Select</option>
@@ -158,6 +187,15 @@ export default class SearchCards extends Component {
                         </select>
 
                         <div className={`collapseSearch ${this.state.visible}`}>
+
+                            <label htmlFor='sets' className='searchLabel'>Set:</label>
+                            <input type='text' list='sets' className='selectStyle' name='sets'/>
+                            <datalist id='sets' >
+                            {paramOptions.sets.map(i => {
+                                return <option id='sets' key={i.code} name={i.code} value={i.code}>{i.name}</option>
+                                })}
+                            </datalist>
+
                             <label htmlFor='supertypes' className='searchLabel'>Supertype:</label>
                             <select name='supertypes' id='supertypes' className='selectStyle' defaultValue={'default'}>
                                 <option disabled hidden value='default'>Select</option>
@@ -182,33 +220,39 @@ export default class SearchCards extends Component {
                                     })}
                             </select>
 
-                            <label htmlFor='power' className='searchLabel'>Power:</label>
                             <div className='p_t'>
-                                <div>
-                                    <input type='radio' onChange={updatePower} id='power' value='*' name='power'/>
-                                    <span className='variablep_t'>*</span>
+                                <div className='inputs'>
+                                    <div className='powerInput'>
+                                        <div className='black'>
+                                            <label htmlFor='power' className='searchLabelPT'>Power:</label>
+                                        </div>
+                                        <div className='options'>
+                                            <input type='button' value='*' className='variablePTbutton' onClick={updatePowerNum} />
+                                            <div>
+                                                <input type='number' className='numInput' onChange={updatePowerNum} id='powerNum' name='powerNum'/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className='toughnessInput'>
+                                        <div className='black'>
+                                            <label htmlFor='toughness' className='searchLabelPT'>Toughness:</label>
+                                        </div>
+                                        <div className='options'>
+                                            <input type='button' value='*' className='variablePTbutton' onClick={updateToughnessNum} />
+                                            <div>
+                                                <input type='number' className='numInput' onChange={updateToughnessNum} id='toughnessNum' name='toughnessNum'/>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <br/>
-                                <div>
-                                    <input type='radio' name='power' onChange={updatePower} value={this.state.powerNum}/>
-                                    <input type='number'  onChange={updatePowerNum} id='powerNum' name='powerNum'/>
-                                </div>
-                            </div>
-                            <label htmlFor='toughness' className='searchLabel'>Toughness:</label>
-                            <div className='p_t'>
-                                <div>
-                                    <input type='radio' onChange={updateToughness} id='toughness' value='*' name='toughness'/>
-                                    <span className='variablep_t'>*</span>
-                                </div>
-                                <br/>
-                                <div>
-                                    <input type='radio' id='toughnessRadio' name='toughness' onChange={updateToughness} value={this.state.toughnessNum}/>
-                                    <input type='number'  onChange={updateToughnessNum} id='toughnessNum' name='toughnessNum'/>
+                                <div className='p_tdisplay'>
+                                    <span>{this.state.power}/{this.state.toughness}</span>
                                 </div>
                             </div>
                         </div>
                         <input className='collapseButton' onClick={this.expandCollapse} type='button' value={this.state.exp_col}/>
-                        <input className='formbutton' type='reset' value='Reset Form'/>
+                        <input className='formbutton' type='reset' value='Reset Form' onClick={this.clearTextState}/>
                         <input className='formbutton' type='submit' value='Search'/>
                     </form>
                 </section>
