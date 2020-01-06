@@ -53,29 +53,31 @@ export default class SearchCards extends Component {
         })
         const data = new FormData(event.target);
         let string ='';
-        let params = ['name', 'types', 'supertypes', 'subtypes', 'rarity', 'sets']
+        let params = ['name', 'types', 'supertypes', 'subtypes', 'rarity']
         params.map(i=>{
             if(data.get(i)){
                 string = string.concat(i+'='+data.get(i)+'&')
             }
             return string
         })
-
+        if(data.get('sets')){
+            let selectedSet = paramOptions.sets.find(set => set.name === data.get('sets'))
+            string = string.concat('sets='+ selectedSet.code+'&')
+        }
         if(this.state.text.length !== 0){
             string = string.concat('text='+this.state.text+'&')
         }
-        if(this.state.power){
+        if(this.state.power !== 'P'){
             string = string.concat('power='+this.state.power+'&')
         }
-        if(this.state.toughness){
+        if(this.state.toughness !== 'T'){
             string = string.concat('toughness='+this.state.toughness+'&')
         }
         if(data.get('colorIdentity')){
             string = string.concat('colorIdentity='+data.getAll('colorIdentity')+'&')
         }
-        console.log(string)
-        //MTGCardSearchService.getSearchResults(string)
-        //.then(res => this.setValidCards(res))
+        MTGCardSearchService.getSearchResults(string)
+        .then(res => this.setValidCards(res))
     }
 
     expandCollapse = () => {
@@ -192,7 +194,7 @@ export default class SearchCards extends Component {
                             <input type='text' list='sets' className='selectStyle' name='sets'/>
                             <datalist id='sets' >
                             {paramOptions.sets.map(i => {
-                                return <option id='sets' key={i.code} name={i.code} value={i.code}>{i.name}</option>
+                                return <option id='setoption' key={i.code} name={i.code} value={i.name}>{i.name}</option>
                                 })}
                             </datalist>
 
