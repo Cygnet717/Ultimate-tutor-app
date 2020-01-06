@@ -2,7 +2,7 @@ import config from '../config'
 
 const MTGCardSearchService = {
     getSearchResults(parameters) {
-        return fetch(config.API_MTGCards+'cards?'+parameters+'pageSize=50',{
+        return fetch(config.API_MTGCards+'cards?'+parameters,{
             method: "GET",
             mode: 'cors',
             handlers: {

@@ -115,6 +115,14 @@ form input[type='number']{
     display: none;
 }
 
+.moreoption {
+    border: none;
+    background: black;
+    color: white;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
 @media screen and (min-width: 500px){
     #SearchForm,  .collapseSearch{
         width: 500px;

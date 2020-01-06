@@ -23,6 +23,8 @@ export default class SearchCards extends Component {
             expanded: false,
             visible: 'hidden',
             exp_col: 'Expand',
+            string: '',
+            count: 1,
         }
     }
 
@@ -38,10 +40,10 @@ export default class SearchCards extends Component {
             i.imageUrl !== undefined
         )
         this.setState({
-            cards: validCards,
+            cards: this.state.cards.concat(validCards),
             thinking: false
         })
-        this.executeScroll()
+        if(this.state.count === 1){this.executeScroll()}
     }
 
     handleSubmit=(event)=>{
@@ -76,7 +78,21 @@ export default class SearchCards extends Component {
         if(data.get('colorIdentity')){
             string = string.concat('colorIdentity='+data.getAll('colorIdentity')+'&')
         }
+        this.setState({ 
+            string,
+            count: 1,
+        })
         MTGCardSearchService.getSearchResults(string)
+        .then(res => this.setValidCards(res))
+    }
+
+    searchMore =()=>{
+        this.setState({ 
+            count: this.state.count+1,
+            thinking: true,
+         });
+        let moreString = this.state.string + 'page='+(this.state.count+1);
+        MTGCardSearchService.getSearchResults(moreString)
         .then(res => this.setValidCards(res))
     }
 
@@ -97,6 +113,17 @@ export default class SearchCards extends Component {
     }
 
     renderThinking() {return <img id='thinking' src={logo} alt='loading...'/>}
+
+    moreButon() {
+        if(this.state.thinking){
+            return <img id='thinking' src={logo} alt='loading...'/>
+        } else {
+            return (<div>
+                <button className='moreoption' onClick={this.searchMore}>More Results</button>
+                <button>New Search</button>
+                </div>)
+        }
+    }
 
     handleAddText = () => {
         this.setState({
@@ -263,8 +290,9 @@ export default class SearchCards extends Component {
                 </div>
                 <br/>
                 <div className='cardsDisplay'>
-                {this.state.thinking ? this.renderThinking() : cardResults}
+                {this.state.thinking && this.state.count === 1? this.renderThinking() : cardResults}
                 </div>
+                {this.state.cards.length === 0 ?<div/>: this.moreButon()}
             </div>
         )
     }
