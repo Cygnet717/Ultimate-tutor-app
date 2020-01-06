@@ -4,7 +4,7 @@ import TokenService from '../../services/token-service'
 import './LoginPage.css'
 import UserContext from '../../context/user-context'
 import DeckApiService from '../../services/deck-api-service'
-import thinking from '../Images/477.gif'
+import thinking from '../Images/731.gif'
 
 
 export default class LoginPage extends Component {

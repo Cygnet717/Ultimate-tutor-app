@@ -24,6 +24,10 @@
   p {
     font-size: small;
   }
+
+  #decklist{
+    width: 90%;
+  }
   
   section {
     min-height: 200px;

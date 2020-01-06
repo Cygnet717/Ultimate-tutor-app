@@ -72,7 +72,7 @@ export default class CardResults extends Component{
                 id={this.props.multiverseid} 
                 onSubmit={this.addCardToDeck}
                 >
-                    <select name='decklist' form='decklist' value={this.state.selectedDeck} onChange={this.handleDeckChange}>
+                    <select name='decklist' id='decklist' form='decklist' value={this.state.selectedDeck} onChange={this.handleDeckChange}>
                         <option value='none'>Pick a deck</option>
                         {this.context.decks.map(deck =>
                             <option type='select' name='deck' key={deck.deck_id} value={deck.deck_id}>{deck.deck_name}</option>

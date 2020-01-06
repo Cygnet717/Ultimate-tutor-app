@@ -104,7 +104,7 @@ export default class SingleDeckView extends Component {
             <div className={`deckDetails ${this.state.hidden}`}>
                 <span>Total:<br/> {this.state.deckList.length} </span>
                 <span>Creatures:<br/> {this.state.Creature} </span>
-                <span>Instants:<br/> {this.state.Instant} </span><br/>
+                <span>Instants:<br/> {this.state.Instant} </span>
                 <span>Enchantments:<br/> {this.state.Enchantment}</span>
                 <span>Sorceries:<br/> {this.state.Sorcery}</span>
                 <span>Lands:<br/>{this.state.Land}</span>

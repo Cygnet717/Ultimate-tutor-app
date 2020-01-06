@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import AuthApiService from '../../services/auth-api-service'
 import './RegisterPage.css'
-import thinking from '../Images/477.gif'
+import thinking from '../Images/731.gif'
 
 export default class RegisterPage extends Component {
     state= {

@@ -76,8 +76,10 @@ export default class AllDecks extends Component {
         return(
             <>
             <h3>My Decks</h3>
+            <div className='listOfDecks'>
                 {this.renderDecks()}
                 <br/>
+            </div>
                 <form onSubmit={this.addNewDeck}>
                     <legend>Start a new deck</legend>
                     <label>Deck Name: </label>
