@@ -15,6 +15,7 @@ export default class CardResults extends Component{
         this.state = {
             classNames: "modal",
             selectedDeck: 0,
+            buttonAbility: true,
             added: false,
             addedCard: '',
             addedToDeck: ''
@@ -52,7 +53,10 @@ export default class CardResults extends Component{
 
     handleDeckChange=(event)=>{
         event.preventDefault();
-        this.setState({selectedDeck: event.target.value})
+        this.setState({
+            selectedDeck: event.target.value,
+            buttonAbility: false,
+        })
     };
 
     render(){
@@ -75,7 +79,7 @@ export default class CardResults extends Component{
                             )}   
                     </select>
                     <br/>
-                    <input type='submit' value='Add to deck'/>
+                    <input className='addToDeckButton' type='submit' value='Add to deck' disabled={this.state.buttonAbility}/>
                 </form>
 
                 <div className='addedConfirmation'>
