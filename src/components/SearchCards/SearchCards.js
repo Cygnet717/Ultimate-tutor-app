@@ -25,13 +25,21 @@ export default class SearchCards extends Component {
             exp_col: 'Expand',
             string: '',
             count: 1,
+            lastResults: false,
         }
     }
 
     executeScroll= () => {
         window.scrollTo({
-            top: 600,
+            top: 680,
             behavior: 'smooth'
+        })
+    }
+
+    scrollUp =()=>{
+        window.scrollTo({
+            top: 0,
+            behavior: 'auto'
         })
     }
 
@@ -81,9 +89,9 @@ export default class SearchCards extends Component {
         this.setState({ 
             string,
             count: 1,
+            lastResults: false,
         })
-        MTGCardSearchService.getSearchResults(string)
-        .then(res => this.setValidCards(res))
+       this.sendFetch(string)
     }
 
     searchMore =()=>{
@@ -92,8 +100,27 @@ export default class SearchCards extends Component {
             thinking: true,
          });
         let moreString = this.state.string + 'page='+(this.state.count+1);
-        MTGCardSearchService.getSearchResults(moreString)
-        .then(res => this.setValidCards(res))
+        this.sendFetch(moreString)
+    }
+
+    sendFetch = (parameters) => {
+        MTGCardSearchService.getSearchResults(parameters)
+        .then(res =>{
+            if(res.cards.length === 0){
+                console.log('nutten')
+                this.setState({ 
+                    lastResults: true,
+                    thinking: false 
+                })
+            } else if(res.cards.length < 100){
+                console.log('somemore but thats it')
+                this.setState({ lastResults: true});
+                this.setValidCards(res)
+            } else {
+                console.log('not last results')
+                this.setValidCards(res)
+            }
+        })
     }
 
     expandCollapse = () => {
@@ -117,10 +144,15 @@ export default class SearchCards extends Component {
     moreButon() {
         if(this.state.thinking){
             return <img id='thinking' src={logo} alt='loading...'/>
+        } else if(this.state.lastResults){
+            return (<div>
+                <span>No more cards match your criteria</span>
+                <button className='moreoption'>New Search</button>
+                </div>)
         } else {
             return (<div>
                 <button className='moreoption' onClick={this.searchMore}>More Results</button>
-                <button>New Search</button>
+                <button className='moreoption' onClick={this.scrollUp}>New Search</button>
                 </div>)
         }
     }
