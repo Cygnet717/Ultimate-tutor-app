@@ -22,24 +22,24 @@ export default class CardResults extends Component{
     }
     
     closeUp = () => {
-        this.setState({ classNames: 'showmodal'})
-    }
+        this.setState({ classNames: 'showmodal'});
+    };
 
     removeCloseUp = () => {
-        this.setState({ classNames: 'modal'})
-    }
+        this.setState({ classNames: 'modal'});
+    };
 
     revealConfirmation = (card) => {
-        let thisDeck = this.context.decks.find(deck => Number(card.deck_id) === deck.deck_id)
+        let thisDeck = this.context.decks.find(deck => Number(card.deck_id) === deck.deck_id);
         this.setState({
             added: true,
             addedCard: card.card_name,
             addedToDeck: thisDeck.deck_name
-        })
-    }
+        });
+    };
 
     addCardToDeck=(event)=>{
-        event.preventDefault()
+        event.preventDefault();
         SingleDeckApiService.postNewCard(
             this.props.name, 
             this.props.imageUrl, 
@@ -48,12 +48,12 @@ export default class CardResults extends Component{
             this.props.types[this.props.types.length -1],
             )
         .then(res=> this.revealConfirmation(res))
-    }
+    };
 
     handleDeckChange=(event)=>{
-        event.preventDefault()
+        event.preventDefault();
         this.setState({selectedDeck: event.target.value})
-    }
+    };
 
     render(){
         const cardRulings = this.props.rulings.map((ruling, i) =>{

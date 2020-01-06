@@ -61,7 +61,7 @@ export default class RegisterPage extends Component {
                             <br/>
                             <span className='criteria'>*Must be 8 characters long and inclue Capital, number, and one of #?!@$%^&*-</span>
                             <br/>
-                            <input type='text' name='password'></input>
+                            <input type='password' name='password'></input>
                             <br/>
                             {this.state.registerthinking?<img id='thinking' src={thinking} alt='loading...'/> : <button type='submit'>Register</button>}
                     </fieldset>

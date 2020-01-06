@@ -1,3 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`App rendering rendeers the CardResults as expected 1`] = `null`;
+
+exports[`App rendering rendeers the CardResults as expected 2`] = `null`;
+
+exports[`App rendering rendeers the CardResults as expected 3`] = `null`;
+
+exports[`App rendering rendeers the Header as expected 1`] = `null`;
+
+exports[`App rendering rendeers the LandingPage as expected 1`] = `null`;
+
+exports[`App rendering rendeers the LoginPage as expected 1`] = `null`;
+
+exports[`App rendering rendeers the RegisterPage as expected 1`] = `null`;
+
+exports[`App rendering rendeers the SearchCards as expected 1`] = `null`;
+
+exports[`App rendering rendeers the SingleDeckView as expected 1`] = `null`;
+
 exports[`App rendering rendeers the UI as expected 1`] = `null`;
+
+exports[`App rendering rendeers the allDecks as expected 1`] = `null`;
+
+exports[`App rendering renders the CardResults as expected 1`] = `null`;
+
+exports[`App rendering renders the Header as expected 1`] = `null`;
+
+exports[`App rendering renders the LandingPage as expected 1`] = `null`;
+
+exports[`App rendering renders the LoginPage as expected 1`] = `null`;
+
+exports[`App rendering renders the RegisterPage as expected 1`] = `null`;
+
+exports[`App rendering renders the SearchCards as expected 1`] = `null`;
+
+exports[`App rendering renders the SingleDeckView as expected 1`] = `null`;
+
+exports[`App rendering renders the UI as expected 1`] = `null`;
+
+exports[`App rendering renders the allDecks as expected 1`] = `null`;
