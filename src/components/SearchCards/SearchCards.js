@@ -107,17 +107,14 @@ export default class SearchCards extends Component {
         MTGCardSearchService.getSearchResults(parameters)
         .then(res =>{
             if(res.cards.length === 0){
-                console.log('nutten')
                 this.setState({ 
                     lastResults: true,
                     thinking: false 
                 })
             } else if(res.cards.length < 100){
-                console.log('somemore but thats it')
                 this.setState({ lastResults: true});
                 this.setValidCards(res)
             } else {
-                console.log('not last results')
                 this.setValidCards(res)
             }
         })
@@ -168,10 +165,15 @@ export default class SearchCards extends Component {
         this.setState({text: []})
     }
 
-    
+   keyPressed=(event)=>{
+       if(event.key === 'Enter'){
+           event.preventDefault()
+        this.handleAddText()
+       }
+       
+   }
     
     render(){
-        
         if(!sessionStorage.user_id){
             return (<div>
                 <h4>Oops you arn't logged in!</h4>
@@ -220,23 +222,28 @@ export default class SearchCards extends Component {
                         <label htmlFor='cardName' className='searchLabel'>Card Name: </label> 
                             <input id='cardName' type='text' className='selectStyle' name='name' placeholder='Black Lotus'/>
                         
-                        <label>Exact text</label>
-                            <input id='text' type='text' className='selectStyle' name='text' placeholder='hexproof'/>
-                            <input type='button' value='Add' onClick={this.handleAddText}/>
-                            <input type='button' value='Clear' onClick={this.clearTextState}/>
-                            {<ul>Searching for:
-                            {this.state.text.map((t, i)=>{
-                            return <li key={i}>{t}</li>
-                            })}
-                            </ul>}
+                        <label className='searchLabel'>Exact text</label>
+                            <input id='text' type='text' className='selectStyle' name='text' onKeyPress={this.keyPressed} placeholder='hexproof'/>
+                            <div className='exactTextButtons'>
+                                <input type='button' className='button' value='Clear' onClick={this.clearTextState}/>
+                                <input type='button' className='button' value='Add'  onClick={this.handleAddText}/>
+                            </div>
+                            <div>
+                                <label>Searching for:</label>
+                                {<ul className='textList'>
+                                {this.state.text.map((t, i)=>{
+                                return <li className='textListItem' key={i}>{t}</li>
+                                })}
+                                </ul>}
+                            </div>
 
-                        <label htmlFor='colorIdentity'>Color Identity:</label> 
+                        <label htmlFor='colorIdentity' className='searchLabel'>Color Identity:</label> 
                         <div className='colorCheckboxes'>
+                            <input id='colorIdentityWhite' type='checkbox' name='colorIdentity' value='w'/>White
+                            <input id='colorIdentityBlue' type='checkbox' name='colorIdentity' value='u'/>Blue
+                            <input id='colorIdentityBlack' type='checkbox' name='colorIdentity'value='b'/>Black
                             <input id='colorIdentityRed' type='checkbox' name='colorIdentity' value='r'/>Red
                             <input id='colorIdentityGreen' type='checkbox' name='colorIdentity' value='g'/>Green
-                            <input id='colorIdentityWhite' type='checkbox' name='colorIdentity' value='w'/>White
-                            <input id='colorIdentityBlack' type='checkbox' name='colorIdentity'value='b'/>Black
-                            <input id='colorIdentityBlue' type='checkbox' name='colorIdentity' value='u'/>Blue
                         </div>
 
                         <label htmlFor='types' className='searchLabel'>Card Type: </label> 
@@ -312,9 +319,11 @@ export default class SearchCards extends Component {
                                 </div>
                             </div>
                         </div>
-                        <input className='collapseButton' onClick={this.expandCollapse} type='button' value={this.state.exp_col}/>
-                        <input className='formbutton' type='reset' value='Reset Form' onClick={this.clearTextState}/>
-                        <input className='formbutton' type='submit' value='Search'/>
+                        <div>
+                            <input className='collapseButton' className='button' onClick={this.expandCollapse} type='button' value={this.state.exp_col}/>
+                            <input className='formbutton' className='button' type='reset' value='Reset Form' onClick={this.clearTextState}/>
+                            <input className='formbutton' className='button' type='submit' value='Search'/>
+                        </div>
                     </form>
                 </section>
                 <div className='resultsSection'>

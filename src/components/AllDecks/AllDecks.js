@@ -27,8 +27,6 @@ export default class AllDecks extends Component {
 
     renderDecks() {
         const {decks = []} = this.context
-        
-        
         return decks.map(deck =>
             <div className='deck' key={deck.deck_id}>
                     <Link className='deckLink' to={`/deck/${deck.deck_id}`}>{deck.deck_name}</Link>
