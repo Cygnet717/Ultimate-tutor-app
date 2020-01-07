@@ -30,7 +30,7 @@ export default class AllDecks extends Component {
         return decks.map(deck =>
             <div className='deck' key={deck.deck_id}>
                     <Link className='deckLink' to={`/deck/${deck.deck_id}`}>{deck.deck_name}</Link>
-                    <button onClick={e => this.deleteDeck(e, deck.deck_id)}>Delete deck</button>
+                    <button className='button deletedeck' onClick={e => this.deleteDeck(e, deck.deck_id)}>Delete deck</button>
                 </div>
             )
     }
@@ -82,7 +82,7 @@ export default class AllDecks extends Component {
                     <legend>Start a new deck</legend>
                     <label>Deck Name: </label>
                     <input type='text' name='deck_name' value={this.state.newDeckName} onChange={handleChange}></input>
-                    <input type='submit' value='Go'/>
+                    <input type='submit' className='button go' value='Go'/>
                 </form>
                 
             </>
