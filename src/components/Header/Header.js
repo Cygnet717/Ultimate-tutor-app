@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import TokenService from '../../services/token-service'
 import UserContext from '../../context/user-context'
 import './Header.css'
+import logo from '../Images/SBBLogo.png'
 
 export default class Header extends Component {
   static contextType = UserContext;
@@ -56,15 +57,13 @@ export default class Header extends Component {
     render() {
         return <>
         <nav className='header'>
-            <h1>
                 <Link 
-                    className='navLink'
+                    className='navLink logo'
                     to='/'>
-                    Ultimate Tutor
+                   <img className='utlogo' src={logo} alt='UT logo'/>
                 </Link>
-            </h1>
             <div className='headerbottom'>
-              <img className='utlogo' src='UTlogo.png' alt='UT logo'/>
+              
               {this.context.user_id?this.renderLogoutLink() :this.renderLoginLink()}
             </div>
         </nav>
