@@ -1,6 +1,18 @@
+.deckName{
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    width:fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+}
+
 .deckDetails {
     border: 1px solid black;
-    justify-content: space-around;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    font-size: medium;
 }
 
 .flex{

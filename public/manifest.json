@@ -3,17 +3,17 @@
   "name": "Ultimate Tutor",
   "icons": [
     {
-      "src": "UTlogo.png",
+      "src": "SmallBBLogo.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "UTlogo.png",
+      "src": "SmallBBLogo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "UTlogo.png",
+      "src": "SmallBBLogo.png",
       "type": "image/png",
       "sizes": "512x512"
     }

@@ -30,7 +30,10 @@ export default class AllDecks extends Component {
         return decks.map(deck =>
             <div className='deck' key={deck.deck_id}>
                     <Link className='deckLink' to={`/deck/${deck.deck_id}`}>{deck.deck_name}</Link>
-                    <button className='button deletedeck' onClick={e => this.deleteDeck(e, deck.deck_id)}>Delete deck</button>
+                    <div className='deckButtons'>
+                        <Link to='/SearchCards'><button className='button addcards'>Add Cards</button></Link>
+                        <button className='button deletedeck' onClick={e => this.deleteDeck(e, deck.deck_id)}>Delete deck</button>
+                    </div>
                 </div>
             )
     }

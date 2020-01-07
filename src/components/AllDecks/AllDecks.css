@@ -1,5 +1,17 @@
 .deletedeck {
   height: 35px;
+  width: 100%;
+}
+
+.deckButtons{
+    width: 95px;
+
+}
+
+.addcards{
+    
+    margin-bottom: 5px;
+    width: 100%;
 }
 
 .go{
@@ -17,9 +29,11 @@
 }
 
 .deckLink {
-    padding: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: white;
-    max-width: 185px;
+    width: 185px;
 }
 
 .listOfDecks {
@@ -35,4 +49,10 @@
 .homeLink {
     border: 2px solid black;
     padding: 5px;
+}
+
+@media screen and (max-width:357px){
+    .deletedeck {
+        height: fit-content;
+      }
 }

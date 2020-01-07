@@ -23,13 +23,9 @@ export default class SingleDeckView extends Component {
             Enchantment: 0,
             Land: 0,
             Planeswalker: 0,
-            hidden: 'hidden',
-            buttonClass: '',
             listview: 'Card View',
         }
     }
-
-    
 
     countType(currenttype){
         let obj = {}
@@ -44,8 +40,6 @@ export default class SingleDeckView extends Component {
     }
 
     sortByType=()=> {
-        this.setState({hidden: 'flex',
-            buttonClass: 'hidden'})
         let types = ['Creature', 'Sorcery', 'Instant', 'Enchantment', 'Land', 'Planeswalker']
         types.map(currentType => 
             this.countType(currentType)
@@ -58,8 +52,6 @@ export default class SingleDeckView extends Component {
         } else {
             this.setState({listview: 'Card View'})
         }
-        
-
     }
 
     componentDidMount() {
@@ -71,9 +63,12 @@ export default class SingleDeckView extends Component {
             deckName: deckName.deck_name,
         })
         SingleDeckApiService.getDeckList(deckId)
-            .then(cards => this.setState({
+            .then(cards => {this.setState({
                 deckList: cards,
-            }))
+            });
+            this.sortByType()
+            }
+            )
             }
     }
 
@@ -97,41 +92,43 @@ export default class SingleDeckView extends Component {
                 </Link>
                 </div>)
         }
+        
         return(
             <section>
-            <h2>{this.state.deckName}</h2>
-            <button type='button' className={`viewButton ${this.state.buttonClass}`} onClick={this.sortByType}>View Deck Tally</button>
-            <div className={`deckDetails ${this.state.hidden}`}>
-                <span>Total:<br/> {this.state.deckList.length} </span>
-                <span>Creatures:<br/> {this.state.Creature} </span>
-                <span>Instants:<br/> {this.state.Instant} </span>
-                <span>Enchantments:<br/> {this.state.Enchantment}</span>
-                <span>Sorceries:<br/> {this.state.Sorcery}</span>
-                <span>Lands:<br/>{this.state.Land}</span>
-                <span>Planeswalkers: <br/>{this.state.Planeswalker}</span>
+            <h2 className='deckName'>{this.state.deckName}</h2>
+            <div className='deckDetails'>
+                <div>Total: {this.state.deckList.length} </div>
+                <div>Creatures: {this.state.Creature} </div>
+                <div>Instants: {this.state.Instant} </div>
+                <div>Enchantments: {this.state.Enchantment}</div>
+                <div>Sorceries: {this.state.Sorcery}</div>
+                <div>Lands: {this.state.Land}</div>
+                <div>Planeswalkers: {this.state.Planeswalker}</div>
             </div>
-    <button type='button' className='listview button' onClick={this.listCardView}>{this.state.listview}</button>
+            <button type='button' className='listview button' onClick={this.listCardView}>{this.state.listview}</button>
             <br/>
-            {this.state.listview === 'Card View'?
-             <div className='cardsListDisplay'>
-                 {this.state.deckList.map(card =>
-                    <div key={card.card_id}>
-                        <p>{card.card_name}</p>
-                    </div>
-                 )}
-             </div>
-            : 
-            <div className='cardsDisplay'>
+            {this.state.listview === 'Card View'
+                ?
+                <div className='cardsListDisplay'>
+                    {this.state.deckList.map(card =>
+                        <div key={card.card_id}>
+                            <p>{card.card_name}</p>
+                        </div>
+                    )}
+                </div>
+                : 
+                <div className='cardsDisplay'>
                     {this.state.deckList.map(card => 
                         <div className='card' key={card.card_id}>
                             <p className='cardName'>{card.card_name}</p>
                             <img alt={card.card_name} src={card.image_url}/>
-                            <br/><button onClick={e => this.deleteCard(e, card.card_id)}>remove</button>
+                            <br/>
+                            <button onClick={e => this.deleteCard(e, card.card_id)}>remove</button>
                         </div>
-                        )}
+                    )}
                 </div> 
-                }
-                <Link className='searchLink' to='/SearchCards'>Add Cards</Link>
+            }
+            <Link className='searchLink' to='/SearchCards'>Add Cards</Link>
             </section>
         )
     }
