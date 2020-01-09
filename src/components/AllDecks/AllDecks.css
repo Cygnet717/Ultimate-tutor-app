@@ -41,6 +41,7 @@ h3{
     align-items: center;
     background: white;
     width: 185px;
+    
 }
 
 Form{
@@ -66,4 +67,18 @@ Form{
     .deletedeck {
         height: fit-content;
       }
+}
+
+@media screen and (min-width: 500px){
+    .deckLink{
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 780px){
+    .listOfDecks{
+        width: 700px;
+    }
+
+   
 }

@@ -97,13 +97,13 @@ export default class SingleDeckView extends Component {
             <section>
             <h2 className='deckName'>{this.state.deckName}</h2>
             <div className='deckDetails'>
-                <div>Total: {this.state.deckList.length} </div>
-                <div>Creatures: {this.state.Creature} </div>
-                <div>Instants: {this.state.Instant} </div>
-                <div>Enchantments: {this.state.Enchantment}</div>
-                <div>Sorceries: {this.state.Sorcery}</div>
-                <div>Lands: {this.state.Land}</div>
-                <div>Planeswalkers: {this.state.Planeswalker}</div>
+                <div className='tally'>Total: {this.state.deckList.length} </div>
+                <div className='tally'>Creatures: {this.state.Creature} </div>
+                <div className='tally'>Instants: {this.state.Instant} </div>
+                <div className='tally'>Enchantments: {this.state.Enchantment}</div>
+                <div className='tally'>Sorceries: {this.state.Sorcery}</div>
+                <div className='tally'>Lands: {this.state.Land}</div>
+                <div className='tally'>Planeswalkers: {this.state.Planeswalker}</div>
             </div>
             <button type='button' className='listview button' onClick={this.listCardView}>{this.state.listview}</button>
             <br/>

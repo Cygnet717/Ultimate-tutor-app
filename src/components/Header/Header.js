@@ -63,11 +63,9 @@ export default class Header extends Component {
                    <img className='utlogo' src={logo} alt='UT logo'/>
                 </Link>
             <div className='headerbottom'>
-              
               {this.context.user_id?this.renderLogoutLink() :this.renderLoginLink()}
             </div>
         </nav>
-        
         </>
     }
 }

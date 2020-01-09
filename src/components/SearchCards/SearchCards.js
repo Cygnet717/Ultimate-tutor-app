@@ -220,8 +220,8 @@ export default class SearchCards extends Component {
 
         
         return(
-            <div>
-                <section>
+            <div className='outer'>
+                <section className='section'>
                     <form id='SearchForm' name='SearchForm' onSubmit={this.handleSubmit}>
                         <legend>Search for cards</legend>
                         <input className='formbutton button' type='reset' value='Reset Form' onClick={this.clearTextState}/>

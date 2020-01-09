@@ -3,7 +3,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 100%;  
+}
+
+.section{
+    padding-top: 30px;
 }
 
 .cardsDisplay {
@@ -84,6 +88,7 @@
     width: 80%;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .powerInput, .toughnessInput {
@@ -112,6 +117,7 @@
     margin-bottom: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
+    width: 70%;
 }
 .p_tdisplay > span{
     font-size: large;

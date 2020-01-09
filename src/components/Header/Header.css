@@ -48,3 +48,15 @@ h1 {
 .utlogo{
     padding-top: 5px;
 }
+
+@media screen and (min-width: 1000px){
+    .headerbottom{
+        margin-right: 50px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .header-buttons > a{
+        margin-left: 15px;
+    }
+}
