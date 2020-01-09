@@ -1,15 +1,16 @@
 .deletedeck {
   height: 35px;
   width: 100%;
+  font-family: 'Lora', serif;
 }
 
 .deckButtons{
     width: 95px;
-
+    
 }
 
 .addcards{
-    
+    font-family: 'Lora', serif;
     margin-bottom: 5px;
     width: 100%;
 }
@@ -17,6 +18,7 @@
 .go{
     margin-left: 1px;
     padding: 3px;
+    font-family: 'Lora', serif;
 }
 
 .deck{
@@ -26,6 +28,11 @@
     padding: 5px;
     display: flex;
     justify-content: space-between;
+    font-family: 'Lora', serif;
+}
+
+h3{
+    font-family: 'Rock Salt', cursive; 
 }
 
 .deckLink {
@@ -34,6 +41,10 @@
     align-items: center;
     background: white;
     width: 185px;
+}
+
+Form{
+    font-family: 'Lora', serif;
 }
 
 .listOfDecks {

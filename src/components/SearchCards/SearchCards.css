@@ -18,11 +18,16 @@
 .resultsSection{
     background-color: rgba(0, 0, 0, 0.685);
     color: white;
+    font-family: 'Lora', serif;
 }
 
 #thinking {
     height: 59px;
     width: 64px;
+}
+
+.alert{
+    font-family: 'Lora', serif;
 }
 
 .searchLabel{
@@ -130,6 +135,7 @@ form input[type='number']{
 
 .formbutton{
     width: 100px;
+    font-family: 'Lora', serif;
 }
 
 .hidden {

@@ -143,13 +143,13 @@ export default class SearchCards extends Component {
             return <img id='thinking' src={logo} alt='loading...'/>
         } else if(this.state.lastResults){
             return (<div>
-                <span>No more cards match your criteria</span>
-                <button className='moreoption'>New Search</button>
+                <span className='alert'>No more cards match your criteria</span>
+                <button className='moreoption button'>New Search</button>
                 </div>)
         } else {
             return (<div>
-                <button className='moreoption' onClick={this.searchMore}>More Results</button>
-                <button className='moreoption' onClick={this.scrollUp}>New Search</button>
+                <button className='moreoption button' onClick={this.searchMore}>More Results</button>
+                <button className='moreoption button' onClick={this.scrollUp}>New Search</button>
                 </div>)
         }
     }
@@ -169,8 +169,14 @@ export default class SearchCards extends Component {
        if(event.key === 'Enter'){
            event.preventDefault()
         this.handleAddText()
-       }
-       
+       } 
+   }
+
+   removeItem=(event)=>{
+       let index = event.target.value
+       let currentText = this.state.text
+        let newTextArr = currentText.slice(0, index).concat(currentText.slice(index+1, currentText.length))
+        this.setState({ text: newTextArr})
    }
     
     render(){
@@ -218,7 +224,7 @@ export default class SearchCards extends Component {
                 <section>
                     <form id='SearchForm' name='SearchForm' onSubmit={this.handleSubmit}>
                         <legend>Search for cards</legend>
-                        <input className='formbutton' type='reset' value='Reset Form' onClick={this.clearTextState}/>
+                        <input className='formbutton button' type='reset' value='Reset Form' onClick={this.clearTextState}/>
                         <label htmlFor='cardName' className='searchLabel'>Card Name: </label> 
                             <input id='cardName' type='text' className='selectStyle' name='name' placeholder='Black Lotus'/>
                         
@@ -232,7 +238,9 @@ export default class SearchCards extends Component {
                                 <label>Searching for:</label>
                                 {<ul className='textList'>
                                 {this.state.text.map((t, i)=>{
-                                return <li className='textListItem' key={i}>{t}</li>
+                                return <li className='textListItem' onClick={this.removeItem} value={i} id={i} key={i}>
+                                    {t} &#x02717;
+                                    </li>
                                 })}
                                 </ul>}
                             </div>
@@ -320,9 +328,9 @@ export default class SearchCards extends Component {
                             </div>
                         </div>
                         <div>
-                            <input className='collapseButton' className='button' onClick={this.expandCollapse} type='button' value={this.state.exp_col}/>
-                            <input className='formbutton' className='button' type='reset' value='Reset Form' onClick={this.clearTextState}/>
-                            <input className='formbutton' className='button' type='submit' value='Search'/>
+                            <input className='collapseButton button' onClick={this.expandCollapse} type='button' value={this.state.exp_col}/>
+                            <input className='formbutton button' type='reset' value='Reset Form' onClick={this.clearTextState}/>
+                            <input className='formbutton button' type='submit' value='Search'/>
                         </div>
                     </form>
                 </section>
