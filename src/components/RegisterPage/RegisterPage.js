@@ -34,7 +34,6 @@ export default class RegisterPage extends Component {
         .then(res => 
             {
           username.value = ''
-          //user_id.value = ''
           this.handleRegistrationSuccess()
         })
         .catch(res => {
