@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import './CardResults.css'
-import UserContext from '../../context/user-context'
+import React, {Component} from 'react';
+import './CardResults.css';
+import UserContext from '../../context/user-context';
 import SingleDeckApiService from '../../services/Single-deck-api-service';
 
 export default class CardResults extends Component{

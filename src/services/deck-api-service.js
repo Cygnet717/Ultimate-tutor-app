@@ -1,5 +1,5 @@
-import config from '../config'
-import TokenService from '../services/token-service'
+import config from '../config';
+import TokenService from '../services/token-service';
 
 const DeckApiService = {
   getDecks() {
@@ -52,6 +52,6 @@ const DeckApiService = {
           : res.json()
       )
   }
-}
+};
 
 export default DeckApiService

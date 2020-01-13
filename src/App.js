@@ -1,17 +1,15 @@
 import React from 'react';
-import Header from './components/Header/Header'
-import {Route, Switch} from 'react-router-dom'
-import LandingPage from './components/LandingPage/LandingPage'
-import LoginPage from './components/LoginPage/LoginPage'
-import RegisterPage from './components/RegisterPage/RegisterPage'
-import SearchCards from './components/SearchCards/SearchCards'
-import AllDecks from './components/AllDecks/AllDecks'
-import SingleDeckView from './components/SingleDeckView/SingleDeckView'
-import UserProvider from './context/user-provider'
-
+import Header from './components/Header/Header';
+import {Route, Switch} from 'react-router-dom';
+import LandingPage from './components/LandingPage/LandingPage';
+import LoginPage from './components/LoginPage/LoginPage';
+import RegisterPage from './components/RegisterPage/RegisterPage';
+import SearchCards from './components/SearchCards/SearchCards';
+import AllDecks from './components/AllDecks/AllDecks';
+import SingleDeckView from './components/SingleDeckView/SingleDeckView';
+import UserProvider from './context/user-provider';
 
 function App() {
-
   return (
   <UserProvider>
     <header>
@@ -29,5 +27,6 @@ function App() {
     </main>
     </UserProvider>
   );
-}
+};
+
 export default App;

@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import UserContext from './user-context'
-import config from '../config'
+import React, { Component } from 'react';
+import UserContext from './user-context';
+import config from '../config';
 
 
 class UserProvider extends Component {
@@ -31,7 +31,6 @@ class UserProvider extends Component {
             })
     };
     
-
     render() {
         return(
             <UserContext.Provider value={this.state}>
@@ -39,6 +38,6 @@ class UserProvider extends Component {
             </UserContext.Provider>
         )
     }
-}
+};
 
 export default UserProvider;

@@ -1,5 +1,5 @@
-import config from '../config'
-import TokenService from '../services/token-service'
+import config from '../config';
+import TokenService from '../services/token-service';
 
 const SingleDeckApiService = {
   getDeckList(deckId) {
@@ -16,7 +16,6 @@ const SingleDeckApiService = {
       )
   },
  
-  
   postNewCard(card_name, image_url, multiverseid, deck_id, type) {
     return fetch(`${config.API_ENDPOINT}/decks/${deck_id}`, {
       method: 'POST',
@@ -56,6 +55,6 @@ const SingleDeckApiService = {
           : res.json()
       )
   }
-}
+};
 
 export default SingleDeckApiService

@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
-import { Link } from 'react-router-dom'
-import DeckApiService from '../../services/deck-api-service'
-import UserContext from '../../context/user-context'
-import config from '../../../src/config'
-import './AllDecks.css'
+import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
+import DeckApiService from '../../services/deck-api-service';
+import UserContext from '../../context/user-context';
+import config from '../../../src/config';
+import './AllDecks.css';
 
 export default class AllDecks extends Component {
     static contextType = UserContext;
@@ -23,7 +23,7 @@ export default class AllDecks extends Component {
         let lessDecks = this.context.decks.filter(d => d.deck_id !== deck)
         this.context.updateDecks(lessDecks)
         this.setState({decks: lessDecks})
-    }
+    };
 
     renderDecks() {
         const {decks = []} = this.context
@@ -36,27 +36,27 @@ export default class AllDecks extends Component {
                     </div>
                 </div>
             )
-    }
+    };
 
     clearDeckName = () => {
         this.setState({
             newDeckName: '',
            
         })
-    }
+    };
 
     setNewDecks = (deck) => {
         this.context.addDeck(deck)
         this.setState({decks: this.context.decks})
         window.sessionStorage.setItem(config.DECKS, this.context.decks)
-    }
+    };
 
     addNewDeck = (event) => {
         event.preventDefault()
         DeckApiService.postDeck(this.context.user_id, this.state.newDeckName)
         .then(deck => this.setNewDecks(deck))
         this.clearDeckName()
-        }
+        };
 
     render(){
         const handleChange=(event)=>{

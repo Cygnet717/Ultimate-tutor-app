@@ -1,4 +1,4 @@
-import config from '../config'
+import config from '../config';
 
 const MTGCardSearchService = {
     getSearchResults(parameters) {
@@ -17,6 +17,6 @@ const MTGCardSearchService = {
             })
         .catch(error => console.log({error}))
     }
-}
+};
 
 export default MTGCardSearchService
