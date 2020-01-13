@@ -1,6 +1,10 @@
 # Ultimate Tutor
 http://ultimatetutor.herokuapp.com/
 
+
+## Summary
+This app makes it easy to build new decks and make online versions of existing decks.  The user can create new decks and search for cards to add to thier deck.  Future deployments will include the ability to add many coppies of a card at once and to random draw a number of cards from your deck to test the first hand you might get in a game.
+
 ## API Documentation
 ### Getting Started
 To use API endpoints:
@@ -9,7 +13,8 @@ https://ultimatetutor-api.herokuapp.com/api
 #### EndPoints
 **/**
 >Test
-response 
+Response 
+
     [
         {"Hello, world!"}
     ]
@@ -18,7 +23,8 @@ response
 **/users**  POST
 >Adds a new user
 
-send 
+Send 
+
     [
         {"username": "Picard", "password": "Makeitso#1"}
     ]
@@ -26,70 +32,89 @@ send
 
 *username must be unique, password must contain 8 characters long and inclue Capital, number, and one of #?!@$%^&*-
 
-response  {user_id: 99, username: ""}
+Response  
+
+    [
+        {user_id: 99, username: "Picard"}
+    ]
 
 **/auth/login**  POST
 >Logsin user
 
-send 
-    {"username": "Picard", "password": "Makeitso#1"}
+Send 
 
-response 
-    {"authToken": *token*, "user_id": 99}
+    [
+        {"username": "Picard", "password": "Makeitso#1"}
+    ]
+
+Response 
+
+    [
+        {"authToken": *token*, "user_id": 99}
+    ]
 
 **/decks/**   GET
 >Gets all decks a user has made
 
-send 
+Send 
+
     [
         {"user_id": 99}
     ]
 
-response
+Response 
 
+    [
+        {
+            "deck_id": 100,
+            "deck_name": "Birds",
+            "user_id": 99,
+            "white": null,
+            "blue": null,
+            "black": null,
+            "red": null,
+            "green": null
+        }
+    ]
 
-response 
-    {
-    "deck_id": 100,
-    "deck_name": "Birds",
-    "user_id": 99,
-    "white": null,
-    "blue": null,
-    "black": null,
-    "red": null,
-    "green": null
-    }  
 *columns white, blue, black, red, green are for future use
 
 **/decks/**   POST
 >adds a deck to a users account
 
-send 
-    {"user_id": 99, "deck_name": "The Enterprise"}
+Send 
 
-response 
-    {
-    "deck_id": 115,
-    "deck_name": "The Enterprise",
-    "user_id": 99,
-    "white": null,
-    "blue": null,
-    "black": null,
-    "red": null,
-    "green": null
-    }
-    *columns white, blue, black, red, green are for future use
+    [
+        {"user_id": 99, "deck_name": "The Enterprise"}
+    ]
+
+Response 
+
+    [
+        {
+            "deck_id": 115,
+            "deck_name": "The Enterprise",
+            "user_id": 99,
+            "white": null,
+            "blue": null,
+            "black": null,
+            "red": null,
+            "green": null
+        }
+    ]
+
+*columns white, blue, black, red, green are for future use
 
 **/decks/**  DELETE
 >Deletes deck from users account
 
-send
+Send
 
     [
         {"deck_id": 100}
     ]
     
-response
+Response
 
     [
         {message: "deleted"}
@@ -98,43 +123,78 @@ response
 **/decks/:deck_id**  GET
 >Get all cards in a deck
 
-send
+Send
 
     [
         {"deck_id": 115}
     ]
 
-response
+Response
 
     [
         {
-        "card_id": 159,
-        "card_name": "Abundance",
-        "image_url": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130483&type=card",
-        "multiverseid": 130483,
-        "deck_id": 78,
-        "type": "Enchantment"
-    },
-    {
-        "card_id": 160,
-        "card_name": "Ancestor"s Chosen",
-        "image_url": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130550&type=card",
-        "multiverseid": 130550,
-        "deck_id": 78,
-        "type": "Creature"
-    }
+            "card_id": 159,
+            "card_name": "Abundance",
+            "image_url": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130483&type=card",
+            "multiverseid": 130483,
+            "deck_id": 78,
+            "type": "Enchantment"
+        },
+        {
+            "card_id": 160,
+            "card_name": "Ancestor"s Chosen",
+            "image_url": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130550&type=card",
+            "multiverseid": 130550,
+            "deck_id": 78,
+            "type": "Creature"
+        }
     ]
 
 **/decks/:deck_id**  POST
 >Add card to existing deck
 
-send
+Send
 
     [
-        {}
+        {
+            "card_name": "Caves of Koilos",
+            "image_url": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=129497&type=card",
+            "multiverseid": 129497,
+            "deck_id": "78",
+            "type": "Land"
+        }
     ]
 
-Screenshot(s) of your app. This makes your app description much easier to understand.
-A summary section. This should have a concise explanation of what your app does. Try to frame this from the standpoint of what the user does, or what the app enables for the user.
+Response
+
+    [
+        {
+            "card_id": 288,
+            "card_name": "Caves of Koilos",
+            "image_url": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=129497&type=card",
+            "multiverseid": 129497,
+            "deck_id": 78,
+            "type": "Land"
+        }
+    ]
+
+**/decks/:deck_id** DELETE
+>Removes a card from a deck
+
+Send
+
+    [
+        {"card_id": 288}
+    ]
+
+Response
+
+    [
+        {message: "deleted"}
+    ]
+
+## Screenshots
+
+![Landing Page](/ScreenShots/LandingPage.png "Landing Page")
 
 HTML, CSS, javaScript, React
