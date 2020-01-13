@@ -9,13 +9,17 @@ https://ultimatetutor-api.herokuapp.com/api
 #### EndPoints
 **/**
 >Test
-response = 'Hello, world!'
+response 
+    {'Hello, world!'}
+    
 
 **/users**  POST
 >Adds a new user
 
 send 
-        {'username': 'Picard', 'password': 'Makeitso#1'}
+    {'username': 'Picard', 'password': 'Makeitso#1'}
+
+
 *username must be unique, password must contain 8 characters long and inclue Capital, number, and one of #?!@$%^&*-
 
 response  {user_id: 99, username: ''}
@@ -34,6 +38,9 @@ response
 
 send 
     {'user_id': 99}
+
+response
+
 
 response 
     {
@@ -71,7 +78,14 @@ response
 >Deletes deck from users account
 
 send
-    {'deck_id': 100}
+    [
+        {"deck_id": 100}
+    ]
+    
+response
+    [
+        {message: 'deleted'}
+    ]
 
 **/decks/:deck_id**
 
