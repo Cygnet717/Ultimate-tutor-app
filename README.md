@@ -20,6 +20,7 @@ Response
     ]
     
 
+
 **/users**  POST
 >Adds a new user
 
@@ -38,6 +39,8 @@ Response
         {user_id: 99, username: "Picard"}
     ]
 
+
+
 **/auth/login**  POST
 >Logsin user
 
@@ -52,6 +55,8 @@ Response
     [
         {"authToken": *token*, "user_id": 99}
     ]
+
+
 
 **/decks/**   GET
 >Gets all decks a user has made
@@ -79,6 +84,8 @@ Response
 
 *columns white, blue, black, red, green are for future use
 
+
+
 **/decks/**   POST
 >adds a deck to a users account
 
@@ -105,6 +112,8 @@ Response
 
 *columns white, blue, black, red, green are for future use
 
+
+
 **/decks/**  DELETE
 >Deletes deck from users account
 
@@ -119,6 +128,8 @@ Response
     [
         {message: "deleted"}
     ]
+
+
 
 **/decks/:deck_id**  GET
 >Get all cards in a deck
@@ -150,6 +161,8 @@ Response
         }
     ]
 
+
+
 **/decks/:deck_id**  POST
 >Add card to existing deck
 
@@ -178,6 +191,8 @@ Response
         }
     ]
 
+
+
 **/decks/:deck_id** DELETE
 >Removes a card from a deck
 
@@ -193,8 +208,28 @@ Response
         {message: "deleted"}
     ]
 
-## Screenshots
 
+
+## Screenshots
+### Landing Page
 ![Landing Page](/ScreenShots/LandingPage.png "Landing Page")
 
+### Decks View Page
+![Decks View Page](/ScreenShots/DeckViewPage.png "Decks View Page")
+
+### Deck ListView Page
+![Deck ListView Page](/ScreenShots/DeckListPage.png "Deck ListView Page")
+
+### Deck CardView Page
+![Deck CardView Page](/ScreenShots/DeckListCardPage.png "Deck CardView Page")
+
+### Search Page
+![Search Page](/ScreenShots/SearchPage.png "Search Page")
+
+### Results Page
+![Results Page](/ScreenShots/ResultsPage.png "Results Page")
+
+## Technology used
 HTML, CSS, javaScript, React
+For the card search Magic: The Gathering - Developers API was used 
+https://magicthegathering.io/ 
