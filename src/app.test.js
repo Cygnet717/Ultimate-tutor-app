@@ -1,10 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import renderer from 'react-test-renderer'
-import App from './App'
 import UserProvider from './context/user-provider'
-import LandingPage from '../src/components/LandingPage/LandingPage';
-import AllDecks from './components/AllDecks/AllDecks'
 
 describe(`App rendering`, () => {
     it(`renders without crashing`, () => {

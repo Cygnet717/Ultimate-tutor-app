@@ -23,6 +23,12 @@ button{
 
 .cardsListDisplay{
     font-family: 'Lora', serif;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.typedisplay{
+    width: 50%;
 }
 
 .cardsDisplay{

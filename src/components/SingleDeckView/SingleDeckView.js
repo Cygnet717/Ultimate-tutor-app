@@ -17,12 +17,12 @@ export default class SingleDeckView extends Component {
             deckList: [],
             deck_id: null,
             deckName: '',
-            Creature: 0,
-            Sorcery: 0,
-            Instant: 0,
-            Enchantment: 0,
-            Land: 0,
-            Planeswalker: 0,
+            Creature: [],
+            Sorcery: [],
+            Instant: [],
+            Enchantment: [],
+            Land: [],
+            Planeswalker: [],
             listview: 'Card View',
         }
     };
@@ -34,16 +34,16 @@ export default class SingleDeckView extends Component {
         })
         if(count.length !== 0){
             let name = count[0].type
-            obj[name] = count.length
+            obj[name] = count
             this.setState(obj)
         }
     };
 
     sortByType=()=> {
-        let types = ['Creature', 'Sorcery', 'Instant', 'Enchantment', 'Land', 'Planeswalker']
-        types.map(currentType => 
-            this.countType(currentType)
-        )
+        let types = ['Creature', 'Sorcery', 'Instant', 'Enchantment', 'Land', 'Planeswalker'];
+        types.map(currentType => {
+            this.countType(currentType);
+        })
     };
 
     listCardView =()=>{
@@ -93,17 +93,23 @@ export default class SingleDeckView extends Component {
                     </Link>
                 </div>)
         };
+        const types = [{name: 'Creature', state: this.state.Creature}, 
+        {name: 'Sorcery', state: this.state.Sorcery}, 
+        {name: 'Instant', state: this.state.Instant}, 
+        {name: 'Enchantment', state: this.state.Enchantment}, 
+        {name: 'Land', state: this.state.Land}, 
+        {name: 'Planeswalker', state: this.state.Planeswalker}]
         return(
             <section>
                 <h2 className='deckName'>{this.state.deckName}</h2>
                 <div className='deckDetails'>
                     <div className='tally'>Total: {this.state.deckList.length} </div>
-                    <div className='tally'>Creatures: {this.state.Creature} </div>
-                    <div className='tally'>Instants: {this.state.Instant} </div>
-                    <div className='tally'>Enchantments: {this.state.Enchantment}</div>
-                    <div className='tally'>Sorceries: {this.state.Sorcery}</div>
-                    <div className='tally'>Lands: {this.state.Land}</div>
-                    <div className='tally'>Planeswalkers: {this.state.Planeswalker}</div>
+                    <div className='tally'>Creatures: {this.state.Creature.length} </div>
+                    <div className='tally'>Instants: {this.state.Instant.length} </div>
+                    <div className='tally'>Enchantments: {this.state.Enchantment.length}</div>
+                    <div className='tally'>Sorceries: {this.state.Sorcery.length}</div>
+                    <div className='tally'>Lands: {this.state.Land.length}</div>
+                    <div className='tally'>Planeswalkers: {this.state.Planeswalker.length}</div>
                 </div>
                 <button type='button' className='listview button' onClick={this.listCardView}>{this.state.listview}</button>
                 <br/>
@@ -111,11 +117,16 @@ export default class SingleDeckView extends Component {
                 {this.state.listview === 'Card View'
                 ?
                 <div className='cardsListDisplay'>
-                    {this.state.deckList.map(card =>
-                        <div key={card.card_id}>
-                            <p>{card.card_name}</p>
+                    {types.map(type => {
+                        return <div className='typedisplay'>
+                        <h4>{type.name} X {type.state.length}</h4>
+                        {type.state.map(card =>
+                            <div key={card.card_id}>
+                                <p>{card.card_name}</p>
+                            </div>
+                        )}
                         </div>
-                    )}
+                    })}
                 </div>
                 : 
                 <div className='cardsDisplay'>
