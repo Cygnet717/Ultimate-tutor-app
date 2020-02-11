@@ -54,6 +54,16 @@ export default class SingleDeckView extends Component {
         }
     };
 
+    consolidateCardDisplay(type){
+
+        //add up all of the same card
+        type.state.map(card =>
+            <div key={card.card_id}>
+                <p>{card.card_name}</p>
+            </div>
+        )
+    }
+
     componentDidMount() {
         if(sessionStorage.user_id){
         const {deckId} = this.props.match.params
@@ -120,11 +130,7 @@ export default class SingleDeckView extends Component {
                     {types.map(type => {
                         return <div className='typedisplay'>
                         <h4>{type.name} X {type.state.length}</h4>
-                        {type.state.map(card =>
-                            <div key={card.card_id}>
-                                <p>{card.card_name}</p>
-                            </div>
-                        )}
+                        {this.consolidateCardDisplay(type)}
                         </div>
                     })}
                 </div>
