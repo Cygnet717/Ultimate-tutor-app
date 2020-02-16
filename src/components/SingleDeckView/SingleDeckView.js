@@ -28,15 +28,25 @@ export default class SingleDeckView extends Component {
     };
 
     countType(currenttype){
-        let obj = {}
-        let count = this.state.deckList.filter(card =>{ 
+        let obj = {};
+        let typeFilteredList = this.state.deckList.filter(card =>{ 
            return card.type === currenttype
-        })
-        if(count.length !== 0){
-            let name = count[0].type
-            obj[name] = count
+        });
+        let consolidated = [];
+        typeFilteredList.forEach(card => {
+            if(consolidated.find(j => j.card_name === card.card_name)){
+                let index = consolidated.findIndex(j => j.card_name === card.card_name)
+                consolidated[index].count++
+            } else {
+                consolidated.push({...card, count: 1})
+            } 
+        }, Object.create(null));
+        console.log(consolidated)
+        if(typeFilteredList.length !== 0){
+            let name = typeFilteredList[0].type
+            obj[name] = consolidated
             this.setState(obj)
-        }
+        };
     };
 
     sortByType=()=> {
@@ -54,15 +64,15 @@ export default class SingleDeckView extends Component {
         }
     };
 
-    consolidateCardDisplay(type){
-
+    //consolidateCardDisplay(type){
+        
         //add up all of the same card
-        type.state.map(card =>
-            <div key={card.card_id}>
-                <p>{card.card_name}</p>
-            </div>
-        )
-    }
+        //type.state.map(card =>
+        //    <div key={card.card_id}>
+        //        <p>{card.card_name}</p>
+        //    </div>
+        //)
+    //}
 
     componentDidMount() {
         if(sessionStorage.user_id){
@@ -128,9 +138,14 @@ export default class SingleDeckView extends Component {
                 ?
                 <div className='cardsListDisplay'>
                     {types.map(type => {
+                        //console.log(type)
                         return <div className='typedisplay'>
                         <h4>{type.name} X {type.state.length}</h4>
-                        {this.consolidateCardDisplay(type)}
+                    {type.state.map(card => {
+                        if(card.count > 1){
+                        return <p>{card.card_name} X {card.count}</p>}
+                        else { return <p>{card.card_name}</p>}
+                        })}
                         </div>
                     })}
                 </div>
