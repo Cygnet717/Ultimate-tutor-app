@@ -54,7 +54,29 @@ export default class SearchCards extends Component {
         if(this.state.count === 1){this.executeScroll()}
     }
 
-    handleSubmit=(event)=>{
+    handleSubmit=(event)=> {
+        event.preventDefault();
+        this.setState({
+            thinking: true,
+            searched: true,
+            cards: []
+        })
+        const data = new FormData(event.target);
+        let string ='';
+        let queryParams = [
+            {class: 'color', short: 'c'}, {class: 'colorIdentity', short: 'id'}, {class: 'types', short: 't'}, 
+            {class: 'text', short: 'o'}, {class: 'manaCost', short: 'm'}, {class: 'converted', short: 'cmc'},
+            {class: 'power', short: 'pow'}, {class: 'toughness', short: 'tou'}, {class: 'loyalty', short: 'loy'},
+            {class: 'rarity', short: 'r'}, {class: 'set', short: 's'}
+        ];
+        queryParams.map(i => {
+            if(data.get(i.class)){
+                string = string.concat(i.short)
+            }
+        })
+    }
+
+    /*handleSubmit=(event)=>{
         event.preventDefault();
         this.setState({
             thinking: true,
@@ -92,7 +114,7 @@ export default class SearchCards extends Component {
             lastResults: false,
         })
        this.sendFetch(string)
-    }
+    }*/
 
     searchMore =()=>{
         this.setState({ 
