@@ -1,11 +1,13 @@
-import React, {Component} from 'react'
-import { Link } from 'react-router-dom'
-import CardResults from '../CardResults/CardResults'
-import MTGCardSearchService from '../../services/mtgcard-api-service'
-import logo from '../Images/731.gif'
-import paramOptions from './SearchParamsData'
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
+import CardResults from '../CardResults/CardResults';
+import Dropdown from './dropdown';
+import MTGCardSearchService from '../../services/mtgcard-api-service';
+import logo from '../Images/731.gif';
+import paramOptions from './SearchParamsData';
 
-import './SearchCards.css'
+import './SearchCards.css';
 
 export default class SearchCards extends Component {
     
@@ -18,8 +20,11 @@ export default class SearchCards extends Component {
             thinking: false,
             searched: false,
             text: [],
-            power: 'P',
-            toughness: 'T',
+            creatureTypes: [],
+               planeswalkerTypes: [],
+               powerTypes: [],
+               toughnessTypes: [],
+               setOptions: [],
             expanded: false,
             visible: 'hidden',
             exp_col: 'Expand',
@@ -200,6 +205,25 @@ export default class SearchCards extends Component {
         let newTextArr = currentText.slice(0, index).concat(currentText.slice(index+1, currentText.length))
         this.setState({ text: newTextArr})
    }
+
+    componentDidMount(){
+        async function populateDropdowns(){
+            //let creatureTypes = await fetch('https://api.scryfall.com/catalog/creature-types').then(res=> res.json());
+            //let planeswalkerTypes = await fetch('https://api.scryfall.com/catalog/planeswalker-types').then(res=> res.json());
+            let powerTypes = await fetch('https://api.scryfall.com/catalog/powers').then(res=> res.json());
+            //let toughnessTypes = await fetch('https://api.scryfall.com/catalog/toughnesses').then(res=> res.json());
+            //let setOptions = await fetch('https://api.scryfall.com/sets').then(res=> res.json());
+            console.log(powerTypes)
+           this.setState([
+               //creatureTypes,
+               //planeswalkerTypes,
+               powerTypes,
+               //toughnessTypes,
+               //setOptions
+           ])
+        };
+        populateDropdowns();
+   }
     
     render(){
         if(!sessionStorage.user_id){
@@ -212,7 +236,7 @@ export default class SearchCards extends Component {
                 </Link>
                 </div>)
         }
-
+    
         let cardResults = this.state.cards.map((card, i) =>{
             return <CardResults {...card} key={i}/>
         })
@@ -247,9 +271,52 @@ export default class SearchCards extends Component {
                     <form id='SearchForm' name='SearchForm' onSubmit={this.handleSubmit}>
                         <legend>Search for cards</legend>
                         <input className='formbutton button' type='reset' value='Reset Form' onClick={this.clearTextState}/>
-                        <label htmlFor='cardName' className='searchLabel'>Card Name: </label> 
+                        <fieldset>
+                            <label htmlFor='cardName' className='searchLabel'>Card Name</label> 
                             <input id='cardName' type='text' className='selectStyle' name='name' placeholder='Black Lotus'/>
-                        
+                        </fieldset>
+                        <fieldset>
+                            <label className='searchLabel'>Color</label>
+                            <div>
+                                <input type='radio' name='atmost' value='c<='/>at most
+                                <input type='radio' name='atleast' value='c>='/>at least
+                            </div>
+                            <div className='colorCheckboxes'>
+                                <input id='colorIdentityWhite' type='checkbox' name='colorIdentity' value='w'/>White
+                                <input id='colorIdentityBlue' type='checkbox' name='colorIdentity' value='u'/>Blue
+                                <input id='colorIdentityBlack' type='checkbox' name='colorIdentity'value='b'/>Black
+                                <input id='colorIdentityRed' type='checkbox' name='colorIdentity' value='r'/>Red
+                                <input id='colorIdentityGreen' type='checkbox' name='colorIdentity' value='g'/>Green
+                                <input id='colorIdentitycolorless' type='checkbox' name='colorIdentity' value='c'/>Colorless
+                            </div>
+                            <div className='cmcphyrexian'>
+                                <label className='cmc'>CMC</label>
+                                <input type='number' min='0' max='1000001'/>
+                                <input type='checkbox' value='<='/><label>&lt;=</label>
+                                <input type='checkbox' value='>='/><label>&gt;=</label>
+                                <input type='checkbox' value='phyrexian'/><label>Phyrexian Mana</label>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <label className='searchLabel'>Types</label>
+                            <select name='supertypes' id='supertypes'className='type' defaultValue={'default'}>
+                                <option disabled hidden value='default'>SuperType</option>
+                                {paramOptions.supertypes.map(i => {
+                                    return <option id='supertypes' key={i} name='types' value={i}>{i}</option>
+                                })}
+                            </select>
+                            <select className='types' id='types' className='types' defaultValue={'default'}>
+                            <option disabled hidden value='default'>Type</option>
+                                {paramOptions.types.map(i => {
+                                    return <option id='types' key={i} name='types' value={i}>{i}</option>
+                                })} 
+                            </select>
+                            <p>hidden dropdown with additional types // make datalist instead of select</p>
+                            <input type='radio' name='modalOption' value='is:modal'/>Modal
+                            <input type='radio' name='historicOption' value='is:historic'/>Historic
+                            <input type='radio' name='vanillaOption' value='is:vanilla'/>Textless Creature
+                        </fieldset>
+                        <fieldset>
                         <label className='searchLabel'>Exact text</label>
                             <input id='text' type='text' className='selectStyle' name='text' onKeyPress={this.keyPressed} placeholder='hexproof'/>
                             <div className='exactTextButtons'>
@@ -259,102 +326,41 @@ export default class SearchCards extends Component {
                             <div>
                                 <label>Searching for:</label>
                                 {<ul className='textList'>
-                                {this.state.text.map((t, i)=>{
-                                return <li className='textListItem' onClick={this.removeItem} value={i} id={i} key={i}>
-                                    {t} &#x02717;
-                                    </li>
-                                })}
+                                    {this.state.text.map((t, i)=>{
+                                    return <li className='textListItem' onClick={this.removeItem} value={i} id={i} key={i}>
+                                        {t} &#x02717;
+                                        </li>
+                                    })}
                                 </ul>}
                             </div>
-
-                        <label htmlFor='colorIdentity' className='searchLabel'>Color Identity:</label> 
-                        <div className='colorCheckboxes'>
-                            <input id='colorIdentityWhite' type='checkbox' name='colorIdentity' value='w'/>White
-                            <input id='colorIdentityBlue' type='checkbox' name='colorIdentity' value='u'/>Blue
-                            <input id='colorIdentityBlack' type='checkbox' name='colorIdentity'value='b'/>Black
-                            <input id='colorIdentityRed' type='checkbox' name='colorIdentity' value='r'/>Red
-                            <input id='colorIdentityGreen' type='checkbox' name='colorIdentity' value='g'/>Green
-                        </div>
-
-                        <label htmlFor='types' className='searchLabel'>Card Type: </label> 
-                        <select name='types' id='types' className='selectStyle' defaultValue={'default'}>
-                            <option disabled hidden value='default'>Select</option>
-                            {paramOptions.types.map(i => {
-                                return <option id='types' key={i} name='types' value={i}>{i}</option>
-                            })}
-                        </select>
-
-                        <div className={`collapseSearch ${this.state.visible}`}>
-
-                            <label htmlFor='sets' className='searchLabel'>Set:</label>
-                            <input type='text' list='sets' className='selectStyle' name='sets'/>
-                            <datalist id='sets' >
-                            {paramOptions.sets.map(i => {
-                                return <option id='setoption' key={i.code} name={i.code} value={i.name}>{i.name}</option>
-                                })}
-                            </datalist>
-
-                            <label htmlFor='supertypes' className='searchLabel'>Supertype:</label>
-                            <select name='supertypes' id='supertypes' className='selectStyle' defaultValue={'default'}>
-                                <option disabled hidden value='default'>Select</option>
-                                    {paramOptions.supertypes.map(i => {
-                                        return <option id='supertypes' key={i} name='supertypes' value={i}>{i}</option>
-                                    })}
-                            </select>
-
-                            <label htmlFor='subtypes' className='searchLabel'>Subtype:</label>
-                            <input type='text' list='subtypes' className='selectStyle' name='subtypes'/>
-                            <datalist id='subtypes' >
-                                {paramOptions.subtypes.map(i => {
-                                        return <option id='subtypes' key={i} name='subtypes' value={i}>{i}</option>
-                                    })}
-                            </datalist>
-
-                            <label htmlFor='rarity' className='searchLabel'>Rarity:</label>
+                        </fieldset>
+                        <fieldset>
+                            <label>Power</label>
+                            <label>Toughness</label>
+                            <label>Combined P and T</label>
+                            <label>Loyalty</label>
+                        </fieldset>
+                        <fieldset>
+                        <label htmlFor='rarity' className='searchLabel'>Rarity</label>
                             <select name='rarity' id='rarity' className='selectStyle' defaultValue={'default'}>
                                 <option disabled hidden value='default'>Select</option>
                                     {paramOptions.rarity.map(i => {
                                         return <option id='rarity' key={i} name='rarity' value={i}>{i}</option>
                                     })}
                             </select>
+                        </fieldset>
+                        <fieldset>
+                        <label htmlFor='sets' className='searchLabel'>Set</label>
+                            <input type='text' list='sets' className='selectStyle' name='sets'/>
 
-                            <div className='p_t'>
-                                <div className='inputs'>
-                                    <div className='powerInput'>
-                                        <div className='black'>
-                                            <label htmlFor='power' className='searchLabelPT'>Power:</label>
-                                        </div>
-                                        <div className='options'>
-                                            <input type='button' value='*' className='variablePTbutton' onClick={updatePowerNum} />
-                                            <div>
-                                                <input type='number' className='numInput' onChange={updatePowerNum} id='powerNum' name='powerNum'/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div className='toughnessInput'>
-                                        <div className='black'>
-                                            <label htmlFor='toughness' className='searchLabelPT'>Toughness:</label>
-                                        </div>
-                                        <div className='options'>
-                                            <input type='button' value='*' className='variablePTbutton' onClick={updateToughnessNum} />
-                                            <div>
-                                                <input type='number' className='numInput' onChange={updateToughnessNum} id='toughnessNum' name='toughnessNum'/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='p_tdisplay'>
-                                    <span>{this.state.power}/{this.state.toughness}</span>
-                                </div>
-                            </div>
-                        </div>
+
+                        </fieldset>
                         <div>
                             <input className='collapseButton button' onClick={this.expandCollapse} type='button' value={this.state.exp_col}/>
                             <input className='formbutton button' type='reset' value='Reset Form' onClick={this.clearTextState}/>
                             <input className='formbutton button' type='submit' value='Search'/>
                         </div>
-                    </form>
+                    </form>  
                 </section>
                 <div className='resultsSection'>
                 {this.state.thinking || this.state.cards.length !== 0 ? <span>Results</span>: <span></span>}

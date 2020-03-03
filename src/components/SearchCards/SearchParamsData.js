@@ -7,6 +7,58 @@ const supertypes = [
     "World"
 ]
 
+const types =[
+    "Artifact",
+    "Conspiracy",
+    "Creature",
+    "Enchantment",
+    "Hero",
+    "Instant",
+    "Land",
+    "Phenomenon",
+    "Plane",
+    "Planeswalker",
+    "Scheme",
+    "Sorcery",
+    "Summon",
+    "Tribal",
+    "Vanguard"
+]
+
+const landTypes = [
+    "Desert",
+    "Forest",
+    "Gate",
+    "Island",
+    "Lair",
+    "Locus",
+    "Mine",
+    "Mountain",
+    "Plains",
+    "Power-Plant",
+    "Swamp",
+    "Tower",
+    "Urza’s"
+]
+
+const enchantmentTypes = [
+    "Aura",
+    "Cartouche",
+    "Curse",
+    "Saga",
+    "Shrine"
+]
+
+const artifactTypes =[
+    "Clue",
+    "Contraption",
+    "Equipment",
+    "Food",
+    "Fortification",
+    "Treasure",
+    "Vehicle"
+]
+
 const rarity = [
     "common",
 	"uncommon",
@@ -14,7 +66,26 @@ const rarity = [
 	"mythic"   
 ]
 
-let manaCostOptions = [
+const instSorcTypes =[
+    "Adventure",
+    "Arcane",
+    "Trap"
+]
+
+const loyaltyTypes = [
+    "*",
+    "X",
+    "1d4+1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "20"
+]
+
+const manaCostOptions = [
     {
         "svg_uri": "https://img.scryfall.com/symbology/X.svg",
         "symbol": "{X}",
@@ -304,6 +375,11 @@ let manaCostOptions = [
 
 export default {
     supertypes,
+    types,
+    landTypes,
+    enchantmentTypes,
+    artifactTypes,
     rarity,
+    instSorcTypes,
     manaCostOptions,
 }
