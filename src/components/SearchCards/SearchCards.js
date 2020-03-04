@@ -354,14 +354,22 @@ export default class SearchCards extends Component {
                             <div>
                                 <label>Power</label>
                                 <select>
+                                <option hidden value='default'>Power</option> 
                                     {this.state.powerTypes.map(i => {
                                         return <option id='power' key={i} name='power' value={i}>{i}</option>
                                     })}
                                 </select>
                             </div>
+                            <div>
+                                <label>Toughness</label>
+                                <select>
+                                <option hidden value='default'>Toughness</option> 
+                                    {this.state.toughnessTypes.map(i => {
+                                        return <option id='power' key={i} name='power' value={i}>{i}</option>
+                                    })}
+                                </select>
+                            </div>
                             
-
-                            <label>Toughness</label>
                             <label>Combined P and T</label>
                             <label>Loyalty</label>
                         </fieldset>
