@@ -53,6 +53,7 @@ export default class SingleDeckView extends Component {
         let types = ['Creature', 'Sorcery', 'Instant', 'Enchantment', 'Land', 'Planeswalker'];
         types.map(currentType => {
             this.countType(currentType);
+            return 'return';
         })
     };
 

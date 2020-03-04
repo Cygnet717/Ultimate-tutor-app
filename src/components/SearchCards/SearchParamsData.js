@@ -60,10 +60,10 @@ const artifactTypes =[
 ]
 
 const rarity = [
-    "common",
-	"uncommon",
-	"rare",
-	"mythic"   
+    "Common",
+	"Uncommon",
+	"Rare",
+	"Mythic"   
 ]
 
 const instSorcTypes =[
@@ -381,5 +381,6 @@ export default {
     artifactTypes,
     rarity,
     instSorcTypes,
+    loyaltyTypes,
     manaCostOptions,
 }

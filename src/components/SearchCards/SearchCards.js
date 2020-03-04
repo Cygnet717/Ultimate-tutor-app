@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import CardResults from '../CardResults/CardResults';
-import Dropdown from './dropdown';
 import MTGCardSearchService from '../../services/mtgcard-api-service';
 import logo from '../Images/731.gif';
 import paramOptions from './SearchParamsData';
@@ -20,11 +19,12 @@ export default class SearchCards extends Component {
             thinking: false,
             searched: false,
             text: [],
-            creatureTypes: [],
-               planeswalkerTypes: [],
-               powerTypes: [],
-               toughnessTypes: [],
-               setOptions: [],
+            validType: false,
+            Creature: [],
+            Planeswalker: [],
+            powerTypes: [],
+            toughnessTypes: [],
+            setOptions: [],
             expanded: false,
             visible: 'hidden',
             exp_col: 'Expand',
@@ -227,11 +227,11 @@ export default class SearchCards extends Component {
             let toughTypes = await fetch('https://api.scryfall.com/catalog/toughnesses').then(res=> res.json());
             let setOpt = await fetch('https://api.scryfall.com/sets').then(res=> res.json());
             
-            let filteredSetOptions = setOpt.data.filter(set => set.set_type != "token")
+            let filteredSetOptions = setOpt.data.filter(set => set.set_type !== "token")
 
             currentComponent.setState({
-                creatureTypes: creatTypes.data,
-                planeswalkerTypes: planeswTypes.data,
+                Creature: creatTypes.data,
+                Planeswalker: planeswTypes.data,
                 powerTypes:powTypes.data,
                 toughnessTypes: toughTypes.data,
                 setOptions: filteredSetOptions
@@ -252,7 +252,7 @@ export default class SearchCards extends Component {
                 </Link>
                 </div>)
         }
-    
+
         let cardResults = this.state.cards.map((card, i) =>{
             return <CardResults {...card} key={i}/>
         })
@@ -261,26 +261,32 @@ export default class SearchCards extends Component {
             cardResults = <p>No cards were found matching your criteria</p>
         }
 
-        const updatePowerNum=(event)=>{
-            if(document.getElementById('powerNum').value 
-                !== event.target.value){
-                document.getElementById('powerNum').value = ''
-            }
-            this.setState({
-                power: event.target.value
-            })
-        }
-        const updateToughnessNum=(event)=>{
-            if(document.getElementById('toughnessNum').value 
-                !== event.target.value){
-                document.getElementById('toughnessNum').value = ''
-            }
-            this.setState({
-                toughness: event.target.value
-            })
-        }
+        let showNewDropdown = <p>wrong</p>
 
+        if(this.state.validType){
+            console.log(this.state.validType)
+        showNewDropdown = (<p>{this.state.validType}</p>
+            /*<select id='additionaltypes' className='additionaltypes' defaultValue={'default'}>
+                <option hidden value='default'>{this.state.validType[0]}</option> 
+                {this.validType[1].map(i => {
+                    return <option id='power' key={i} name='power' value={i}>{i}</option>
+                })}        
+            </select>*/
+            )
+        }
         
+
+        let additionalTypesDropdown = (event)=>{
+            let type = event.target.value;
+            let typeArray = [];
+            if(type === 'Creature'){
+                typeArray.push(this.state.Creature)
+            } else if (type === 'Planeswalker'){
+                typeArray.push(this.state.Planeswalker)
+            }
+            this.setState({ validType: [type, typeArray]})
+            
+       }
         return(
             <div className='outer'>
                 <section className='section'>
@@ -315,18 +321,22 @@ export default class SearchCards extends Component {
                         </fieldset>
                         <fieldset>
                             <label className='searchLabel'>Types</label>
-                            <select name='supertypes' id='supertypes'className='type' defaultValue={'default'}>
+                            <select name='supertypes' id='supertypes'className='supertype' defaultValue={'default'}>
                                 <option disabled hidden value='default'>SuperType</option>
                                 {paramOptions.supertypes.map(i => {
                                     return <option id='supertypes' key={i} name='types' value={i}>{i}</option>
                                 })}
                             </select>
-                            <select className='types' id='types' className='types' defaultValue={'default'}>
+                            
+                            <select id='types' className='types' defaultValue={'default'} onChange={(e) =>additionalTypesDropdown(e)}>
                             <option disabled hidden value='default'>Type</option>
                                 {paramOptions.types.map(i => {
                                     return <option id='types' key={i} name='types' value={i}>{i}</option>
                                 })} 
                             </select>
+
+                            {!this.state.validType ? console.log(true): showNewDropdown}
+
                             <p>hidden dropdown with additional types // make datalist instead of select</p>
                             <input type='radio' name='modalOption' value='is:modal'/>Modal
                             <input type='radio' name='historicOption' value='is:historic'/>Historic
@@ -369,9 +379,19 @@ export default class SearchCards extends Component {
                                     })}
                                 </select>
                             </div>
-                            
-                            <label>Combined P and T</label>
-                            <label>Loyalty</label>
+                            <div>
+                                <label>Combined P and T</label>
+                                <input type='number' name='combinedPT'/>
+                            </div>
+                            <div>
+                                <label>Loyalty</label>
+                                <select>
+                                <option hidden value='default'>Loyalty</option> 
+                                    {paramOptions.loyaltyTypes.map(i => {
+                                        return <option id='power' key={i} name='power' value={i}>{i}</option>
+                                    })}
+                                </select>
+                            </div>
                         </fieldset>
                         <fieldset>
                         <label htmlFor='rarity' className='searchLabel'>Rarity</label>
