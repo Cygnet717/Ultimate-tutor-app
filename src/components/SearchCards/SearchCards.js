@@ -11,8 +11,8 @@ import './SearchCards.css';
 
 export default class SearchCards extends Component {
     
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.handleSubmit= this.handleSubmit.bind(this)
 
         this.state = {
@@ -68,7 +68,7 @@ export default class SearchCards extends Component {
         })
         const data = new FormData(event.target);
         let string ='';
-        let queryParams = [
+        /*let queryParams = [
             {class: 'color', short: 'c'}, {class: 'colorIdentity', short: 'id'}, {class: 'types', short: 't'}, 
             {class: 'text', short: 'o'}, {class: 'manaCost', short: 'm'}, {class: 'converted', short: 'cmc'},
             {class: 'power', short: 'pow'}, {class: 'toughness', short: 'tou'}, {class: 'loyalty', short: 'loy'},
@@ -78,7 +78,17 @@ export default class SearchCards extends Component {
             if(data.get(i.class)){
                 string = string.concat(i.short)
             }
-        })
+        })*/
+        if(data.get('sets')){
+            let selectedSet = this.state.setOptions.find(set => JSON.stringify(set.name) === JSON.stringify(data.get('sets')))
+            console.log(selectedSet)
+            if(data.get('blockSearch')){
+                string = string.concat('b:'+ selectedSet.code+'+')
+            } else {
+                string = string.concat('s:'+ selectedSet.code+'+')
+            }
+        }
+        console.log(string)
     }
 
     /*handleSubmit=(event)=>{
@@ -206,23 +216,29 @@ export default class SearchCards extends Component {
         this.setState({ text: newTextArr})
    }
 
+   
+
     componentDidMount(){
-        async function populateDropdowns(){
-            //let creatureTypes = await fetch('https://api.scryfall.com/catalog/creature-types').then(res=> res.json());
-            //let planeswalkerTypes = await fetch('https://api.scryfall.com/catalog/planeswalker-types').then(res=> res.json());
-            let powerTypes = await fetch('https://api.scryfall.com/catalog/powers').then(res=> res.json());
-            //let toughnessTypes = await fetch('https://api.scryfall.com/catalog/toughnesses').then(res=> res.json());
-            //let setOptions = await fetch('https://api.scryfall.com/sets').then(res=> res.json());
-            console.log(powerTypes)
-           this.setState([
-               //creatureTypes,
-               //planeswalkerTypes,
-               powerTypes,
-               //toughnessTypes,
-               //setOptions
-           ])
+        let currentComponent = this;
+        async function fetchDropdowns(){
+            let creatTypes = await fetch('https://api.scryfall.com/catalog/creature-types').then(res=> res.json());
+            let planeswTypes = await fetch('https://api.scryfall.com/catalog/planeswalker-types').then(res=> res.json());
+            let powTypes = await fetch('https://api.scryfall.com/catalog/powers').then(res=> res.json());
+            let toughTypes = await fetch('https://api.scryfall.com/catalog/toughnesses').then(res=> res.json());
+            let setOpt = await fetch('https://api.scryfall.com/sets').then(res=> res.json());
+            
+            let filteredSetOptions = setOpt.data.filter(set => set.set_type != "token")
+
+            currentComponent.setState({
+                creatureTypes: creatTypes.data,
+                planeswalkerTypes: planeswTypes.data,
+                powerTypes:powTypes.data,
+                toughnessTypes: toughTypes.data,
+                setOptions: filteredSetOptions
+            })
         };
-        populateDropdowns();
+
+        fetchDropdowns();
    }
     
     render(){
@@ -335,7 +351,16 @@ export default class SearchCards extends Component {
                             </div>
                         </fieldset>
                         <fieldset>
-                            <label>Power</label>
+                            <div>
+                                <label>Power</label>
+                                <select>
+                                    {this.state.powerTypes.map(i => {
+                                        return <option id='power' key={i} name='power' value={i}>{i}</option>
+                                    })}
+                                </select>
+                            </div>
+                            
+
                             <label>Toughness</label>
                             <label>Combined P and T</label>
                             <label>Loyalty</label>
@@ -352,8 +377,12 @@ export default class SearchCards extends Component {
                         <fieldset>
                         <label htmlFor='sets' className='searchLabel'>Set</label>
                             <input type='text' list='sets' className='selectStyle' name='sets'/>
-
-
+                            <datalist id='sets'>
+                                {this.state.setOptions.map(set => {
+                                    return <option id='setoption' key={set.id} name={set.code} value={set.name}></option>
+                                })}
+                                </datalist>
+                            <input type='checkbox' name='blockSearch' value='b:'/>Search Block Containing This Set
                         </fieldset>
                         <div>
                             <input className='collapseButton button' onClick={this.expandCollapse} type='button' value={this.state.exp_col}/>
