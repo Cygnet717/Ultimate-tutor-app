@@ -77,13 +77,17 @@ export default class SearchCards extends Component {
             }
             return string;
         });
-        console.log(data.get('types'))
-        console.log(data.get('supertypes'))
-        console.log(data.get('typeOption'))
-        console.log(data.get('additionalType'))
-    
+        console.log(this.state.text)
+        if(this.state.text.length !== 0){
+            this.state.text.map(t => 
+                string = string.concat('o:"' + t + '"+')
+                )
+            
+        }
         if(data.get('sets')){
-            let selectedSet = this.state.setOptions.find(set => JSON.stringify(set.name) === JSON.stringify(data.get('sets')))
+            let selectedSet = this.state.setOptions.find(set => 
+                JSON.stringify(set.name) === JSON.stringify(data.get('sets'))
+            )
             console.log(selectedSet)
             if(data.get('blockSearch')){
                 string = string.concat('b:'+ selectedSet.code+'+')
@@ -95,28 +99,8 @@ export default class SearchCards extends Component {
     }
 
     /*handleSubmit=(event)=>{
-        event.preventDefault();
-        this.setState({
-            thinking: true,
-            searched: true,
-            cards: []
-        })
-        const data = new FormData(event.target);
-        let string ='';
-        let params = ['name', 'types', 'supertypes', 'subtypes', 'rarity']
-        params.map(i=>{
-            if(data.get(i)){
-                string = string.concat(i+'='+data.get(i)+'&')
-            }
-            return string
-        })
-        if(data.get('sets')){
-            let selectedSet = paramOptions.sets.find(set => set.name === data.get('sets'))
-            string = string.concat('sets='+ selectedSet.code+'&')
-        }
-        if(this.state.text.length !== 0){
-            string = string.concat('text='+this.state.text+'&')
-        }
+        
+        
         if(this.state.power !== 'P'){
             string = string.concat('power='+this.state.power+'&')
         }
@@ -353,7 +337,7 @@ export default class SearchCards extends Component {
                             <input type='radio' name='typeOption' value='is:vanilla+'/>Textless Creature
                         </fieldset>
                         <fieldset>
-                        <label className='searchLabel'>Exact text</label>
+                        <label className='searchLabel'>Exact text</label> <span>you can use ~ inplace of card name</span>
                             <input id='text' type='text' className='selectStyle' name='text' onKeyPress={this.keyPressed} placeholder='hexproof'/>
                             <div className='exactTextButtons'>
                                 <input type='button' className='button' value='Clear' onClick={this.clearTextState}/>
