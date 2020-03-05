@@ -38,10 +38,10 @@ export default class CardResults extends Component{
         event.preventDefault();
         SingleDeckApiService.postNewCard(
             this.props.name, 
-            this.props.imageUrl, 
-            this.props.multiverseid, 
+            this.props.image_uris.normal, 
+            this.props.id, 
             this.state.selectedDeck,
-            this.props.types[this.props.types.length -1],
+            this.props.type_line,
             )
         .then(res=> this.revealConfirmation(res))
     };
@@ -55,16 +55,30 @@ export default class CardResults extends Component{
     };
 
     render(){
-        const cardRulings = this.props.rulings.map((ruling, i) =>{
+        /*const cardRulings = this.props.rulings.map((ruling, i) =>{
             return <p key={i}> {ruling.date}: {ruling.text} </p>
          })
+
+        const legalFormats = this.props.legalities.map(i =>{ 
+            return <p>{i}</p>
+        })*/
+console.log(this.props.legalities[0])
+         
+        function image(card) {
+             if(card.layout === 'transform'){
+                 return card.card_faces[1].image_uris.normal
+//send both sides and make them flipable
+             } else {
+                 return card.image_uris.normal
+             }
+         }
     return(
         <section>
             <div className='card'>
                 <p className='cardName'>{this.props.name}</p>
-                <img alt={this.props.name} src={this.props.imageUrl} onClick={this.closeUp}/><br/>
+                <img alt={this.props.name} src={image(this.props)} onClick={this.closeUp}/><br/>
                 <form 
-                id={this.props.multiverseid} 
+                id={this.props.id} 
                 onSubmit={this.addCardToDeck}
                 >
                     <select name='decklist' id='decklist' form='decklist' value={this.state.selectedDeck} onChange={this.handleDeckChange}>
@@ -83,8 +97,9 @@ export default class CardResults extends Component{
                     
                 <div id="myModal" className={this.state.classNames}>
                     <span className="close" onClick={this.removeCloseUp}>&times;</span>
-                    <img className="modal-content" alt={this.props.name} src={this.props.imageUrl}/>
-                    <div id="caption">Rulings: {cardRulings}</div>
+                    <img className="modal-content" alt={this.props.name} src={image(this.props)}/>
+                        
+                    <div id="caption">Rulings: 'rulings'</div>
                 </div>
             </div>    
         </section>

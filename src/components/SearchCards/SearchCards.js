@@ -27,7 +27,7 @@ export default class SearchCards extends Component {
             visible: 'hidden',
             exp_col: 'Expand',
             string: '',
-            count: 1,
+            nextPage: null,
             lastResults: false,
         }
     }
@@ -44,17 +44,6 @@ export default class SearchCards extends Component {
             top: 0,
             behavior: 'auto'
         })
-    }
-
-    setValidCards =(res)=> {
-        let validCards = res.cards.filter(i =>
-            i.imageUrl !== undefined
-        )
-        this.setState({
-            cards: this.state.cards.concat(validCards),
-            thinking: false
-        })
-        if(this.state.count === 1){this.executeScroll()}
     }
 
     handleSubmit=(event)=> {
@@ -76,8 +65,9 @@ export default class SearchCards extends Component {
             }
             return string;
         });
-
-        let operatorParams = ['power', 'toughness', 'combinedPT', 'loyalty', 'rarity'];
+        
+        let operatorParams = ['power', 'toughness', 'combinedPT', 'loyalty', 'rarity', 'cmc'];
+        //check that there is an operator value
         operatorParams.map(i => {
             if(data.get(i) === 'default' || data.get(i) === ''){
                 return 'return';
@@ -86,6 +76,12 @@ export default class SearchCards extends Component {
             }
             return string;
         })
+
+        if(data.get('color')){
+            let collectColors='';
+            data.getAll('color').map(c => collectColors = collectColors.concat(c))
+            string = string.concat(data.get('colorOperator') +collectColors+'+')
+        }
         
         if(this.state.text.length !== 0){
             this.state.text.map(t => 
@@ -103,52 +99,41 @@ export default class SearchCards extends Component {
                 string = string.concat('s:'+ selectedSet.code+'+')
             }
         }
-        console.log(string)
-    }
-
-    /*handleSubmit=(event)=>{
-        
-        
-        if(this.state.power !== 'P'){
-            string = string.concat('power='+this.state.power+'&')
-        }
-        if(this.state.toughness !== 'T'){
-            string = string.concat('toughness='+this.state.toughness+'&')
-        }
-        if(data.get('colorIdentity')){
-            string = string.concat('colorIdentity='+data.getAll('colorIdentity')+'&')
-        }
         this.setState({ 
             string,
-            count: 1,
             lastResults: false,
         })
        this.sendFetch(string)
-    }*/
+    }
 
     searchMore =()=>{
         this.setState({ 
-            count: this.state.count+1,
             thinking: true,
          });
-        let moreString = this.state.string + 'page='+(this.state.count+1);
-        this.sendFetch(moreString)
+        MTGCardSearchService.getNextPageResults(this.state.nextPage)
     }
 
     sendFetch = (parameters) => {
         MTGCardSearchService.getSearchResults(parameters)
         .then(res =>{
-            if(res.cards.length === 0){
+            if(res.has_more){
+                this.setState({
+                    thinking: false,
+                    lastResults:false,
+                    nextPage: res.next_page
+                })
+            } else {
                 this.setState({ 
                     lastResults: true,
-                    thinking: false 
+                    thinking: false,
+                    nextPage: null
                 })
-            } else if(res.cards.length < 100){
-                this.setState({ lastResults: true});
-                this.setValidCards(res)
-            } else {
-                this.setValidCards(res)
+                
             }
+            this.setState({
+                cards: this.state.cards.concat(res.data),
+            })
+            if(this.state.cards.length > 0){this.executeScroll()}
         })
     }
 
@@ -244,8 +229,8 @@ export default class SearchCards extends Component {
                 </div>)
         }
 
-        let cardResults = this.state.cards.map((card, i) =>{
-            return <CardResults {...card} key={i}/>
+        let cardResults = this.state.cards.map(card =>{
+                return <CardResults {...card} key={card.id}/>   
         })
 
         if(this.state.cards.length === 0 && this.state.searched){
@@ -299,23 +284,25 @@ export default class SearchCards extends Component {
                         <fieldset>
                             <label className='searchLabel'>Color</label>
                             <div>
-                                <input type='radio' name='atmost' value='c<='/>at most
-                                <input type='radio' name='atleast' value='c>='/>at least
+                                <input type='radio' name='colorOperator' defaultChecked value='c<='/>at most
+                                <input type='radio' name='colorOperator' value='c>='/>at least
                             </div>
                             <div className='colorCheckboxes'>
-                                <input id='colorIdentityWhite' type='checkbox' name='colorIdentity' value='w'/>White
-                                <input id='colorIdentityBlue' type='checkbox' name='colorIdentity' value='u'/>Blue
-                                <input id='colorIdentityBlack' type='checkbox' name='colorIdentity'value='b'/>Black
-                                <input id='colorIdentityRed' type='checkbox' name='colorIdentity' value='r'/>Red
-                                <input id='colorIdentityGreen' type='checkbox' name='colorIdentity' value='g'/>Green
-                                <input id='colorIdentitycolorless' type='checkbox' name='colorIdentity' value='c'/>Colorless
+                                <input id='colorWhite' type='checkbox' name='color' value='w'/>White
+                                <input id='colorBlue' type='checkbox' name='color' value='u'/>Blue
+                                <input id='colorBlack' type='checkbox' name='color'value='b'/>Black
+                                <input id='colorRed' type='checkbox' name='color' value='r'/>Red
+                                <input id='colorGreen' type='checkbox' name='color' value='g'/>Green
+                                <input id='colorColorless' type='checkbox' name='color' value='c'/>Colorless
                             </div>
                             <div className='cmcphyrexian'>
                                 <label className='cmc'>CMC</label>
-                                <input type='number' min='0' max='1000001'/>
-                                <input type='checkbox' value='<='/><label>&lt;=</label>
-                                <input type='checkbox' value='>='/><label>&gt;=</label>
-                                <input type='checkbox' value='phyrexian'/><label>Phyrexian Mana</label>
+                                <div className='colorCheckboxes'>
+                                    <input type='number' name='cmc' min='0' max='1000001'/>
+                                    <input type='radio' name='cmcOperator' value='cmc<='/><label>&lt;=</label>
+                                    <input type='radio' name='cmcOperator' value='cmc='/><label>=</label>
+                                    <input type='radio' name='cmcOperator' value='cmc>='/><label>&gt;=</label>
+                                </div>
                             </div>
                         </fieldset>
                         <fieldset>
@@ -437,11 +424,12 @@ export default class SearchCards extends Component {
                 </div>
                 <br/>
                 <div className='cardsDisplay'>
-                {this.state.thinking && this.state.count === 1? this.renderThinking() : cardResults}
+                {this.state.thinking ? this.renderThinking() : cardResults}
                 </div>
                 {this.state.cards.length === 0 ?<div/>: this.moreButon()}
             </div>
         )
     }
 }
+//&& this.state.count === 1
 //
