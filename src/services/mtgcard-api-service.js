@@ -2,7 +2,7 @@ import config from '../config';
 
 const MTGCardSearchService = {
     getSearchResults(parameters) {
-        return fetch(config.API_SCRYFALL+'cards/search'+parameters,{
+        return fetch(config.API_SCRYFALL+'cards/search?q='+parameters,{
             method: "GET",
             mode: 'cors',
             handlers: {

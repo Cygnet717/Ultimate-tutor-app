@@ -68,17 +68,20 @@ export default class SearchCards extends Component {
         })
         const data = new FormData(event.target);
         let string ='';
-        /*let queryParams = [
-            {class: 'color', short: 'c'}, {class: 'colorIdentity', short: 'id'}, {class: 'types', short: 't'}, 
-            {class: 'text', short: 'o'}, {class: 'manaCost', short: 'm'}, {class: 'converted', short: 'cmc'},
-            {class: 'power', short: 'pow'}, {class: 'toughness', short: 'tou'}, {class: 'loyalty', short: 'loy'},
-            {class: 'rarity', short: 'r'}, {class: 'set', short: 's'}
+        let queryParams = [
+            'types', 'supertypes', 'typeOption', 'additionalType'
         ];
         queryParams.map(i => {
-            if(data.get(i.class)){
-                string = string.concat(i.short)
+            if(data.get(i)){
+                string = string.concat(data.get(i))
             }
-        })*/
+            return string;
+        });
+        console.log(data.get('types'))
+        console.log(data.get('supertypes'))
+        console.log(data.get('typeOption'))
+        console.log(data.get('additionalType'))
+    
         if(data.get('sets')){
             let selectedSet = this.state.setOptions.find(set => JSON.stringify(set.name) === JSON.stringify(data.get('sets')))
             console.log(selectedSet)
@@ -263,28 +266,37 @@ export default class SearchCards extends Component {
 
         let showNewDropdown = <p>wrong</p>
 
-        if(this.state.validType){
-        showNewDropdown = (
-            <select id='additionaltypes' className='additionaltypes' defaultValue={'default'}>
-                <option hidden value='default'>{this.state.validType[0]}</option> 
-                {this.state.validType[1][0].map(i => {
-                    return <option id='power' key={i} name='power' value={i}>{i}</option>
-                })} 
-            </select>
+        if(this.state.validType !== false){
+            showNewDropdown = (
+                <select name='additionalType' id='additionaltypes' className='additionaltypes' defaultValue={'default'}>
+                    <option hidden value='default'>{this.state.validType[0]}</option> 
+                    {this.state.validType[1][0].map(i => {
+                        return <option id='power' key={i} name='power' value={'t:'+i+'+'}>{i}</option>
+                    })} 
+                </select>
             )
         }
-        
-
+    
         let additionalTypesDropdown = (event)=>{
-            let type = event.target.value;
+            let type = event.target.value.slice(2, event.target.value.length-1);
             let typeArray = [];
             if(type === 'Creature'){
                 typeArray.push(this.state.Creature)
             } else if (type === 'Planeswalker'){
                 typeArray.push(this.state.Planeswalker)
-            }
+            } else if (type === 'Land'){
+                typeArray.push(paramOptions.landTypes)
+            } else if (type === 'Enchantment'){
+                typeArray.push(paramOptions.enchantmentTypes)
+            } else if (type === 'Artifact'){
+                typeArray.push(paramOptions.artifactTypes)
+            } else if (type === 'Instant' || type === 't:Sorcery+'){
+                typeArray.push(paramOptions.instSorcTypes)
+            } 
+
+            if(typeArray.length > 0){
             this.setState({ validType: [type, typeArray]})
-            
+            }
        }
         return(
             <div className='outer'>
@@ -323,22 +335,22 @@ export default class SearchCards extends Component {
                             <select name='supertypes' id='supertypes'className='supertype' defaultValue={'default'}>
                                 <option disabled hidden value='default'>SuperType</option>
                                 {paramOptions.supertypes.map(i => {
-                                    return <option id='supertypes' key={i} name='types' value={i}>{i}</option>
+                                    return <option id='supertypes' key={i} name='types' value={'t:'+i+'+'}>{i}</option>
                                 })}
                             </select>
                             
-                            <select id='types' className='types' defaultValue={'default'} onChange={(e) =>additionalTypesDropdown(e)}>
+                            <select name='types' id='types' className='types' defaultValue={'default'} onChange={(e) =>additionalTypesDropdown(e)}>
                             <option disabled hidden value='default'>Type</option>
                                 {paramOptions.types.map(i => {
-                                    return <option id='types' key={i} name='types' value={i}>{i}</option>
+                                    return <option id='types' key={i} name='types' value={'t:'+i+'+'}>{i}</option>
                                 })} 
                             </select>
                             <br/>
                             {!this.state.validType ? <span></span>: showNewDropdown}
 
-                            <input type='radio' name='modalOption' value='is:modal'/>Modal
-                            <input type='radio' name='historicOption' value='is:historic'/>Historic
-                            <input type='radio' name='vanillaOption' value='is:vanilla'/>Textless Creature
+                            <input type='radio' name='typeOption' value='is:modal+'/>Modal
+                            <input type='radio' name='typeOption' value='is:historic+'/>Historic
+                            <input type='radio' name='typeOption' value='is:vanilla+'/>Textless Creature
                         </fieldset>
                         <fieldset>
                         <label className='searchLabel'>Exact text</label>
