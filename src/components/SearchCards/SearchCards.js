@@ -22,8 +22,6 @@ export default class SearchCards extends Component {
             validType: false,
             Creature: [],
             Planeswalker: [],
-            powerTypes: [],
-            toughnessTypes: [],
             setOptions: [],
             expanded: false,
             visible: 'hidden',
@@ -71,18 +69,25 @@ export default class SearchCards extends Component {
         let queryParams = [
             'types', 'supertypes', 'typeOption', 'additionalType'
         ];
+       
         queryParams.map(i => {
             if(data.get(i)){
                 string = string.concat(data.get(i))
             }
             return string;
         });
-        console.log(this.state.text)
+
+        let PTParams = ['power', 'toughness', 'combinedPT', 'loyalty'];
+        PTParams.map(i => {
+            if(data.get(i)){
+                string = string.concat(data.get(i+'Operator') + data.get(i) + '+')
+            }
+        })
+        
         if(this.state.text.length !== 0){
             this.state.text.map(t => 
                 string = string.concat('o:"' + t + '"+')
                 )
-            
         }
         if(data.get('sets')){
             let selectedSet = this.state.setOptions.find(set => 
@@ -210,8 +215,6 @@ export default class SearchCards extends Component {
         async function fetchDropdowns(){
             let creatTypes = await fetch('https://api.scryfall.com/catalog/creature-types').then(res=> res.json());
             let planeswTypes = await fetch('https://api.scryfall.com/catalog/planeswalker-types').then(res=> res.json());
-            let powTypes = await fetch('https://api.scryfall.com/catalog/powers').then(res=> res.json());
-            let toughTypes = await fetch('https://api.scryfall.com/catalog/toughnesses').then(res=> res.json());
             let setOpt = await fetch('https://api.scryfall.com/sets').then(res=> res.json());
             
             let filteredSetOptions = setOpt.data.filter(set => set.set_type !== "token")
@@ -219,8 +222,6 @@ export default class SearchCards extends Component {
             currentComponent.setState({
                 Creature: creatTypes.data,
                 Planeswalker: planeswTypes.data,
-                powerTypes:powTypes.data,
-                toughnessTypes: toughTypes.data,
                 setOptions: filteredSetOptions
             })
         };
@@ -357,34 +358,46 @@ export default class SearchCards extends Component {
                         <fieldset>
                             <div>
                                 <label>Power</label>
-                                <select>
+                                <select name='power'>
                                 <option hidden value='default'>Power</option> 
-                                    {this.state.powerTypes.map(i => {
+                                    {paramOptions.powTou.map(i => {
                                         return <option id='power' key={i} name='power' value={i}>{i}</option>
                                     })}
                                 </select>
+                                <input type='radio' name='powerOperator' value='pow>'/>&gt;
+                                <input type='radio' name='powerOperator' value='pow='/>=
+                                <input type='radio' name='powerOperator' value='pow<'/>&lt;
                             </div>
                             <div>
                                 <label>Toughness</label>
-                                <select>
+                                <select name='toughness'>
                                 <option hidden value='default'>Toughness</option> 
-                                    {this.state.toughnessTypes.map(i => {
-                                        return <option id='power' key={i} name='power' value={i}>{i}</option>
+                                    {paramOptions.powTou.map(i => {
+                                        return <option id='toughness' key={i} name='toughness' value={i}>{i}</option>
                                     })}
                                 </select>
+                                <input type='radio' name='toughnessOperator' value='tou>'/>&gt;
+                                <input type='radio' name='toughnessOperator' value='tou='/>=
+                                <input type='radio' name='toughnessOperator' value='tou<'/>&lt;
                             </div>
                             <div>
                                 <label>Combined P and T</label>
                                 <input type='number' name='combinedPT'/>
+                                <input type='radio' name='combinedPTOperator' value='pt>'/>&gt;
+                                <input type='radio' name='combinedPTOperator' value='pt='/>=
+                                <input type='radio' name='combinedPTOperator' value='pt<'/>&lt;
                             </div>
                             <div>
                                 <label>Loyalty</label>
-                                <select>
+                                <select name='loyalty'>
                                 <option hidden value='default'>Loyalty</option> 
                                     {paramOptions.loyaltyTypes.map(i => {
-                                        return <option id='power' key={i} name='power' value={i}>{i}</option>
+                                        return <option id='loyalty' key={i} name='loyalty' value={i}>{i}</option>
                                     })}
                                 </select>
+                                <input type='radio' name='loyaltyOperator' value='loy>'/>&gt;
+                                <input type='radio' name='loyaltyOperator' value='loy='/>=
+                                <input type='radio' name='loyaltyOperator' value='loy<'/>&lt;
                             </div>
                         </fieldset>
                         <fieldset>
