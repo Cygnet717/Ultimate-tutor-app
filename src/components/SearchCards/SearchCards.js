@@ -264,14 +264,13 @@ export default class SearchCards extends Component {
         let showNewDropdown = <p>wrong</p>
 
         if(this.state.validType){
-            console.log(this.state.validType)
-        showNewDropdown = (<p>{this.state.validType}</p>
-            /*<select id='additionaltypes' className='additionaltypes' defaultValue={'default'}>
+        showNewDropdown = (
+            <select id='additionaltypes' className='additionaltypes' defaultValue={'default'}>
                 <option hidden value='default'>{this.state.validType[0]}</option> 
-                {this.validType[1].map(i => {
+                {this.state.validType[1][0].map(i => {
                     return <option id='power' key={i} name='power' value={i}>{i}</option>
-                })}        
-            </select>*/
+                })} 
+            </select>
             )
         }
         
@@ -334,10 +333,9 @@ export default class SearchCards extends Component {
                                     return <option id='types' key={i} name='types' value={i}>{i}</option>
                                 })} 
                             </select>
+                            <br/>
+                            {!this.state.validType ? <span></span>: showNewDropdown}
 
-                            {!this.state.validType ? console.log(true): showNewDropdown}
-
-                            <p>hidden dropdown with additional types // make datalist instead of select</p>
                             <input type='radio' name='modalOption' value='is:modal'/>Modal
                             <input type='radio' name='historicOption' value='is:historic'/>Historic
                             <input type='radio' name='vanillaOption' value='is:vanilla'/>Textless Creature
