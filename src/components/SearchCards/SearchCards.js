@@ -77,11 +77,14 @@ export default class SearchCards extends Component {
             return string;
         });
 
-        let PTParams = ['power', 'toughness', 'combinedPT', 'loyalty'];
-        PTParams.map(i => {
-            if(data.get(i)){
+        let operatorParams = ['power', 'toughness', 'combinedPT', 'loyalty', 'rarity'];
+        operatorParams.map(i => {
+            if(data.get(i) === 'default' || data.get(i) === ''){
+                return 'return';
+            } else {
                 string = string.concat(data.get(i+'Operator') + data.get(i) + '+')
             }
+            return string;
         })
         
         if(this.state.text.length !== 0){
@@ -358,56 +361,59 @@ export default class SearchCards extends Component {
                         <fieldset>
                             <div>
                                 <label>Power</label>
-                                <select name='power'>
+                                <select name='power' className='selectStyle' defaultValue={'default'}>
                                 <option hidden value='default'>Power</option> 
                                     {paramOptions.powTou.map(i => {
                                         return <option id='power' key={i} name='power' value={i}>{i}</option>
                                     })}
                                 </select>
-                                <input type='radio' name='powerOperator' value='pow>'/>&gt;
+                                <input type='radio' name='powerOperator' value='pow>='/>&gt;=
                                 <input type='radio' name='powerOperator' value='pow='/>=
-                                <input type='radio' name='powerOperator' value='pow<'/>&lt;
+                                <input type='radio' name='powerOperator' value='pow<='/>&lt;=
                             </div>
                             <div>
                                 <label>Toughness</label>
-                                <select name='toughness'>
+                                <select name='toughness' className='selectStyle' defaultValue={'default'}>
                                 <option hidden value='default'>Toughness</option> 
                                     {paramOptions.powTou.map(i => {
                                         return <option id='toughness' key={i} name='toughness' value={i}>{i}</option>
                                     })}
                                 </select>
-                                <input type='radio' name='toughnessOperator' value='tou>'/>&gt;
+                                <input type='radio' name='toughnessOperator' value='tou>='/>&gt;=
                                 <input type='radio' name='toughnessOperator' value='tou='/>=
-                                <input type='radio' name='toughnessOperator' value='tou<'/>&lt;
+                                <input type='radio' name='toughnessOperator' value='tou<='/>&lt;=
                             </div>
                             <div>
                                 <label>Combined P and T</label>
                                 <input type='number' name='combinedPT'/>
-                                <input type='radio' name='combinedPTOperator' value='pt>'/>&gt;
+                                <input type='radio' name='combinedPTOperator' value='pt>='/>&gt;=
                                 <input type='radio' name='combinedPTOperator' value='pt='/>=
-                                <input type='radio' name='combinedPTOperator' value='pt<'/>&lt;
+                                <input type='radio' name='combinedPTOperator' value='pt<='/>&lt;=
                             </div>
                             <div>
                                 <label>Loyalty</label>
-                                <select name='loyalty'>
+                                <select name='loyalty' className='selectStyle' defaultValue={'default'}>
                                 <option hidden value='default'>Loyalty</option> 
                                     {paramOptions.loyaltyTypes.map(i => {
                                         return <option id='loyalty' key={i} name='loyalty' value={i}>{i}</option>
                                     })}
                                 </select>
-                                <input type='radio' name='loyaltyOperator' value='loy>'/>&gt;
+                                <input type='radio' name='loyaltyOperator' value='loy>='/>&gt;=
                                 <input type='radio' name='loyaltyOperator' value='loy='/>=
-                                <input type='radio' name='loyaltyOperator' value='loy<'/>&lt;
+                                <input type='radio' name='loyaltyOperator' value='loy<='/>&lt;=
                             </div>
                         </fieldset>
                         <fieldset>
                         <label htmlFor='rarity' className='searchLabel'>Rarity</label>
                             <select name='rarity' id='rarity' className='selectStyle' defaultValue={'default'}>
-                                <option disabled hidden value='default'>Select</option>
+                                <option hidden value='default'>Select</option>
                                     {paramOptions.rarity.map(i => {
                                         return <option id='rarity' key={i} name='rarity' value={i}>{i}</option>
                                     })}
                             </select>
+                            <input type='radio' name='rarityOperator' value='r>='/>&gt;=
+                            <input type='radio' name='rarityOperator' value='r='/>=
+                            <input type='radio' name='rarityOperator' value='r<='/>&lt;=
                         </fieldset>
                         <fieldset>
                         <label htmlFor='sets' className='searchLabel'>Set</label>
