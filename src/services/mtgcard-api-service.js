@@ -36,6 +36,23 @@ const MTGCardSearchService = {
         .catch(error => console.log({error}))
     },
 
+    getRulings(uri){
+        return fetch(uri,{
+            method: "GET",
+            mode: 'cors',
+            handlers: {
+                'content-type':'application/json'
+            }
+        })
+        .then(res => {
+            if (!res.ok) {
+              throw new Error(res.status)
+            }
+            return res.json()
+            })
+        .catch(error => console.log({error}))
+    },
+
     getNameSearchResults(name) {
         return fetch(config.API_SCRYFALL+'cards/named'+name,{
             method:"GET",

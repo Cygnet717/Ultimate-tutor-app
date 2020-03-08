@@ -111,6 +111,27 @@ export default class SearchCards extends Component {
             thinking: true,
          });
         MTGCardSearchService.getNextPageResults(this.state.nextPage)
+        .then(res =>{
+            if(res.has_more){
+                this.setState({
+                    thinking: false,
+                    lastResults:false,
+                    nextPage: res.next_page
+                })
+            } else {
+                this.setState({ 
+                    lastResults: true,
+                    thinking: false,
+                    nextPage: null
+                })
+                
+            }
+            this.setState({
+                cards: this.state.cards.concat(res.data),
+            })
+            if(this.state.cards.length > 0){this.executeScroll()}
+        })
+        .catch(res => console.log(res.warnings))
     }
 
     sendFetch = (parameters) => {
@@ -135,6 +156,7 @@ export default class SearchCards extends Component {
             })
             if(this.state.cards.length > 0){this.executeScroll()}
         })
+        .catch(res => console.log(res.warnings))
     }
 
     expandCollapse = () => {
@@ -293,7 +315,7 @@ export default class SearchCards extends Component {
                                 <input id='colorBlack' type='checkbox' name='color'value='b'/>Black
                                 <input id='colorRed' type='checkbox' name='color' value='r'/>Red
                                 <input id='colorGreen' type='checkbox' name='color' value='g'/>Green
-                                <input id='colorColorless' type='checkbox' name='color' value='c'/>Colorless
+                                <input id='colorColorless' type='radio' name='color' value='c'/>Colorless
                             </div>
                             <div className='cmcphyrexian'>
                                 <label className='cmc'>CMC</label>

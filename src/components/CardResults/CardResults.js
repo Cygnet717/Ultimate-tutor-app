@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './CardResults.css';
 import UserContext from '../../context/user-context';
+import MTGCardSearchService from '../../services/mtgcard-api-service';
 import SingleDeckApiService from '../../services/Single-deck-api-service';
 
 export default class CardResults extends Component{
@@ -8,22 +9,46 @@ export default class CardResults extends Component{
     constructor(props){
         super(props);
         this.state = {
-            classNames: "modal",
+            imageModalView: "hidemodal",
+            rulingsModalView: "hidemodal",
             selectedDeck: 0,
             buttonAbility: true,
+            rulings: [],
             added: false,
             addedCard: '',
             addedToDeck: ''
         }
     }
+
+    getCardRulings(uri) {
+        MTGCardSearchService.getRulings(uri)
+        .then(res =>{
+            if(res.data.length > 0){
+                this.setState({
+                    rulingsModalView: 'showmodal',
+                    rulings: res.data,
+            })
+            } else {
+                this.setState({
+                    rulingsModalView: 'showmodal',
+                    rulings: [],
+                })
+            }
+        })
+        .catch(res => console.log(res.warnings))
+    }
     
     closeUp = () => {
-        this.setState({ classNames: 'showmodal'});
+        this.setState({ imageModalView: 'showmodal'});
     };
 
-    removeCloseUp = () => {
-        this.setState({ classNames: 'modal'});
+    removeImageCloseUp = () => {
+        this.setState({ imageModalView: 'hidemodal'});
     };
+
+    removeRulingsCloseUp = () => {
+        this.setState({ rulingsModalView: 'hidemodal'})
+    }
 
     revealConfirmation = (card) => {
         let thisDeck = this.context.decks.find(deck => Number(card.deck_id) === deck.deck_id);
@@ -55,15 +80,6 @@ export default class CardResults extends Component{
     };
 
     render(){
-        /*const cardRulings = this.props.rulings.map((ruling, i) =>{
-            return <p key={i}> {ruling.date}: {ruling.text} </p>
-         })
-
-        const legalFormats = this.props.legalities.map(i =>{ 
-            return <p>{i}</p>
-        })*/
-console.log(this.props.legalities[0])
-         
         function image(card) {
              if(card.layout === 'transform'){
                  return card.card_faces[1].image_uris.normal
@@ -72,15 +88,22 @@ console.log(this.props.legalities[0])
                  return card.image_uris.normal
              }
          }
+        const rulingsUri = this.props.rulings_uri
+
+        let foundRulings= <p className='caption'>There are no rulings for this card at this time.</p>;
+        if(this.state.rulings.length > 0){
+            foundRulings = this.state.rulings.map(rulingObj => {
+                return <p className='caption'>{rulingObj.published_at}: {rulingObj.comment}</p>
+            })
+        } 
+        
     return(
         <section>
             <div className='card'>
                 <p className='cardName'>{this.props.name}</p>
                 <img alt={this.props.name} src={image(this.props)} onClick={this.closeUp}/><br/>
-                <form 
-                id={this.props.id} 
-                onSubmit={this.addCardToDeck}
-                >
+                <button onClick={() => this.getCardRulings(rulingsUri)}>Rulings</button>
+                <form id={this.props.id} onSubmit={this.addCardToDeck}>
                     <select name='decklist' id='decklist' form='decklist' value={this.state.selectedDeck} onChange={this.handleDeckChange}>
                         <option value='none'>Pick a deck</option>
                         {this.context.decks.map(deck =>
@@ -94,12 +117,21 @@ console.log(this.props.legalities[0])
                 <div className='addedConfirmation'>
                     {this.state.added? <span>Added {this.state.addedCard} to {this.state.addedToDeck}</span>: <span></span>}
                 </div>
-                    
-                <div id="myModal" className={this.state.classNames}>
-                    <span className="close" onClick={this.removeCloseUp}>&times;</span>
+                <div id="rulingsModal"className={this.state.rulingsModalView}>
+                    <span className="close" onClick={this.removeRulingsCloseUp}>&#x02717;</span>
+                    {foundRulings}
+                </div>
+                <div id="imageModal" className={this.state.imageModalView}>
+                    <span className="close" onClick={this.removeImageCloseUp}>&#x02717;</span>
                     <img className="modal-content" alt={this.props.name} src={image(this.props)}/>
-                        
-                    <div id="caption">Rulings: 'rulings'</div>
+                    <div id="legalities" className='caption'>
+                        <p>Standard: {this.props.legalities.standard}</p>
+                        <p>Pioneer: {this.props.legalities.pioneer}</p>
+                        <p>Modern: {this.props.legalities.modern}</p>
+                        <p>Legacy: {this.props.legalities.legacy}</p>
+                        <p>Vintage: {this.props.legalities.vintage}</p>
+                        <p>Brawl: {this.props.legalities.brawl}</p>
+                    </div>
                 </div>
             </div>    
         </section>
