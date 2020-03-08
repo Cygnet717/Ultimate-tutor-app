@@ -17,6 +17,7 @@ const SingleDeckApiService = {
   },
  
   postNewCard(card_name, image_url, multiverseid, deck_id, type) {
+    console.log(`${config.API_ENDPOINT}/decks/${deck_id}`)
     return fetch(`${config.API_ENDPOINT}/decks/${deck_id}`, {
       method: 'POST',
       headers: {

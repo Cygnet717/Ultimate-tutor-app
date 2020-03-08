@@ -51,6 +51,7 @@ export default class CardResults extends Component{
     }
 
     revealConfirmation = (card) => {
+        console.log('reveal added')
         let thisDeck = this.context.decks.find(deck => Number(card.deck_id) === deck.deck_id);
         this.setState({
             added: true,
@@ -61,10 +62,15 @@ export default class CardResults extends Component{
 
     addCardToDeck=(event)=>{
         event.preventDefault();
+        console.log(this.props.name)
+        console.log(this.props.image_uris.normal)
+        console.log(this.props.id)
+        console.log(this.state.selectedDeck)
+        console.log(this.props.type_line)
         SingleDeckApiService.postNewCard(
             this.props.name, 
             this.props.image_uris.normal, 
-            this.props.id, 
+            this.props.multiverse_ids[0], 
             this.state.selectedDeck,
             this.props.type_line,
             )
