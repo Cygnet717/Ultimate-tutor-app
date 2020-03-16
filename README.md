@@ -3,7 +3,7 @@ http://ultimatetutor.herokuapp.com/
 
 
 ## Summary
-This app makes it easy to build new decks and make online versions of existing decks.  The user can create new decks and search for cards to add to thier deck.  Future deployments will include the ability to add many coppies of a card at once and to random draw a number of cards from your deck to test the first hand you might get in a game.
+This app makes it easy to build new decks and make online versions of existing decks.  The user can create new decks and search for cards to add to their deck.  Future deployments will include the ability to add many copies of a card at once and to random draw a number of cards from your deck to test the first hand you might get in a game.
 
 ## API Documentation
 ### Getting Started

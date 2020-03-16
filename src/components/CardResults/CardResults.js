@@ -51,7 +51,8 @@ export default class CardResults extends Component{
     }
 
     revealConfirmation = (card) => {
-        console.log('reveal added')
+        console.log(card.deck_id)
+        console.log(this.context.decks[1])
         let thisDeck = this.context.decks.find(deck => Number(card.deck_id) === deck.deck_id);
         this.setState({
             added: true,
@@ -62,11 +63,9 @@ export default class CardResults extends Component{
 
     addCardToDeck=(event)=>{
         event.preventDefault();
-        console.log(this.props.name)
-        console.log(this.props.image_uris.normal)
-        console.log(this.props.id)
+        
         console.log(this.state.selectedDeck)
-        console.log(this.props.type_line)
+        
         SingleDeckApiService.postNewCard(
             this.props.name, 
             this.props.image_uris.normal, 
@@ -74,7 +73,7 @@ export default class CardResults extends Component{
             this.state.selectedDeck,
             this.props.type_line,
             )
-        .then(res=> this.revealConfirmation(res))
+        .then(res=> console.log(res)/*this.revealConfirmation(res)*/)
     };
 
     handleDeckChange=(event)=>{
@@ -88,10 +87,11 @@ export default class CardResults extends Component{
     render(){
         function image(card) {
              if(card.layout === 'transform'){
-                 return card.card_faces[1].image_uris.normal
+                 //console.log(card.card_faces[0].image_uris.border_crop)
+                 return card.card_faces[1].image_uris.border_crop
 //send both sides and make them flipable
              } else {
-                 return card.image_uris.normal
+                 return card.image_uris.border_crop
              }
          }
         const rulingsUri = this.props.rulings_uri
@@ -104,10 +104,9 @@ export default class CardResults extends Component{
         } 
         
     return(
-        <section>
             <div className='card'>
                 <p className='cardName'>{this.props.name}</p>
-                <img alt={this.props.name} src={image(this.props)} onClick={this.closeUp}/><br/>
+                <img className='cardImage' alt={this.props.name} src={image(this.props)} onClick={this.closeUp}/><br/>
                 <button onClick={() => this.getCardRulings(rulingsUri)}>Rulings</button>
                 <form id={this.props.id} onSubmit={this.addCardToDeck}>
                     <select name='decklist' id='decklist' form='decklist' value={this.state.selectedDeck} onChange={this.handleDeckChange}>
@@ -140,7 +139,6 @@ export default class CardResults extends Component{
                     </div>
                 </div>
             </div>    
-        </section>
     )
 }
 }

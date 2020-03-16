@@ -1,38 +1,49 @@
 * {
-    box-sizing: border-box;
-  }
+  box-sizing: border-box;
+}
   
-  body {
-    font-family: "Open Sans",
-    sans-serif; 
-    font-size: 20px;
-    text-align: center;
-    line-height: 1.5;
-  }
+body {
+  font-family: "Open Sans",
+  sans-serif; 
+  font-size: 20px;
+  text-align: center;
+  line-height: 1.5;
+}
 
-  .card {
-    width: min-content;
-  }
+.card {
+  width: min-content;
+  padding: 10px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: rgb(226, 224, 224);
+  border: 1px solid rgb(116, 116, 116);
+  box-shadow: 3px 5px 3px rgb(170, 170, 170);
+  margin-top: 20px;
+}
 
-  .cardName {
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.cardImage{
+  width: 200px;
+}
 
-  p {
-    font-size: small;
-  }
+.cardName {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  #decklist{
-    width: 90%;
-  }
+p {
+  font-size: small;
+}
+
+#decklist{
+  width: 90%;
+}
   
-  section {
-    min-height: 200px;
-    padding: 6% 0;
-  }
+section {
+  min-height: 200px;
+  padding: 6% 0;
+}
 
 .addedConfirmation{
   font-size: 15px;
@@ -117,16 +128,20 @@
 }
 
   
-  @media screen and (max-width: 800px){
-    .card{
-        width: 120px;
-      }
-  
-    img {
-        width:100%;
-    }
-
-    .modal-content {
-      width: 100%;
-    }
+@media screen and (max-width: 800px){
+  .card{
+    width: 120px;
   }
+
+  .cardImage{
+    width: 100%
+  }
+  
+  img {
+      width:100%;
+  }
+
+  .modal-content {
+    width: 100%;
+  }
+}
