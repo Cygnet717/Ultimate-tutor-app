@@ -17,13 +17,7 @@ const SingleDeckApiService = {
   },
  
   postNewCard(card_name, image_url, multiverseid, deck_id, type) {
-    console.log(card_name)
-    console.log(image_url)
-    console.log(multiverseid)
-    console.log(deck_id)
-    console.log(type)
-
-    return fetch(`${config.API_ENDPOINT}/decks/${deck_id}`, {
+     return fetch(`${config.API_ENDPOINT}/decks/${deck_id}`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -40,7 +34,7 @@ const SingleDeckApiService = {
       .then(res =>
         (!res.ok)
           ? res.json().then(e => Promise.reject(e))
-          : console.log(res.json())
+          : res.json()
       )
       .catch(res => console.log(res))
   },

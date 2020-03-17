@@ -303,10 +303,12 @@ export default class SearchCards extends Component {
                             <label htmlFor='cardName' className='searchLabel'>Card Name</label> 
                             <input id='cardName' type='text' className='selectStyle' name='name' placeholder='Black Lotus'/>
                         </fieldset>
-                        <fieldset>
+                        <fieldset className='colorDiv'>
                             <label className='searchLabel'>Color</label>
                             <div>
                                 <input type='radio' name='colorOperator' defaultChecked value='c<='/>at most
+                            </div>
+                            <div>
                                 <input type='radio' name='colorOperator' value='c>='/>at least
                             </div>
                             <div className='colorCheckboxes'>
@@ -315,6 +317,8 @@ export default class SearchCards extends Component {
                                 <input id='colorBlack' type='checkbox' name='color'value='b'/>Black
                                 <input id='colorRed' type='checkbox' name='color' value='r'/>Red
                                 <input id='colorGreen' type='checkbox' name='color' value='g'/>Green
+                            </div>
+                            <div>
                                 <input id='colorColorless' type='radio' name='color' value='c'/>Colorless
                             </div>
                             <div className='cmcphyrexian'>

@@ -51,8 +51,6 @@ export default class CardResults extends Component{
     }
 
     revealConfirmation = (card) => {
-        console.log(card.deck_id)
-        console.log(this.context.decks[1])
         let thisDeck = this.context.decks.find(deck => Number(card.deck_id) === deck.deck_id);
         this.setState({
             added: true,
@@ -73,7 +71,7 @@ export default class CardResults extends Component{
             this.state.selectedDeck,
             this.props.type_line,
             )
-        .then(res=> console.log(res)/*this.revealConfirmation(res)*/)
+        .then(res=> this.revealConfirmation(res))
     };
 
     handleDeckChange=(event)=>{
