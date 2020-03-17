@@ -23,6 +23,7 @@ export default class SingleDeckView extends Component {
             Enchantment: [],
             Land: [],
             Planeswalker: [],
+            Artifact: [],
             listview: 'Card View',
         }
     };
@@ -30,7 +31,9 @@ export default class SingleDeckView extends Component {
     countType(currenttype){
         let obj = {};
         let typeFilteredList = this.state.deckList.filter(card =>{ 
-           return card.type === currenttype
+            if(card.type.search(currenttype) >= 0){
+                return card
+            }
         });
         let consolidated = [];
         typeFilteredList.forEach(card => {
@@ -41,16 +44,15 @@ export default class SingleDeckView extends Component {
                 consolidated.push({...card, count: 1})
             } 
         }, Object.create(null));
-        console.log(consolidated)
         if(typeFilteredList.length !== 0){
-            let name = typeFilteredList[0].type
+            let name = currenttype
             obj[name] = consolidated
             this.setState(obj)
         };
     };
 
     sortByType=()=> {
-        let types = ['Creature', 'Sorcery', 'Instant', 'Enchantment', 'Land', 'Planeswalker'];
+        let types = ['Creature', 'Sorcery', 'Instant', 'Enchantment', 'Land', 'Planeswalker', 'Artifact'];
         types.map(currentType => {
             this.countType(currentType);
             return 'return';
@@ -119,7 +121,8 @@ export default class SingleDeckView extends Component {
         {name: 'Instant', state: this.state.Instant}, 
         {name: 'Enchantment', state: this.state.Enchantment}, 
         {name: 'Land', state: this.state.Land}, 
-        {name: 'Planeswalker', state: this.state.Planeswalker}]
+        {name: 'Planeswalker', state: this.state.Planeswalker},
+        {name: 'Artifact', state: this.state.Artifact}]
         return(
             <section>
                 <h2 className='deckName'>{this.state.deckName}</h2>
@@ -139,13 +142,12 @@ export default class SingleDeckView extends Component {
                 ?
                 <div className='cardsListDisplay'>
                     {types.map(type => {
-                        //console.log(type)
-                        return <div className='typedisplay'>
+                        return <div className='typedisplay' key={type.name}>
                         <h4>{type.name} X {type.state.length}</h4>
                     {type.state.map(card => {
                         if(card.count > 1){
-                        return <p>{card.card_name} X {card.count}</p>}
-                        else { return <p>{card.card_name}</p>}
+                        return <p key={card.card_id}>{card.card_name} X {card.count}</p>}
+                        else { return <p key={card.card_id}>{card.card_name}</p>}
                         })}
                         </div>
                     })}
