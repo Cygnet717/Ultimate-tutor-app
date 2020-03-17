@@ -305,30 +305,31 @@ export default class SearchCards extends Component {
                         </fieldset>
                         <fieldset className='colorDiv'>
                             <label className='searchLabel'>Color</label>
-                            <div>
-                                <input type='radio' name='colorOperator' defaultChecked value='c<='/>at most
+                            <div className='colorOperator'>
+                                <label>at most<input type='radio' name='colorOperator' defaultChecked value='c<='/></label>
                             </div>
-                            <div>
-                                <input type='radio' name='colorOperator' value='c>='/>at least
+                            <div className='colorOperator'>
+                                <label>at least<input type='radio' name='colorOperator' value='c>='/></label>
                             </div>
                             <div className='colorCheckboxes'>
-                                <input id='colorWhite' type='checkbox' name='color' value='w'/>White
-                                <input id='colorBlue' type='checkbox' name='color' value='u'/>Blue
-                                <input id='colorBlack' type='checkbox' name='color'value='b'/>Black
-                                <input id='colorRed' type='checkbox' name='color' value='r'/>Red
-                                <input id='colorGreen' type='checkbox' name='color' value='g'/>Green
+                                <label className='colorLabel'>White<input id='colorWhite' type='checkbox' name='color' value='w'/></label>
+                                <label className='colorLabel'>Blue<input id='colorBlue' type='checkbox' name='color' value='u'/></label>
+                                <label className='colorLabel'>Black<input id='colorBlack' type='checkbox' name='color'value='b'/></label>
+                                <label className='colorLabel'>Red<input id='colorRed' type='checkbox' name='color' value='r'/></label>
+                                <label className='colorLabel'>Green<input id='colorGreen' type='checkbox' name='color' value='g'/></label>
                             </div>
-                            <div>
-                                <input id='colorColorless' type='radio' name='color' value='c'/>Colorless
+                            <div className='colorlessBox'>
+                                <label>Colorless<input id='colorColorless' type='radio' name='color' value='c'/></label>
                             </div>
-                            <div className='cmcphyrexian'>
+                            
+                            <div className='cmcCheckboxes'>
                                 <label className='cmc'>CMC</label>
-                                <div className='colorCheckboxes'>
-                                    <input type='number' name='cmc' min='0' max='1000001'/>
-                                    <input type='radio' name='cmcOperator' value='cmc<='/><label>&lt;=</label>
-                                    <input type='radio' name='cmcOperator' value='cmc='/><label>=</label>
-                                    <input type='radio' name='cmcOperator' value='cmc>='/><label>&gt;=</label>
+                                <div className='cmcOperators'>
+                                    <label>&lt;=<input type='radio' name='cmcOperator' value='cmc<='/></label>
+                                    <label>=<input type='radio' name='cmcOperator' value='cmc='/></label>
+                                    <label>&gt;=<input type='radio' name='cmcOperator' value='cmc>='/></label>
                                 </div>
+                                <input type='number' className='center' name='cmc' min='0' max='1000001'/>
                             </div>
                         </fieldset>
                         <fieldset>
@@ -348,14 +349,15 @@ export default class SearchCards extends Component {
                             </select>
                             <br/>
                             {!this.state.validType ? <span></span>: showNewDropdown}
-
-                            <input type='radio' name='typeOption' value='is:modal+'/>Modal
-                            <input type='radio' name='typeOption' value='is:historic+'/>Historic
-                            <input type='radio' name='typeOption' value='is:vanilla+'/>Textless Creature
+                            <div className='typeRadioBox'>
+                                <label className='radioLabel'>Modal<input type='radio' name='typeOption' value='is:modal+'/></label>
+                                <label className='radioLabel'>Historic<input type='radio' name='typeOption' value='is:historic+'/></label>
+                                <label className='radioLabel'>Textless Creature<input type='radio' name='typeOption' value='is:vanilla+'/></label>
+                            </div>
                         </fieldset>
                         <fieldset>
-                        <label className='searchLabel'>Exact text</label> <span>you can use ~ inplace of card name</span>
-                            <input id='text' type='text' className='selectStyle' name='text' onKeyPress={this.keyPressed} placeholder='hexproof'/>
+                        <label className='searchLabel'>Exact text</label> <span className='tooltip'>you can use ~ inplace of card name</span>
+                            <input id='text' type='text' className='selectStyle showTooltip' name='text' onKeyPress={this.keyPressed} placeholder='hexproof'/>
                             <div className='exactTextButtons'>
                                 <input type='button' className='button' value='Clear' onClick={this.clearTextState}/>
                                 <input type='button' className='button' value='Add'  onClick={this.handleAddText}/>
@@ -373,47 +375,55 @@ export default class SearchCards extends Component {
                         </fieldset>
                         <fieldset>
                             <div>
-                                <label>Power</label>
+                                <label className='searchLabel'>Power</label>
                                 <select name='power' className='selectStyle' defaultValue={'default'}>
                                 <option hidden value='default'>Power</option> 
                                     {paramOptions.powTou.map(i => {
                                         return <option id='power' key={i} name='power' value={i}>{i}</option>
                                     })}
                                 </select>
-                                <input type='radio' name='powerOperator' value='pow>='/>&gt;=
-                                <input type='radio' name='powerOperator' value='pow='/>=
-                                <input type='radio' name='powerOperator' value='pow<='/>&lt;=
+                                <div className='typeRadioBox'>
+                                    <label>&gt;=<input type='radio' name='powerOperator' value='pow>='/></label>
+                                    <label>=<input type='radio' name='powerOperator' value='pow='/></label>
+                                    <label>&lt;=<input type='radio' name='powerOperator' value='pow<='/></label>
+                                </div>
                             </div>
                             <div>
-                                <label>Toughness</label>
+                                <label className='searchLabel'>Toughness</label>
                                 <select name='toughness' className='selectStyle' defaultValue={'default'}>
                                 <option hidden value='default'>Toughness</option> 
                                     {paramOptions.powTou.map(i => {
                                         return <option id='toughness' key={i} name='toughness' value={i}>{i}</option>
                                     })}
                                 </select>
-                                <input type='radio' name='toughnessOperator' value='tou>='/>&gt;=
-                                <input type='radio' name='toughnessOperator' value='tou='/>=
-                                <input type='radio' name='toughnessOperator' value='tou<='/>&lt;=
+                                <div className='typeRadioBox'>
+                                    <label>&gt;=<input type='radio' name='toughnessOperator' value='tou>='/></label>
+                                    <label>=<input type='radio' name='toughnessOperator' value='tou='/></label>
+                                    <label>&lt;=<input type='radio' name='toughnessOperator' value='tou<='/></label>
+                                </div>
                             </div>
                             <div>
-                                <label>Combined P and T</label>
+                                <label className='searchLabel'>Combined P and T</label>
                                 <input type='number' name='combinedPT'/>
-                                <input type='radio' name='combinedPTOperator' value='pt>='/>&gt;=
-                                <input type='radio' name='combinedPTOperator' value='pt='/>=
-                                <input type='radio' name='combinedPTOperator' value='pt<='/>&lt;=
+                                <div className='typeRadioBox'>
+                                    <label>&gt;=<input type='radio' name='combinedPTOperator' value='pt>='/></label>
+                                    <label>=<input type='radio' name='combinedPTOperator' value='pt='/></label>
+                                    <label>&lt;=<input type='radio' name='combinedPTOperator' value='pt<='/></label>
+                                </div>
                             </div>
                             <div>
-                                <label>Loyalty</label>
+                                <label className='searchLabel'>Loyalty</label>
                                 <select name='loyalty' className='selectStyle' defaultValue={'default'}>
                                 <option hidden value='default'>Loyalty</option> 
                                     {paramOptions.loyaltyTypes.map(i => {
                                         return <option id='loyalty' key={i} name='loyalty' value={i}>{i}</option>
                                     })}
                                 </select>
-                                <input type='radio' name='loyaltyOperator' value='loy>='/>&gt;=
-                                <input type='radio' name='loyaltyOperator' value='loy='/>=
-                                <input type='radio' name='loyaltyOperator' value='loy<='/>&lt;=
+                                <div className='typeRadioBox'>
+                                    <label>&gt;=<input type='radio' name='loyaltyOperator' value='loy>='/></label>
+                                    <label>=<input type='radio' name='loyaltyOperator' value='loy='/></label>
+                                    <label>&lt;=<input type='radio' name='loyaltyOperator' value='loy<='/></label>
+                                </div>
                             </div>
                         </fieldset>
                         <fieldset>
@@ -424,9 +434,11 @@ export default class SearchCards extends Component {
                                         return <option id='rarity' key={i} name='rarity' value={i}>{i}</option>
                                     })}
                             </select>
-                            <input type='radio' name='rarityOperator' value='r>='/>&gt;=
-                            <input type='radio' name='rarityOperator' value='r='/>=
-                            <input type='radio' name='rarityOperator' value='r<='/>&lt;=
+                            <div className='typeRadioBox'>
+                                <label>&gt;=<input type='radio' name='rarityOperator' value='r>='/></label>
+                                <label>=<input type='radio' name='rarityOperator' value='r='/></label>
+                                <label>&lt;=<input type='radio' name='rarityOperator' value='r<='/></label>
+                            </div>
                         </fieldset>
                         <fieldset>
                         <label htmlFor='sets' className='searchLabel'>Set</label>
@@ -436,7 +448,8 @@ export default class SearchCards extends Component {
                                     return <option id='setoption' key={set.id} name={set.code} value={set.name}></option>
                                 })}
                                 </datalist>
-                            <input type='checkbox' name='blockSearch' value='b:'/>Search Block Containing This Set
+                                <br/>
+                            <label>Search Block Containing This Set<input type='checkbox' name='blockSearch' value='b:'/></label>
                         </fieldset>
                         <div>
                             <input className='collapseButton button' onClick={this.expandCollapse} type='button' value={this.state.exp_col}/>

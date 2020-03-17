@@ -104,6 +104,14 @@ export default class SingleDeckView extends Component {
         })
     };
 
+    totalCards(cardlist){
+        let total = 0;
+        for(let i=0; i<cardlist.length; i++){
+            total= total + cardlist[i].count
+        }
+        return total
+    }
+
     render() {
         if(!sessionStorage.user_id){
             return (
@@ -143,7 +151,7 @@ export default class SingleDeckView extends Component {
                 <div className='cardsListDisplay'>
                     {types.map(type => {
                         return <div className='typedisplay' key={type.name}>
-                        <h4>{type.name} X {type.state.length}</h4>
+                        <h4>{type.name} X {this.totalCards(type.state)}</h4>
                     {type.state.map(card => {
                         if(card.count > 1){
                         return <p key={card.card_id}>{card.card_name} X {card.count}</p>}

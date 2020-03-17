@@ -35,6 +35,7 @@
 }
 
 .searchLabel{
+    display: block;
     width: 100%;
     background: rgb(0, 0, 0);
     color: white;
@@ -148,8 +149,68 @@ form input[type='number']{
     display: none;
 }
 
+.colorOperator{
+    width: fit-content;
+    display: inline-flex;
+    border-bottom: 1px solid black;
+    padding-right: 35px;
+    padding-top: 15px;
+    padding-bottom: 7px;
+    margin-bottom: 8px;
+}
 
+.colorCheckboxes{
+    display:flex;
+    justify-content: space-evenly;
+    border-bottom: 1px solid black;
+}
 
+.colorLabel{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    align-items: center;
+    padding: 5px;
+}
+
+.colorlessBox{
+    width: fit-content;
+    padding-right: 35px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.cmcCheckboxes{
+    display: flex;
+    align-items: center;
+    border-top: 1px solid black;
+    padding-top: 10px;
+}
+
+.cmcOperators{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.center {
+    text-align: center;
+}
+
+.typeRadioBox{
+    display: flex;
+}
+
+.radioLabel{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    align-items: center;
+    padding: 5px;
+   ;
+}
 
 .moreoption {
     border: none;
@@ -157,8 +218,8 @@ form input[type='number']{
     color: white;
     margin: 20px;
     padding: 10px;
-
 }
+
 
 @media screen and (min-width: 500px){
     #SearchForm,  .collapseSearch{
