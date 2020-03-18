@@ -54,7 +54,7 @@ const MTGCardSearchService = {
     },
 
     getNameSearchResults(name) {
-        return fetch(config.API_SCRYFALL+'cards/named'+name,{
+        return fetch(config.API_SCRYFALL+'cards/named?fuzzy='+name,{
             method:"GET",
             mode: 'cors',
             handlers: {

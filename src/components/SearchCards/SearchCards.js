@@ -58,52 +58,58 @@ export default class SearchCards extends Component {
         let queryParams = [
             'types', 'supertypes', 'typeOption', 'additionalType'
         ];
-       
-        queryParams.map(i => {
-            if(data.get(i)){
-                string = string.concat(data.get(i))
-            }
-            return string;
-        });
-        
-        let operatorParams = ['power', 'toughness', 'combinedPT', 'loyalty', 'rarity', 'cmc'];
-        //check that there is an operator value
-        operatorParams.map(i => {
-            if(data.get(i) === 'default' || data.get(i) === ''){
-                return 'return';
-            } else {
-                string = string.concat(data.get(i+'Operator') + data.get(i) + '+')
-            }
-            return string;
-        })
 
-        if(data.get('color')){
-            let collectColors='';
-            data.getAll('color').map(c => collectColors = collectColors.concat(c))
-            string = string.concat(data.get('colorOperator') +collectColors+'+')
-        }
-        
-        if(this.state.text.length !== 0){
-            this.state.text.map(t => 
-                string = string.concat('o:"' + t + '"+')
-                )
-        }
-        if(data.get('sets')){
-            let selectedSet = this.state.setOptions.find(set => 
-                JSON.stringify(set.name) === JSON.stringify(data.get('sets'))
-            )
-            console.log(selectedSet)
-            if(data.get('blockSearch')){
-                string = string.concat('b:'+ selectedSet.code+'+')
-            } else {
-                string = string.concat('s:'+ selectedSet.code+'+')
+        if(data.get('name')){
+            const regex= / /gi;
+            let nameString = data.get('name').replace(regex, '+')
+            this.sendNameFetch(nameString)
+        } else {
+            queryParams.map(i => {
+                if(data.get(i)){
+                    string = string.concat(data.get(i))
+                }
+                return string;
+            });
+            
+            let operatorParams = ['power', 'toughness', 'combinedPT', 'loyalty', 'rarity', 'cmc'];
+            //check that there is an operator value
+            operatorParams.map(i => {
+                if(data.get(i) === 'default' || data.get(i) === ''){
+                    return 'return';
+                } else {
+                    string = string.concat(data.get(i+'Operator') + data.get(i) + '+')
+                }
+                return string;
+            })
+
+            if(data.get('color')){
+                let collectColors='';
+                data.getAll('color').map(c => collectColors = collectColors.concat(c))
+                string = string.concat(data.get('colorOperator') +collectColors+'+')
             }
+            
+            if(this.state.text.length !== 0){
+                this.state.text.map(t => 
+                    string = string.concat('o:"' + t + '"+')
+                    )
+            }
+            if(data.get('sets')){
+                let selectedSet = this.state.setOptions.find(set => 
+                    JSON.stringify(set.name) === JSON.stringify(data.get('sets'))
+                )
+                console.log(selectedSet)
+                if(data.get('blockSearch')){
+                    string = string.concat('b:'+ selectedSet.code+'+')
+                } else {
+                    string = string.concat('s:'+ selectedSet.code+'+')
+                }
+            }
+            this.setState({ 
+                string,
+                lastResults: false,
+            })
+            this.sendFetch(string)
         }
-        this.setState({ 
-            string,
-            lastResults: false,
-        })
-       this.sendFetch(string)
     }
 
     searchMore =()=>{
@@ -134,6 +140,22 @@ export default class SearchCards extends Component {
         .catch(res => console.log(res.warnings))
     }
 
+    sendNameFetch = (name) => {
+        MTGCardSearchService.getNameSearchResults(name)
+        .then(res => {
+                let cardArr = [res]
+                this.setState({ 
+                    lastResults: true,
+                    thinking: false,
+                    nextPage: null,
+                    cards: cardArr
+                })
+            
+            if(this.state.cards.length > 0){this.executeScroll()}
+        })
+        .catch(res => console.log(res.warnings))
+    }
+
     sendFetch = (parameters) => {
         MTGCardSearchService.getSearchResults(parameters)
         .then(res =>{
@@ -149,7 +171,6 @@ export default class SearchCards extends Component {
                     thinking: false,
                     nextPage: null
                 })
-                
             }
             this.setState({
                 cards: this.state.cards.concat(res.data),
@@ -157,6 +178,10 @@ export default class SearchCards extends Component {
             if(this.state.cards.length > 0){this.executeScroll()}
         })
         .catch(res => console.log(res.warnings))
+    }
+
+    handleCardResults(res){
+        
     }
 
     expandCollapse = () => {

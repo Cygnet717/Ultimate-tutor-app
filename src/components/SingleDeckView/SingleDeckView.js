@@ -34,6 +34,7 @@ export default class SingleDeckView extends Component {
             if(card.type.search(currenttype) >= 0){
                 return card
             }
+            return '';
         });
         let consolidated = [];
         typeFilteredList.forEach(card => {
