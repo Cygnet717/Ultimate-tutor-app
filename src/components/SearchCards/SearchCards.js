@@ -266,9 +266,18 @@ export default class SearchCards extends Component {
                 setOptions: filteredSetOptions
             })
         };
-
         fetchDropdowns();
-   }
+    };
+
+    uncheckColorless(){
+        document.getElementById('colorColorless').checked = false
+    };
+
+    uncheckColors(){
+       for(let i=0; i<5; i++){
+           document.getElementsByName('color')[i].checked = false
+       }
+    };
     
     render(){
         if(!sessionStorage.user_id){
@@ -344,7 +353,7 @@ export default class SearchCards extends Component {
                             <div className='colorOperator'>
                                 <label>at least<input type='radio' name='colorOperator' value='c>='/></label>
                             </div>
-                            <div className='colorCheckboxes'>
+                            <div className='colorCheckboxes' onClick={() => this.uncheckColorless()}>
                                 <label className='colorLabel'>White<input id='colorWhite' type='checkbox' name='color' value='w'/></label>
                                 <label className='colorLabel'>Blue<input id='colorBlue' type='checkbox' name='color' value='u'/></label>
                                 <label className='colorLabel'>Black<input id='colorBlack' type='checkbox' name='color'value='b'/></label>
@@ -352,7 +361,7 @@ export default class SearchCards extends Component {
                                 <label className='colorLabel'>Green<input id='colorGreen' type='checkbox' name='color' value='g'/></label>
                             </div>
                             <div className='colorlessBox'>
-                                <label>Colorless<input id='colorColorless' type='radio' name='color' value='c'/></label>
+                                <label>Colorless<input onClick={() => this.uncheckColors()} id='colorColorless' type='radio' name='color' value='c'/></label>
                             </div>
                             
                             <div className='cmcCheckboxes'>
