@@ -332,7 +332,7 @@ export default class SearchCards extends Component {
             if(typeArray.length > 0){
             this.setState({ validType: [type, typeArray]})
             }
-       }
+        }
         return(
             <div className='outer'>
                 <section className='section'>
@@ -397,7 +397,7 @@ export default class SearchCards extends Component {
                                 <label className='radioLabel'>Textless Creature<input type='radio' name='typeOption' value='is:vanilla+'/></label>
                             </div>
                         </fieldset>
-                        <fieldset className='fieldsetBox'>
+                        <fieldset className={`fieldsetBox ${this.state.visible}`}>
                         <label className='searchLabel'>Exact text</label> <span className='tooltip'>you can use ~ inplace of card name</span>
                             <input id='text' type='text' className='selectStyle showTooltip' name='text' onKeyPress={this.keyPressed} placeholder='hexproof'/>
                             <div className='exactTextButtons'>
@@ -415,7 +415,7 @@ export default class SearchCards extends Component {
                                 </ul>}
                             </div>
                         </fieldset>
-                        <fieldset className='fieldsetBox'>
+                        <fieldset className={`fieldsetBox ${this.state.visible}`}>
                             <div>
                                 <label className='searchLabel'>Power</label>
                                 <select name='power' className='selectStyle' defaultValue={'default'}>
@@ -469,7 +469,7 @@ export default class SearchCards extends Component {
                                 </div>
                             </div>
                         </fieldset>
-                        <fieldset className='fieldsetBox'>
+                        <fieldset className={`fieldsetBox ${this.state.visible}`}>
                         <label htmlFor='rarity' className='searchLabel'>Rarity</label>
                             <select name='rarity' id='rarity' className='selectStyle' defaultValue={'default'}>
                                 <option hidden value='default'>Select</option>
@@ -483,7 +483,7 @@ export default class SearchCards extends Component {
                                 <label>&lt;=<input type='radio' name='rarityOperator' value='r<='/></label>
                             </div>
                         </fieldset>
-                        <fieldset className='fieldsetBox'>
+                        <fieldset className={`fieldsetBox ${this.state.visible}`}>
                         <label htmlFor='sets' className='searchLabel'>Set</label>
                             <input type='text' list='sets' className='selectStyle' name='sets'/>
                             <datalist id='sets'>
