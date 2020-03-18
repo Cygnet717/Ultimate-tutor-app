@@ -67,7 +67,7 @@ const MTGCardSearchService = {
               }
               return res.json()
               })
-        .catch(error => console.log({error}))
+          .catch(error => console.log({error}))
     }
 };
 

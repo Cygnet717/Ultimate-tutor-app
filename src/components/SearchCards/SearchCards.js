@@ -29,12 +29,13 @@ export default class SearchCards extends Component {
             string: '',
             nextPage: null,
             lastResults: false,
+            error: 'hidden'
         }
     }
 
     executeScroll= () => {
         window.scrollTo({
-            top: 680,
+            top: 800,
             behavior: 'smooth'
         })
     }
@@ -143,17 +144,26 @@ export default class SearchCards extends Component {
     sendNameFetch = (name) => {
         MTGCardSearchService.getNameSearchResults(name)
         .then(res => {
-                let cardArr = [res]
+                if(!res){
+                    throw res
+                } else {
+                    let cardArr = [res]
                 this.setState({ 
                     lastResults: true,
                     thinking: false,
                     nextPage: null,
                     cards: cardArr
                 })
+                }
+                
             
             if(this.state.cards.length > 0){this.executeScroll()}
         })
-        .catch(res => console.log(res.warnings))
+        .catch(res => {
+            this.setState({
+                error: 'error'
+            })
+        })
     }
 
     sendFetch = (parameters) => {
@@ -178,10 +188,6 @@ export default class SearchCards extends Component {
             if(this.state.cards.length > 0){this.executeScroll()}
         })
         .catch(res => console.log(res.warnings))
-    }
-
-    handleCardResults(res){
-        
     }
 
     expandCollapse = () => {
@@ -324,11 +330,13 @@ export default class SearchCards extends Component {
                     <form id='SearchForm' name='SearchForm' onSubmit={this.handleSubmit}>
                         <legend>Search for cards</legend>
                         <input className='formbutton button' type='reset' value='Reset Form' onClick={this.clearTextState}/>
-                        <fieldset>
+                        <fieldset className='fieldsetBox'>
                             <label htmlFor='cardName' className='searchLabel'>Card Name</label> 
                             <input id='cardName' type='text' className='selectStyle' name='name' placeholder='Black Lotus'/>
+                            <br/>
+                            <span className={this.state.error}>Too many cards match ambiguous name</span>
                         </fieldset>
-                        <fieldset className='colorDiv'>
+                        <fieldset className='fieldsetBox'>
                             <label className='searchLabel'>Color</label>
                             <div className='colorOperator'>
                                 <label>at most<input type='radio' name='colorOperator' defaultChecked value='c<='/></label>
@@ -357,7 +365,7 @@ export default class SearchCards extends Component {
                                 <input type='number' className='center' name='cmc' min='0' max='1000001'/>
                             </div>
                         </fieldset>
-                        <fieldset>
+                        <fieldset className='fieldsetBox'>
                             <label className='searchLabel'>Types</label>
                             <select name='supertypes' id='supertypes'className='supertype' defaultValue={'default'}>
                                 <option disabled hidden value='default'>SuperType</option>
@@ -380,7 +388,7 @@ export default class SearchCards extends Component {
                                 <label className='radioLabel'>Textless Creature<input type='radio' name='typeOption' value='is:vanilla+'/></label>
                             </div>
                         </fieldset>
-                        <fieldset>
+                        <fieldset className='fieldsetBox'>
                         <label className='searchLabel'>Exact text</label> <span className='tooltip'>you can use ~ inplace of card name</span>
                             <input id='text' type='text' className='selectStyle showTooltip' name='text' onKeyPress={this.keyPressed} placeholder='hexproof'/>
                             <div className='exactTextButtons'>
@@ -398,7 +406,7 @@ export default class SearchCards extends Component {
                                 </ul>}
                             </div>
                         </fieldset>
-                        <fieldset>
+                        <fieldset className='fieldsetBox'>
                             <div>
                                 <label className='searchLabel'>Power</label>
                                 <select name='power' className='selectStyle' defaultValue={'default'}>
@@ -430,6 +438,7 @@ export default class SearchCards extends Component {
                             <div>
                                 <label className='searchLabel'>Combined P and T</label>
                                 <input type='number' name='combinedPT'/>
+                                <br/>
                                 <div className='typeRadioBox'>
                                     <label>&gt;=<input type='radio' name='combinedPTOperator' value='pt>='/></label>
                                     <label>=<input type='radio' name='combinedPTOperator' value='pt='/></label>
@@ -451,7 +460,7 @@ export default class SearchCards extends Component {
                                 </div>
                             </div>
                         </fieldset>
-                        <fieldset>
+                        <fieldset className='fieldsetBox'>
                         <label htmlFor='rarity' className='searchLabel'>Rarity</label>
                             <select name='rarity' id='rarity' className='selectStyle' defaultValue={'default'}>
                                 <option hidden value='default'>Select</option>
@@ -465,7 +474,7 @@ export default class SearchCards extends Component {
                                 <label>&lt;=<input type='radio' name='rarityOperator' value='r<='/></label>
                             </div>
                         </fieldset>
-                        <fieldset>
+                        <fieldset className='fieldsetBox'>
                         <label htmlFor='sets' className='searchLabel'>Set</label>
                             <input type='text' list='sets' className='selectStyle' name='sets'/>
                             <datalist id='sets'>

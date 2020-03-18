@@ -145,6 +145,10 @@ form input[type='number']{
     font-family: 'Lora', serif;
 }
 
+.fieldsetBox{
+    width: 360px;
+}
+
 .hidden {
     display: none;
 }
@@ -220,6 +224,10 @@ form input[type='number']{
     padding: 10px;
 }
 
+.error{
+    color: red;
+    font-size: 13px;
+}
 
 @media screen and (min-width: 500px){
     #SearchForm,  .collapseSearch{
