@@ -105,16 +105,16 @@ export default class CardResults extends Component{
             <div className='card'>
                 <p className='cardName'>{this.props.name}</p>
                 <img className='cardImage' alt={this.props.name} src={image(this.props)} onClick={this.closeUp}/><br/>
-                <button onClick={() => this.getCardRulings(rulingsUri)}>Rulings</button>
+                <button className='cardButton' onClick={() => this.getCardRulings(rulingsUri)}>Rulings</button>
                 <form id={this.props.id} onSubmit={this.addCardToDeck}>
-                    <select name='decklist' id='decklist' form='decklist' value={this.state.selectedDeck} onChange={this.handleDeckChange}>
+                    <select className='pickDeckOption' name='decklist' id='decklist' form='decklist' value={this.state.selectedDeck} onChange={this.handleDeckChange}>
                         <option value='none'>Pick a deck</option>
                         {this.context.decks.map(deck =>
                             <option type='select' name='deck' key={deck.deck_id} value={deck.deck_id}>{deck.deck_name}</option>
                             )}   
                     </select>
                     <br/>
-                    <input className='addToDeckButton' type='submit' value='Add to deck' disabled={this.state.buttonAbility}/>
+                    <input className='addToDeckButton cardButton' type='submit' value='Add to deck' disabled={this.state.buttonAbility}/>
                 </form>
 
                 <div className='addedConfirmation'>
