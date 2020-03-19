@@ -104,29 +104,26 @@ export default class CardResults extends Component{
     return(
             <div className='card'>
                 <p className='cardName'>{this.props.name}</p>
-                <img className='cardImage' alt={this.props.name} src={image(this.props)} onClick={this.closeUp}/><br/>
-                <button className='cardButton' onClick={() => this.getCardRulings(rulingsUri)}>Rulings</button>
-                <form id={this.props.id} onSubmit={this.addCardToDeck}>
-                    <select className='pickDeckOption' name='decklist' id='decklist' form='decklist' value={this.state.selectedDeck} onChange={this.handleDeckChange}>
-                        <option value='none'>Pick a deck</option>
-                        {this.context.decks.map(deck =>
-                            <option type='select' name='deck' key={deck.deck_id} value={deck.deck_id}>{deck.deck_name}</option>
-                            )}   
-                    </select>
-                    <br/>
-                    <input className='addToDeckButton cardButton' type='submit' value='Add to deck' disabled={this.state.buttonAbility}/>
-                </form>
-
+                <div className='bottomCard'>
+                    <img className='cardImage' alt={this.props.name} src={image(this.props)} onClick={this.closeUp}/><br/>
+                    <button className='cardButton' onClick={() => this.getCardRulings(rulingsUri)}>Rulings</button>
+                    <form id={this.props.id} onSubmit={this.addCardToDeck}>
+                        <select className='pickDeckOption' name='decklist' id='decklist' form='decklist' value={this.state.selectedDeck} onChange={this.handleDeckChange}>
+                            <option value='none'>Pick a deck</option>
+                            {this.context.decks.map(deck =>
+                                <option type='select' name='deck' key={deck.deck_id} value={deck.deck_id}>{deck.deck_name}</option>
+                                )}   
+                        </select>
+                        <br/>
+                        <input className='addToDeckButton cardButton' type='submit' value='Add to deck' disabled={this.state.buttonAbility}/>
+                    </form>
+                </div>
                 <div className='addedConfirmation'>
                     {this.state.added? <span>Added {this.state.addedCard} to {this.state.addedToDeck}</span>: <span></span>}
                 </div>
                 <div id="rulingsModal"className={this.state.rulingsModalView}>
                     <span className="close" onClick={this.removeRulingsCloseUp}>&#x02717;</span>
                     {foundRulings}
-                </div>
-                <div id="imageModal" className={this.state.imageModalView}>
-                    <span className="close" onClick={this.removeImageCloseUp}>&#x02717;</span>
-                    <img className="modal-content" alt={this.props.name} src={image(this.props)}/>
                     <div id="legalities" className='caption'>
                         <p>Standard: {this.props.legalities.standard}</p>
                         <p>Pioneer: {this.props.legalities.pioneer}</p>
@@ -135,6 +132,11 @@ export default class CardResults extends Component{
                         <p>Vintage: {this.props.legalities.vintage}</p>
                         <p>Brawl: {this.props.legalities.brawl}</p>
                     </div>
+                </div>
+                <div id="imageModal" className={this.state.imageModalView}>
+                    <span className="close" onClick={this.removeImageCloseUp}>&#x02717;</span>
+                    <img className="modal-content" alt={this.props.name} src={image(this.props)}/>
+                    
                 </div>
             </div>    
     )

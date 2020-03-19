@@ -18,6 +18,9 @@
     flex-wrap: wrap;   
     margin-bottom: 20px;
     min-height: 800px;
+    background-color: black;
+    padding-top: 20px;
+    padding-bottom: 40px;
 }
 
 .resultsSection{
@@ -41,6 +44,9 @@
     height: 59px;
     width: 64px;
     display: block;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .alert{
