@@ -499,12 +499,12 @@ export default class SearchCards extends Component {
                     </form>  
                 </section>
                 <div className='resultsSection'>
-                {this.state.thinking || this.state.cards.length !== 0 ? <span>Results</span>: <span></span>}
+                    {this.state.thinking || this.state.cards.length !== 0 ? <span>Results</span>: <span></span>}
                 </div>
                 {this.state.thinking && this.state.cards.length === 0 ? this.renderThinking() : <span></span>}
                 <br/>
                 <div className='cardsDisplay'>
-                {this.state.cards.length !== 0? cardResults: <span></span>}
+                    {this.state.cards.length !== 0? cardResults: <span></span>}
                 </div>
                 {this.state.thinking ? this.renderThinking() : <span></span>}
                 {this.state.cards.length === 0 ?<div/>: this.moreButon()}

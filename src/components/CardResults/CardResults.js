@@ -84,15 +84,25 @@ export default class CardResults extends Component{
 
     render(){
         function image(card) {
-             if(card.layout === 'transform'){
-                 //console.log(card.card_faces[0].image_uris.border_crop)
-                 return card.card_faces[1].image_uris.border_crop
-//send both sides and make them flipable
-             } else {
-                 return card.image_uris.border_crop
-             }
-         }
-        const rulingsUri = this.props.rulings_uri
+            if(card.layout === 'transform'){
+                return card.card_faces[0].image_uris.border_crop
+            } else {
+                return card.image_uris.border_crop
+            }
+        };
+        
+        function closeUpGenerator (card) {
+            if(card.layout === 'transform'){
+            return (<div>
+                <img className="modal-content" alt={card.name} src={card.card_faces[0].image_uris.border_crop}/>
+                <img className="modal-content" alt={card.name} src={card.card_faces[1].image_uris.border_crop}/>
+            </div>)
+            } else {
+                return <img className="modal-content" alt={card.name} src={card.image_uris.border_crop}/>;
+            }
+        };
+        
+        const rulingsUri = this.props.rulings_uri;
 
         let foundRulings= <p className='caption'>There are no rulings for this card at this time.</p>;
         if(this.state.rulings.length > 0){
@@ -102,43 +112,42 @@ export default class CardResults extends Component{
         } 
         
     return(
-            <div className='card'>
-                <p className='cardName'>{this.props.name}</p>
-                <div className='bottomCard'>
-                    <img className='cardImage' alt={this.props.name} src={image(this.props)} onClick={this.closeUp}/><br/>
-                    <button className='cardButton' onClick={() => this.getCardRulings(rulingsUri)}>Rulings</button>
-                    <form id={this.props.id} onSubmit={this.addCardToDeck}>
-                        <select className='pickDeckOption' name='decklist' id='decklist' form='decklist' value={this.state.selectedDeck} onChange={this.handleDeckChange}>
-                            <option value='none'>Pick a deck</option>
-                            {this.context.decks.map(deck =>
-                                <option type='select' name='deck' key={deck.deck_id} value={deck.deck_id}>{deck.deck_name}</option>
-                                )}   
-                        </select>
-                        <br/>
-                        <input className='addToDeckButton cardButton' type='submit' value='Add to deck' disabled={this.state.buttonAbility}/>
-                    </form>
-                </div>
-                <div className='addedConfirmation'>
-                    {this.state.added? <span>Added {this.state.addedCard} to {this.state.addedToDeck}</span>: <span></span>}
-                </div>
-                <div id="rulingsModal"className={this.state.rulingsModalView}>
-                    <span className="close" onClick={this.removeRulingsCloseUp}>&#x02717;</span>
-                    {foundRulings}
-                    <div id="legalities" className='caption'>
-                        <p>Standard: {this.props.legalities.standard}</p>
-                        <p>Pioneer: {this.props.legalities.pioneer}</p>
-                        <p>Modern: {this.props.legalities.modern}</p>
-                        <p>Legacy: {this.props.legalities.legacy}</p>
-                        <p>Vintage: {this.props.legalities.vintage}</p>
-                        <p>Brawl: {this.props.legalities.brawl}</p>
-                    </div>
-                </div>
-                <div id="imageModal" className={this.state.imageModalView}>
-                    <span className="close" onClick={this.removeImageCloseUp}>&#x02717;</span>
-                    <img className="modal-content" alt={this.props.name} src={image(this.props)}/>
-                    
-                </div>
-            </div>    
+        <div className='card'>
+            <p className='cardName'>{this.props.name}</p>
+            <div className='bottomCard'>
+            <img className='cardImage' alt={this.props.name} src={image(this.props)} onClick={this.closeUp}/><br/>
+            <button className='cardButton' onClick={() => this.getCardRulings(rulingsUri)}>Rulings</button>
+            <form id={this.props.id} onSubmit={this.addCardToDeck}>
+                <select className='pickDeckOption' name='decklist' id='decklist' form='decklist' value={this.state.selectedDeck} onChange={this.handleDeckChange}>
+                    <option value='none'>Pick a deck</option>
+                    {this.context.decks.map(deck =>
+                        <option type='select' name='deck' key={deck.deck_id} value={deck.deck_id}>{deck.deck_name}</option>
+                    )}   
+                </select>
+                <br/>
+                <input className='addToDeckButton cardButton' type='submit' value='Add to deck' disabled={this.state.buttonAbility}/>
+            </form>
+        </div>
+        <div className='addedConfirmation'>
+            {this.state.added? <span>Added {this.state.addedCard} to {this.state.addedToDeck}</span>: <span></span>}
+        </div>
+        <div id="rulingsModal"className={this.state.rulingsModalView}>
+            <span className="close" onClick={this.removeRulingsCloseUp}>&#x02717;</span>
+            {foundRulings}
+            <div id="legalities" className='caption'>
+                <p>Standard: {this.props.legalities.standard}</p>
+                <p>Pioneer: {this.props.legalities.pioneer}</p>
+                <p>Modern: {this.props.legalities.modern}</p>
+                <p>Legacy: {this.props.legalities.legacy}</p>
+                <p>Vintage: {this.props.legalities.vintage}</p>
+                <p>Brawl: {this.props.legalities.brawl}</p>
+            </div>
+        </div>
+        <div id="imageModal" className={this.state.imageModalView}>
+            <span className="close" onClick={this.removeImageCloseUp}>&#x02717;</span>
+            {closeUpGenerator(this.props)}
+        </div>
+    </div>    
     )
-}
+    }
 }
