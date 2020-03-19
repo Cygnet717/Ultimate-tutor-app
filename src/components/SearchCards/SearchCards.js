@@ -28,12 +28,12 @@ export default class SearchCards extends Component {
             exp_col: 'Expand',
             string: '',
             nextPage: null,
-            lastResults: false,
             error: 'hidden'
         }
     }
 
     executeScroll= () => {
+        console.log('scrollnow')
         window.scrollTo({
             top: 800,
             behavior: 'smooth'
@@ -48,6 +48,7 @@ export default class SearchCards extends Component {
     }
 
     handleSubmit=(event)=> {
+        this.executeScroll();
         event.preventDefault();
         this.setState({
             thinking: true,
@@ -107,7 +108,7 @@ export default class SearchCards extends Component {
             }
             this.setState({ 
                 string,
-                lastResults: false,
+                nextPage: false,
             })
             this.sendFetch(string)
         }
@@ -122,12 +123,10 @@ export default class SearchCards extends Component {
             if(res.has_more){
                 this.setState({
                     thinking: false,
-                    lastResults:false,
                     nextPage: res.next_page
                 })
             } else {
                 this.setState({ 
-                    lastResults: true,
                     thinking: false,
                     nextPage: null
                 })
@@ -136,7 +135,6 @@ export default class SearchCards extends Component {
             this.setState({
                 cards: this.state.cards.concat(res.data),
             })
-            if(this.state.cards.length > 0){this.executeScroll()}
         })
         .catch(res => console.log(res.warnings))
     }
@@ -149,15 +147,12 @@ export default class SearchCards extends Component {
                 } else {
                     let cardArr = [res]
                 this.setState({ 
-                    lastResults: true,
                     thinking: false,
                     nextPage: null,
                     cards: cardArr
                 })
                 }
-                
-            
-            if(this.state.cards.length > 0){this.executeScroll()}
+            //if(this.state.cards.length > 0){this.executeScroll()}
         })
         .catch(res => {
             this.setState({
@@ -172,12 +167,10 @@ export default class SearchCards extends Component {
             if(res.has_more){
                 this.setState({
                     thinking: false,
-                    lastResults:false,
                     nextPage: res.next_page
                 })
             } else {
                 this.setState({ 
-                    lastResults: true,
                     thinking: false,
                     nextPage: null
                 })
@@ -185,7 +178,7 @@ export default class SearchCards extends Component {
             this.setState({
                 cards: this.state.cards.concat(res.data),
             })
-            if(this.state.cards.length > 0){this.executeScroll()}
+            //if(this.state.cards.length > 0){this.executeScroll()}
         })
         .catch(res => console.log(res.warnings))
     }
@@ -206,12 +199,16 @@ export default class SearchCards extends Component {
         }
     }
 
-    renderThinking() {return <img id='thinking' src={logo} alt='loading...'/>}
+    renderThinking() {
+        return (
+            <div className='thinkingBox'>
+                <img id='thinking' src={logo} alt='loading...'/>
+            </div>
+        )
+    }
 
     moreButon() {
-        if(this.state.thinking){
-            return <img id='thinking' src={logo} alt='loading...'/>
-        } else if(this.state.lastResults){
+        if(this.state.nextPage === null){
             return (<div>
                 <span className='alert'>No more cards match your criteria</span>
                 <button className='moreoption button'>New Search</button>
@@ -506,12 +503,11 @@ export default class SearchCards extends Component {
                 </div>
                 <br/>
                 <div className='cardsDisplay'>
-                {this.state.thinking ? this.renderThinking() : cardResults}
+                {this.state.cards.length !== 0? cardResults: <span></span>}
+                {this.state.thinking ? this.renderThinking() : <span></span>}
                 </div>
                 {this.state.cards.length === 0 ?<div/>: this.moreButon()}
             </div>
         )
     }
 }
-//&& this.state.count === 1
-//

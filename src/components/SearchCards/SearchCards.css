@@ -17,6 +17,7 @@
     justify-content: space-evenly;
     flex-wrap: wrap;   
     margin-bottom: 20px;
+    min-height: 800px;
 }
 
 .resultsSection{
@@ -25,9 +26,21 @@
     font-family: 'Lora', serif;
 }
 
+.thinkingBox{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 800px;
+}
+
+.resutlDiv{
+    border: 1px solid green;
+}
+
 #thinking {
     height: 59px;
     width: 64px;
+    display: block;
 }
 
 .alert{
