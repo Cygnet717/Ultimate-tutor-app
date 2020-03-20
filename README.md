@@ -1,5 +1,5 @@
 # Ultimate Tutor
-http://ultimatetutor.herokuapp.com/
+https://ultimatetutor.now.sh/
 
 
 ## Summary
