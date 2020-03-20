@@ -2,6 +2,7 @@
   "name": "ultimate_tutor-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ultimate-tutor-app.kathybradt717.now.sh/",
   "dependencies": {
     "babel-jest": "^24.9.0",
     "jest": "^24.9.0",
