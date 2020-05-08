@@ -25,7 +25,16 @@ export default class SingleDeckView extends Component {
             Planeswalker: [],
             Artifact: [],
             listview: 'Card View',
+            imageModalView: 'hidemodal'
         }
+    };
+
+    closeUp = () => {
+        //this.setState({ imageModalView: 'showmodal'});
+    };
+
+    removeImageCloseUp = () => {
+        //this.setState({ imageModalView: 'hidemodal'});
     };
 
     countType(currenttype){
@@ -67,16 +76,6 @@ export default class SingleDeckView extends Component {
             this.setState({listview: 'Card View'})
         }
     };
-
-    //consolidateCardDisplay(type){
-        
-        //add up all of the same card
-        //type.state.map(card =>
-        //    <div key={card.card_id}>
-        //        <p>{card.card_name}</p>
-        //    </div>
-        //)
-    //}
 
     componentDidMount() {
         if(sessionStorage.user_id){
@@ -132,6 +131,18 @@ export default class SingleDeckView extends Component {
         {name: 'Land', state: this.state.Land}, 
         {name: 'Planeswalker', state: this.state.Planeswalker},
         {name: 'Artifact', state: this.state.Artifact}]
+
+        function closeUpGenerator (card) {
+            console.log(card)
+            /*if(card.layout === 'transform'){
+            return (<div>
+                <img className="modal-content" alt={card.name} src={card.card_faces[0].image_uris.border_crop}/>
+                <img className="modal-content" alt={card.name} src={card.card_faces[1].image_uris.border_crop}/>
+            </div>)
+            } else {
+                return <img className="modal-content" alt={card.name} src={card.image_uris.border_crop}/>;
+            }*/
+        };
         return(
             <section>
                 <h2 className='deckName'>{this.state.deckName}</h2>
@@ -151,14 +162,16 @@ export default class SingleDeckView extends Component {
                 ?
                 <div className='cardsListDisplay'>
                     {types.map(type => {
-                        return <div className='typedisplay' key={type.name}>
-                        <h4>{type.name} X {this.totalCards(type.state)}</h4>
-                    {type.state.map(card => {
-                        if(card.count > 1){
-                        return <p key={card.card_id}>{card.card_name} X {card.count}</p>}
-                        else { return <p key={card.card_id}>{card.card_name}</p>}
-                        })}
-                        </div>
+                        return (
+                            <div className='typedisplay' key={type.name}>
+                            <h4>{type.name} X {this.totalCards(type.state)}</h4>
+                                {type.state.map(card => {
+                                    if(card.count > 1){
+                                    return <p className='viewCard' onClick={this.closeUp} key={card.card_id}>{card.card_name} X {card.count}</p>}
+                                    else { return <p className='viewCard'  onClick={this.closeUp} key={card.card_id}>{card.card_name}</p>}
+                                    })}
+                            </div>
+                        )
                     })}
                 </div>
                 : 
@@ -174,8 +187,15 @@ export default class SingleDeckView extends Component {
                 </div> 
                 }
 
+                <div id="imageModal" className={this.state.imageModalView}>
+                    <span className="close" onClick={this.removeImageCloseUp}>&#x02717;</span>
+                    {closeUpGenerator(this.state)}
+                </div>
+
             <Link to='/SearchCards'><button className='button'>Add Cards</button></Link>
             </section>
         )
     }
 };
+
+/* */

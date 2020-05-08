@@ -58,6 +58,14 @@ button{
     padding: 5px;
 }
 
+.viewCard:hover{
+    cursor: pointer;
+}
+
+.viewCard:active{
+    text-decoration: underline;
+}
+
 @media screen and (min-width: 700px){
     .deckDetails{
         width: 700px;

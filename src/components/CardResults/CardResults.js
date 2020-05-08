@@ -61,17 +61,25 @@ export default class CardResults extends Component{
 
     addCardToDeck=(event)=>{
         event.preventDefault();
+        ////
+        let image;
+        if(this.props.layout === 'transform'){
+            image = this.props.card_faces[0].image_uris.border_crop + ', ' + this.props.card_faces[1].image_uris.border_crop
+        } else {
+            image = this.props.image_uris.normal
+        }
+
+        console.log(image)
+
+            SingleDeckApiService.postNewCard(
+                this.props.name, 
+                image, 
+                this.props.multiverse_ids[0], 
+                this.state.selectedDeck,
+                this.props.type_line,
+                )
+            .then(res=> this.revealConfirmation(res))
         
-        console.log(this.state.selectedDeck)
-        
-        SingleDeckApiService.postNewCard(
-            this.props.name, 
-            this.props.image_uris.normal, 
-            this.props.multiverse_ids[0], 
-            this.state.selectedDeck,
-            this.props.type_line,
-            )
-        .then(res=> this.revealConfirmation(res))
     };
 
     handleDeckChange=(event)=>{
