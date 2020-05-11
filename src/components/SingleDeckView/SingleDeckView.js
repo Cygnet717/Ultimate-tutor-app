@@ -25,16 +25,29 @@ export default class SingleDeckView extends Component {
             Planeswalker: [],
             Artifact: [],
             listview: 'Card View',
-            imageModalView: 'hidemodal'
+            imageModalView: 'hidemodal',
+            closeView: '',
         }
     };
 
-    closeUp = () => {
-        //this.setState({ imageModalView: 'showmodal'});
+    closeUp = (cardId) => {
+        let selectedCardImage;
+        for(let i=0; i<this.state.deckList.length; i++){
+            if(this.state.deckList[i].card_id === cardId){
+                selectedCardImage = this.state.deckList[i]
+            }
+        }
+        this.setState({ 
+            imageModalView: 'showmodal',
+            closeView: selectedCardImage
+        });
     };
 
     removeImageCloseUp = () => {
-        //this.setState({ imageModalView: 'hidemodal'});
+        this.setState({ 
+            imageModalView: 'hidemodal',
+            closeView: ''
+        });
     };
 
     countType(currenttype){
@@ -133,15 +146,21 @@ export default class SingleDeckView extends Component {
         {name: 'Artifact', state: this.state.Artifact}]
 
         function closeUpGenerator (card) {
-            console.log(card)
-            /*if(card.layout === 'transform'){
-            return (<div>
-                <img className="modal-content" alt={card.name} src={card.card_faces[0].image_uris.border_crop}/>
-                <img className="modal-content" alt={card.name} src={card.card_faces[1].image_uris.border_crop}/>
-            </div>)
+            if(card.closeView === ''){
+                return
+            }else if(card.closeView.image_url.indexOf(',') !== -1){
+                let index = card.closeView.image_url.indexOf(',');
+                let front = card.closeView.image_url.slice(0, index);
+                let back = card.closeView.image_url.slice(index+2);
+            return (
+                <div>
+                    <img className="modal-content" alt={card.closeView.card_name} src={front}/>
+                    <img className="modal-content" alt={card.closeView.card_name} src={back}/>
+                </div>
+            )
             } else {
-                return <img className="modal-content" alt={card.name} src={card.image_uris.border_crop}/>;
-            }*/
+                return <img className="modal-content" alt={card.closeView.card_name} src={card.closeView.image_url}/>;
+            }
         };
         return(
             <section>
@@ -167,8 +186,8 @@ export default class SingleDeckView extends Component {
                             <h4>{type.name} X {this.totalCards(type.state)}</h4>
                                 {type.state.map(card => {
                                     if(card.count > 1){
-                                    return <p className='viewCard' onClick={this.closeUp} key={card.card_id}>{card.card_name} X {card.count}</p>}
-                                    else { return <p className='viewCard'  onClick={this.closeUp} key={card.card_id}>{card.card_name}</p>}
+                                    return <p className='viewCard' onClick={() => this.closeUp(card.card_id)} key={card.card_id}>{card.card_name} X {card.count}</p>}
+                                    else { return <p className='viewCard'  onClick={() => this.closeUp(card.card_id)} key={card.card_id}>{card.card_name}</p>}
                                     })}
                             </div>
                         )
@@ -179,7 +198,7 @@ export default class SingleDeckView extends Component {
                     {this.state.deckList.map(card => 
                         <div className='card' key={card.card_id}>
                             <p className='cardName'>{card.card_name}</p>
-                            <img alt={card.card_name} src={card.image_url}/>
+                            <img className='cardImage' alt={card.card_name} src={card.image_url}/>
                             <br/>
                             <button onClick={e => this.deleteCard(e, card.card_id)}>remove</button>
                         </div>
