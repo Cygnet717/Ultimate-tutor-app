@@ -123,6 +123,10 @@ export default class SingleDeckView extends Component {
             total= total + cardlist[i].count
         }
         return total
+    };
+
+    scrollToTop(){
+        window.scrollTo(0, 0)
     }
 
     render() {
@@ -146,7 +150,7 @@ export default class SingleDeckView extends Component {
         {name: 'Artifact', state: this.state.Artifact}]
 
         function closeUpGenerator (card) {
-            if(card.closeView === ''){
+             if(card.closeView === ''){
                 return
             }else if(card.closeView.image_url.indexOf(',') !== -1){
                 let index = card.closeView.image_url.indexOf(',');
@@ -211,7 +215,7 @@ export default class SingleDeckView extends Component {
                     {closeUpGenerator(this.state)}
                 </div>
 
-            <Link to='/SearchCards'><button className='button'>Add Cards</button></Link>
+            <Link to='/SearchCards'><button onClick={() => this.scrollToTop()} className='button'>Add Cards</button></Link>
             </section>
         )
     }
