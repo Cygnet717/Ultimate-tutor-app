@@ -364,9 +364,18 @@ export default class SearchCards extends Component {
                             <div className='cmcCheckboxes'>
                                 <label className='cmc'>CMC</label>
                                 <div className='cmcOperators'>
-                                    <label>&lt;=<input type='radio' name='cmcOperator' value='cmc<='/></label>
-                                    <label>=<input type='radio' name='cmcOperator' value='cmc='/></label>
-                                    <label>&gt;=<input type='radio' name='cmcOperator' value='cmc>='/></label>
+                                    <label className='container'>&lt;=
+                                        <input type='radio' name='cmcOperator' value='cmc<='/>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label className='container'>=
+                                        <input type='radio' name='cmcOperator' value='cmc='/>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label className='container'>&gt;=
+                                        <input type='radio' name='cmcOperator' value='cmc>='/>
+                                        <span class="checkmark"></span>
+                                    </label>
                                 </div>
                                 <input type='number' className='center' name='cmc' min='0' max='1000001'/>
                             </div>
@@ -422,9 +431,18 @@ export default class SearchCards extends Component {
                                     })}
                                 </select>
                                 <div className='typeRadioBox'>
-                                    <label>&gt;=<input type='radio' name='powerOperator' value='pow>='/></label>
-                                    <label>=<input type='radio' name='powerOperator' value='pow='/></label>
-                                    <label>&lt;=<input type='radio' name='powerOperator' value='pow<='/></label>
+                                    <label className='container'>&gt;=
+                                        <input type='radio' name='powerOperator' value='pow>='/>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label className='container'>=
+                                        <input type='radio' name='powerOperator' value='pow='/>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label className='container'>&lt;=
+                                        <input type='radio' name='powerOperator' value='pow<='/>
+                                        <span class="checkmark"></span>
+                                    </label>
                                 </div>
                             </div>
                             <div>
@@ -436,19 +454,37 @@ export default class SearchCards extends Component {
                                     })}
                                 </select>
                                 <div className='typeRadioBox'>
-                                    <label>&gt;=<input type='radio' name='toughnessOperator' value='tou>='/></label>
-                                    <label>=<input type='radio' name='toughnessOperator' value='tou='/></label>
-                                    <label>&lt;=<input type='radio' name='toughnessOperator' value='tou<='/></label>
+                                    <label className='container'>&gt;=
+                                        <input type='radio' name='toughnessOperator' value='tou>='/>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label className='container'>=
+                                        <input type='radio' name='toughnessOperator' value='tou='/>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label className='container'>&lt;=
+                                        <input type='radio' name='toughnessOperator' value='tou<='/>
+                                        <span class="checkmark"></span>
+                                    </label>
                                 </div>
                             </div>
                             <div>
                                 <label className='searchLabel'>Combined P and T</label>
-                                <input type='number' name='combinedPT'/>
+                                <input className='selectStyle' type='number' name='combinedPT'/>
                                 <br/>
                                 <div className='typeRadioBox'>
-                                    <label>&gt;=<input type='radio' name='combinedPTOperator' value='pt>='/></label>
-                                    <label>=<input type='radio' name='combinedPTOperator' value='pt='/></label>
-                                    <label>&lt;=<input type='radio' name='combinedPTOperator' value='pt<='/></label>
+                                    <label className='container'>&gt;=
+                                        <input type='radio' name='combinedPTOperator' value='pt>='/>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label className='container'>=
+                                        <input type='radio' name='combinedPTOperator' value='pt='/>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label className='container'>&lt;=
+                                        <input type='radio' name='combinedPTOperator' value='pt<='/>
+                                        <span class="checkmark"></span>
+                                    </label>
                                 </div>
                             </div>
                             <div>
@@ -460,9 +496,18 @@ export default class SearchCards extends Component {
                                     })}
                                 </select>
                                 <div className='typeRadioBox'>
-                                    <label>&gt;=<input type='radio' name='loyaltyOperator' value='loy>='/></label>
-                                    <label>=<input type='radio' name='loyaltyOperator' value='loy='/></label>
-                                    <label>&lt;=<input type='radio' name='loyaltyOperator' value='loy<='/></label>
+                                    <label className='container'>&gt;=
+                                        <input type='radio' name='loyaltyOperator' value='loy>='/>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label className='container'>=
+                                        <input type='radio' name='loyaltyOperator' value='loy='/>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label className='container'>&lt;=
+                                        <input type='radio' name='loyaltyOperator' value='loy<='/>
+                                        <span class="checkmark"></span>
+                                    </label>
                                 </div>
                             </div>
                         </fieldset>
@@ -475,9 +520,18 @@ export default class SearchCards extends Component {
                                     })}
                             </select>
                             <div className='typeRadioBox'>
-                                <label>&gt;=<input type='radio' name='rarityOperator' value='r>='/></label>
-                                <label>=<input type='radio' name='rarityOperator' value='r='/></label>
-                                <label>&lt;=<input type='radio' name='rarityOperator' value='r<='/></label>
+                                <label className='container'>&gt;=
+                                    <input type='radio' name='rarityOperator' value='r>='/>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label className='container'>=
+                                    <input type='radio' name='rarityOperator' value='r='/>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label className='container'>&lt;=
+                                    <input type='radio' name='rarityOperator' value='r<='/>
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                         </fieldset>
                         <fieldset className={`fieldsetBox ${this.state.visible}`}>

@@ -224,6 +224,65 @@ form input[type='number']{
 
 .typeRadioBox{
     display: flex;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border-radius: 50%;
+  }
+
+  .container:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+
+  .container input:checked ~ .checkmark {
+    background-color: rgb(0, 8, 14);
+  }
+  
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  .container .checkmark:after {
+    top: 35%;
+   left: 35%;
+   width: 5px;
+   height: 5px;
+   border-radius: 50%;
+   background: white;
 }
 
 .radioLabel{
@@ -232,7 +291,6 @@ form input[type='number']{
     width: fit-content;
     align-items: center;
     padding: 5px;
-   ;
 }
 
 .moreoption {
