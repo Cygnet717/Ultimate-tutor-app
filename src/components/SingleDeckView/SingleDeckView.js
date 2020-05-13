@@ -24,6 +24,7 @@ export default class SingleDeckView extends Component {
             Land: [],
             Planeswalker: [],
             Artifact: [],
+            /*Sideboard: [],*/
             listview: 'Card View',
             imageModalView: 'hidemodal',
             closeView: '',
@@ -105,6 +106,8 @@ export default class SingleDeckView extends Component {
             this.sortByType()
             }
             )
+        //add fetch for sideboard contents
+        //add results to this.state.sideboard
         }
     };
 
@@ -116,6 +119,8 @@ export default class SingleDeckView extends Component {
             deckList: lessCards
         })
     };
+
+    //make new function for deleting from sideboard
 
     totalCards(cardlist){
         let total = 0;
@@ -147,7 +152,8 @@ export default class SingleDeckView extends Component {
         {name: 'Enchantment', state: this.state.Enchantment}, 
         {name: 'Land', state: this.state.Land}, 
         {name: 'Planeswalker', state: this.state.Planeswalker},
-        {name: 'Artifact', state: this.state.Artifact}]
+        {name: 'Artifact', state: this.state.Artifact}/*,
+        {name: 'Sideboard', state: this.state.Sideboard}*/]
 
         function closeUpGenerator (card) {
              if(card.closeView === ''){
@@ -197,9 +203,6 @@ export default class SingleDeckView extends Component {
                             </div>
                         )
                     })}
-                    <div className='dev typedisplay'>
-                        SideBoard
-                    </div>
                 </div>
                 : 
                 <div className='cardsDisplay'>
