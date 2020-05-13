@@ -66,6 +66,11 @@ button{
     text-decoration: underline;
 }
 
+
+.dev{
+    border: 1px solid black;
+}
+
 @media screen and (min-width: 700px){
     .deckDetails{
         width: 700px;

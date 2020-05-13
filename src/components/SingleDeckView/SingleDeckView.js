@@ -192,10 +192,14 @@ export default class SingleDeckView extends Component {
                                     if(card.count > 1){
                                     return <p className='viewCard' onClick={() => this.closeUp(card.card_id)} key={card.card_id}>{card.card_name} X {card.count}</p>}
                                     else { return <p className='viewCard'  onClick={() => this.closeUp(card.card_id)} key={card.card_id}>{card.card_name}</p>}
-                                    })}
+                                })}
+                                
                             </div>
                         )
                     })}
+                    <div className='dev typedisplay'>
+                        SideBoard
+                    </div>
                 </div>
                 : 
                 <div className='cardsDisplay'>

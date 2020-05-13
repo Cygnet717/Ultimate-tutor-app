@@ -56,7 +56,10 @@ export default class LoginPage extends Component {
         this.handleSetUserInfo()
     })
     .catch(res => {
-      this.setState({ error: res.error })
+      this.setState({ 
+        error: res.error,
+        thinking: false
+      })
       })
     };
 
