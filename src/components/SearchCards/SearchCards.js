@@ -345,10 +345,16 @@ export default class SearchCards extends Component {
                         <fieldset className='fieldsetBox'>
                             <label className='searchLabel'>Color</label>
                             <div className='colorOperator'>
-                                <label>at most<input type='radio' name='colorOperator' defaultChecked value='c<='/></label>
+                                <label className='container'>&nbsp;at most
+                                    <input type='radio' name='colorOperator' defaultChecked value='c<='/>
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                             <div className='colorOperator'>
-                                <label>at least<input type='radio' name='colorOperator' value='c>='/></label>
+                                <label className='container'>&nbsp;at least
+                                    <input type='radio' name='colorOperator' value='c>='/>
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                             <div className='colorCheckboxes' onClick={() => this.uncheckColorless()}>
                                 <label className='colorLabel'>White<input id='colorWhite' type='checkbox' name='color' value='w'/></label>
@@ -358,7 +364,10 @@ export default class SearchCards extends Component {
                                 <label className='colorLabel'>Green<input id='colorGreen' type='checkbox' name='color' value='g'/></label>
                             </div>
                             <div className='colorlessBox'>
-                                <label>Colorless<input onClick={() => this.uncheckColors()} id='colorColorless' type='radio' name='color' value='c'/></label>
+                                <label className='container'>&nbsp;Colorless
+                                    <input onClick={() => this.uncheckColors()} id='colorColorless' type='radio' name='color' value='c'/>
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                             
                             <div className='cmcCheckboxes'>
@@ -398,9 +407,18 @@ export default class SearchCards extends Component {
                             <br/>
                             {!this.state.validType ? <span></span>: showNewDropdown}
                             <div className='typeRadioBox'>
-                                <label className='radioLabel'>Modal<input type='radio' name='typeOption' value='is:modal+'/></label>
-                                <label className='radioLabel'>Historic<input type='radio' name='typeOption' value='is:historic+'/></label>
-                                <label className='radioLabel'>Textless Creature<input type='radio' name='typeOption' value='is:vanilla+'/></label>
+                                <label className='radioLabel'>Modal
+                                    <input type='radio' name='typeOption' value='is:modal+'/>
+                                    <span class="typescheckmark"></span>
+                                </label>
+                                <label className='radioLabel'>Historic
+                                    <input type='radio' name='typeOption' value='is:historic+'/>
+                                    <span class="typescheckmark"></span>
+                                </label>
+                                <label className='radioLabel'>Textless Creature
+                                    <input type='radio' name='typeOption' value='is:vanilla+'/>
+                                    <span class="typescheckmark"></span>
+                                </label>
                             </div>
                         </fieldset>
                         <fieldset className={`fieldsetBox ${this.state.visible}`}>
