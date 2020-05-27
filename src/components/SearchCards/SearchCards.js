@@ -357,11 +357,21 @@ export default class SearchCards extends Component {
                                 </label>
                             </div>
                             <div className='colorCheckboxes' onClick={() => this.uncheckColorless()}>
-                                <label className='colorLabel'>White<input id='colorWhite' type='checkbox' name='color' value='w'/></label>
-                                <label className='colorLabel'>Blue<input id='colorBlue' type='checkbox' name='color' value='u'/></label>
-                                <label className='colorLabel'>Black<input id='colorBlack' type='checkbox' name='color'value='b'/></label>
-                                <label className='colorLabel'>Red<input id='colorRed' type='checkbox' name='color' value='r'/></label>
-                                <label className='colorLabel'>Green<input id='colorGreen' type='checkbox' name='color' value='g'/></label>
+                                <label className='colorLabel'>White
+                                    <input id='colorWhite' type='checkbox' name='color' value='w'/>
+                                </label>
+                                <label className='colorLabel'>Blue
+                                    <input id='colorBlue' type='checkbox' name='color' value='u'/>
+                                </label>
+                                <label className='colorLabel'>Black
+                                    <input id='colorBlack' type='checkbox' name='color'value='b'/>
+                                </label>
+                                <label className='colorLabel'>Red
+                                    <input id='colorRed' type='checkbox' name='color' value='r'/>
+                                </label>
+                                <label className='colorLabel'>Green
+                                    <input id='colorGreen' type='checkbox' name='color' value='g'/>
+                                </label>
                             </div>
                             <div className='colorlessBox'>
                                 <label className='container'>&nbsp;Colorless
