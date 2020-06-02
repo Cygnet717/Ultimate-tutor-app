@@ -191,12 +191,104 @@ form input[type='number']{
     border-bottom: 1px solid black;
 }
 
+.black {
+    background-color: black;
+    border:1px solid black;
+}
+
+.white{
+    background-color: yellow;
+    border:1px solid black;
+}
+
+.red{
+    background-color: red;
+    border:1px solid black;
+}
+
+.green{
+    background-color: green;
+    border:1px solid black;
+}
+
+.blue{
+    background-color: blue;
+    border:1px solid black;
+}
+
+.checkbox{
+    position: absolute;
+    top: 60%;
+    left: 37%;
+    height: 20px;
+    width: 20px;
+    opacity: .1;
+}
+
 .colorLabel{
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    align-items: center;
-    padding: 5px;
+    display: block;
+    position: relative;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-left: 1px solid black;
+}
+
+.colorLabel input{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.colorLabel:hover input ~ .checkbox {
+    opacity: .5;
+}
+
+.colorLabel input:checked ~ .checkbox {
+    opacity: 1;
+}
+
+.checkbox:after {
+    content: '';
+    position: absolute;
+    display: none;
+}
+
+.colorLabel input:checked ~ .checkbox:after{
+    display:block;
+}
+
+.colorLabel .checkbox:after{
+    left: 6px;
+    top: 2px;
+    width: 4px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.colorLabel .white:after{
+    left: 6px;
+    top: 2px;
+    width: 4px;
+    height: 10px;
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 .colorlessBox{
@@ -323,7 +415,7 @@ form input[type='number']{
     position: absolute;
     opacity: 0;
     cursor: pointer;
-  }
+}
 
 .moreoption {
     border: none;
