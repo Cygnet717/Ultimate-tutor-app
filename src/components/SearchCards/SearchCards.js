@@ -357,7 +357,7 @@ export default class SearchCards extends Component {
                                 </label>
                             </div>
                             <div className='colorCheckboxes' onClick={() => this.uncheckColorless()}>
-                                <label className='colorLabel'>White
+                                <label className='colorLabel noborder'>White
                                     <input id='colorWhite' type='checkbox' name='color' value='w'/>
                                     <span class="checkbox white"></span>
                                 </label>
@@ -503,7 +503,8 @@ export default class SearchCards extends Component {
                             </div>
                             <div>
                                 <label className='searchLabel'>Combined P and T</label>
-                                <input className='selectStyle' type='number' name='combinedPT'/>
+                                <input className='selectStyle combPT' type='number' name='combinedPT'/>
+
                                 <br/>
                                 <div className='typeRadioBox'>
                                     <label className='container'>&gt;=

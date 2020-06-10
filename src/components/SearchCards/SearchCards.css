@@ -86,13 +86,6 @@
     border-radius: 5px;
 }
 
-.searchLabelPT {
-    width: 150px;
-    background: black;
-    color: white;
-    padding: 3px;
-}
-
 .black {
     background: black;
     width: 100%;
@@ -156,7 +149,12 @@ form input[type='number']{
 
 .selectStyle{
     width: 80%;
-    margin-top: 5px;
+    margin: 10px 33px;
+    padding: 5px;
+}
+
+.combPT{
+    display: block;
 }
 
 .formbutton{
@@ -233,12 +231,16 @@ form input[type='number']{
     padding-bottom: 20px;
     margin-bottom: 5px;
     cursor: pointer;
-    font-size: 22px;
+    font-size: 18px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     border-left: 1px solid black;
+}
+
+.noborder {
+    border-left: 0px;
 }
 
 .colorLabel input{
