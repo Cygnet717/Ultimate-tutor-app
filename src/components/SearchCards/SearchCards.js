@@ -357,29 +357,29 @@ export default class SearchCards extends Component {
                                 </label>
                             </div>
                             <div className='colorCheckboxes' onClick={() => this.uncheckColorless()}>
-                                <label className='colorLabel noborder'>White
+                                <label for='colorWhite' className='colorLabel noborder'>White
                                     <input id='colorWhite' type='checkbox' name='color' value='w'/>
                                     <span class="checkbox white"></span>
                                 </label>
-                                <label className='colorLabel'>Blue
+                                <label for='colorBlue' className='colorLabel'>Blue
                                     <input id='colorBlue' type='checkbox' name='color' value='u'/>
                                     <span class="checkbox blue"></span>
                                 </label>
-                                <label className='colorLabel'>Black
+                                <label for='colorBlack' className='colorLabel'>Black
                                     <input id='colorBlack' type='checkbox' name='color'value='b'/>
                                     <span class="checkbox black"></span>
                                 </label>
-                                <label className='colorLabel'>Red
+                                <label for='colorRed' className='colorLabel'>Red
                                     <input id='colorRed' type='checkbox' name='color' value='r'/>
                                     <span class="checkbox red"></span>
                                 </label>
-                                <label className='colorLabel'>Green
+                                <label for='colorGreen' className='colorLabel'>Green
                                     <input id='colorGreen' type='checkbox' name='color' value='g'/>
                                     <span class="checkbox green"></span>
                                 </label>
                             </div>
                             <div className='colorlessBox'>
-                                <label className='container'>&nbsp;Colorless
+                                <label for='colorColorless' className='container'>&nbsp;Colorless
                                     <input onClick={() => this.uncheckColors()} id='colorColorless' type='radio' name='color' value='c'/>
                                     <span class="checkmark"></span>
                                 </label>
@@ -437,7 +437,7 @@ export default class SearchCards extends Component {
                             </div>
                         </fieldset>
                         <fieldset className={`fieldsetBox ${this.state.visible}`}>
-                        <label className='searchLabel'>Exact text</label> <span className='tooltip'>you can use ~ inplace of card name</span>
+                        <label for='text' className='searchLabel'>Exact text</label> <span className='tooltip'>you can use ~ inplace of card name</span>
                             <input id='text' type='text' className='selectStyle showTooltip' name='text' onKeyPress={this.keyPressed} placeholder='hexproof'/>
                             <div className='exactTextButtons'>
                                 <input type='button' className='button' value='Clear' onClick={this.clearTextState}/>
