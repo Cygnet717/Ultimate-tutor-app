@@ -56,8 +56,9 @@ export default class LoginPage extends Component {
         this.handleSetUserInfo()
     })
     .catch(res => {
+      console.log(res.error.message)
       this.setState({ 
-        error: res.error,
+        error: res.error.message,
         thinking: false
       })
       })
@@ -65,11 +66,11 @@ export default class LoginPage extends Component {
 
   render(){
     return(<>
-      <form onSubmit= {this.handleSubmitJwtAuth}>
+      <form  onSubmit= {this.handleSubmitJwtAuth}>
         <div role='alert'>
-          {this.state.error && <p className='red'>{this.state.error}</p>}
+          {this.state.error && <p className='red'>{this.state.error} try again</p>}
         </div>
-        <fieldset>
+        <fieldset className="loginForm">
           <legend>Login</legend>
             <label>User Name: </label>
             <input required type='text' name='username'></input>

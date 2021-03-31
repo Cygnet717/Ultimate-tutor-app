@@ -1,7 +1,22 @@
 .criteria{
+    display: block;
+    margin: auto;
     font-size: 12px;
+    width: 40%
 }
 
 .red{
     font-family: 'Lora', serif;
+}
+
+.registerForm{
+    border: hidden;
+}
+
+.registerLabel{
+    font-size: 19px;
+}
+
+.registerInput{
+    width: 40%;
 }

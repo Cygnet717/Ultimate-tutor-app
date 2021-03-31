@@ -48,19 +48,17 @@ export default class RegisterPage extends Component {
           <div role='alert'>
             {this.state.error && <p className='red'>{this.state.error}</p>}
           </div>
-          <fieldset>
+          <fieldset className="registerForm">
             <legend>Register New User</legend>
-              <label>New User Name: </label>
+              <label className="registerLabel">New User Name: </label>
               <span className='criteria'>*Case sensitive</span>
+              <input className="registerInput" type='text' name='username'></input>
               <br/>
-              <input type='text' name='username'></input>
               <br/>
-              <br/>
-              <label>Password: </label>
+              <label className="registerLabel">Password: </label>
               <br/>
               <span className='criteria'>*Must be 8 characters long and inclue Capital, number, and one of #?!@$%^&*-</span>
-              <br/>
-              <input type='password' name='password'></input>
+              <input className="registerInput" type='password' name='password'></input>
               <br/>
               {this.state.registerthinking?<img id='thinking' src={thinking} alt='loading...'/> : <button type='submit'>Register</button>}
           </fieldset>

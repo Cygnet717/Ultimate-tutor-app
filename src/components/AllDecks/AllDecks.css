@@ -46,6 +46,7 @@ h3{
 
 Form{
     font-family: 'Lora', serif;
+    
 }
 
 .listOfDecks {
@@ -55,6 +56,7 @@ Form{
 }
 
 .red{
+    background-color: black;
     color: red;
 }
 

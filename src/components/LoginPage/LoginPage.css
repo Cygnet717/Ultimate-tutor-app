@@ -5,3 +5,7 @@ fieldset{
     text-align: center;
     font-family: 'Lora', serif;
 }
+
+.loginForm{
+    border: hidden;
+}
